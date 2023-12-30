@@ -4,6 +4,10 @@ The http://www.haskell.org/cabal/ website.
 
 ## Local Development
 
+> [!NOTE]
+> To use `cabal` instead of `stack`, substitute `cabal` for `stack` in the code
+snippets.
+
 Build the project and then watch from the `develop` or another development branch:
 
 1. **Build** the `cabal-website` package that has one executable named `site`:

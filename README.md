@@ -48,7 +48,7 @@ Assuming development takes place on a `develop` branch (TODO: Rename `master` to
 `develop`) and pages are published to a `gh/pages` branch, then clean, build and
 deploy:
 
-1. Cleaning
+1. Clean
     ```
     $ stack exec site clean
     Removing _site...
@@ -56,7 +56,7 @@ deploy:
     Removing _cache/tmp...
     ```
 
-2. Building
+2. Build
 
     ```
     $ stack exec site build
@@ -70,7 +70,7 @@ deploy:
     Success
     ```
 
-3.  Deploying
+3.  Deploy
     ```
     $ git checkout develop
     ... (make changes and commit on develop)

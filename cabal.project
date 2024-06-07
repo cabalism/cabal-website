@@ -1,2 +1,2 @@
-import: https://www.stackage.org/lts-22.4/cabal.config
+import: https://www.stackage.org/lts-22.24/cabal.config
 packages: .

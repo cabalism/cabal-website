@@ -1,43 +1,44 @@
---------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Foldable
-import           Hakyll
 
+import Data.Foldable
+import Hakyll
 
---------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
     match "images/*" $ do
-        route   idRoute
+        route idRoute
         compile copyFileCompiler
 
     match "css/*" $ do
-        route   idRoute
+        route idRoute
         compile compressCssCompiler
 
     match (fromList ["pages/download.md", "pages/faq.md"]) $ do
-        route   $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
+        route $ setExtension "html"
+        compile $
+            pandocCompiler
+                >>= loadAndApplyTemplate "templates/default.html" defaultContext
+                >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
-            >>= relativizeUrls
+        compile $
+            pandocCompiler
+                >>= loadAndApplyTemplate "templates/post.html" postCtx
+                >>= loadAndApplyTemplate "templates/default.html" postCtx
+                >>= relativizeUrls
 
     create ["blog.html"] $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let
-                archiveCtx = fold
-                    [listField "posts" postCtx (return posts)
-                    ,constField "title" "Archives"
-                    ,defaultContext
-                    ]
+                archiveCtx =
+                    fold
+                        [ listField "posts" postCtx (return posts)
+                        , constField "title" "Archives"
+                        , defaultContext
+                        ]
 
             makeItem ""
                 >>= loadAndApplyTemplate "templates/blog.html" archiveCtx
@@ -49,10 +50,11 @@ main = hakyll $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let
-                indexCtx = fold
-                    [listField "posts" postCtx (return posts)
-                    ,defaultContext
-                    ]
+                indexCtx =
+                    fold
+                        [ listField "posts" postCtx (return posts)
+                        , defaultContext
+                        ]
 
             pandocCompiler
                 >>= applyAsTemplate indexCtx
@@ -61,11 +63,9 @@ main = hakyll $ do
 
     match "templates/*" $ compile templateBodyCompiler
 
-
---------------------------------------------------------------------------------
 postCtx :: Context String
-postCtx = fold
-    [dateField "date" "%B %e, %Y"
-    ,defaultContext
-    ]
-
+postCtx =
+    fold
+        [ dateField "date" "%B %e, %Y"
+        , defaultContext
+        ]

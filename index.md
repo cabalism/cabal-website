@@ -5,7 +5,6 @@ title: The Haskell Cabal
 ## Quick Links
 
 - [Hackage: the Haskell Package Database][hackage]
-- [How to make a Cabal package][how-to]
 - [Browse open issues or report a bug][issues]
 - Questions can be [sent][mailto-libraries] to the [Haskell libraries mailing list][libraries-list]
 
@@ -32,7 +31,6 @@ $partial("templates/post-list.html")$
 …or you can find more in the [archives][/blog].
 
 [hackage]: http://hackage.haskell.org/
-[how-to]: https://wiki.haskell.org/How_to_write_a_Haskell_program
 [issues]: https://github.com/haskell/cabal/issues?utf8=%E2%9C%93&q=is%3Aopen
 [mailto-libraries]: mailto:libraries@haskell.org
 [libraries-list]: http://www.haskell.org/mailman/listinfo/libraries

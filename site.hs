@@ -63,6 +63,18 @@ main = hakyll $ do
 
     match "templates/*" $ compile templateBodyCompiler
 
+    match "proposal/*.html" $ do
+        route idRoute
+        compile $ getResourceBody >>= relativizeUrls
+
+    match "proposal-1.0/*.html" $ do
+        route idRoute
+        compile $ getResourceBody >>= relativizeUrls
+
+    match "proposal-1.1/*.html" $ do
+        route idRoute
+        compile $ getResourceBody >>= relativizeUrls
+
 postCtx :: Context String
 postCtx =
     fold

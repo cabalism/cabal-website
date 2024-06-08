@@ -2,6 +2,8 @@
 title: The Haskell Cabal
 ---
 
+Cabal: Common Architecture for Building Applications and Libraries
+
 ## Quick Links
 
 - [Hackage: the Haskell Package Database][hackage]
@@ -23,6 +25,14 @@ The Cabal is only one contribution to the larger goal. In particular, the Cabal
 says nothing about more global issues such as how authors decide where in the
 module name space their library should live; how users can find a package they
 want; how orphan packages find new owners; and so on.
+
+## History
+
+Proposals for the library infrastructure that became Cabal.
+
+- [Draft Version 1.0](/proposal-1.0/)
+- [Draft Version 1.1](/proposal-1.1/)
+- [Final Proposal](/proposal/)
 
 ## Posts
 $partial("templates/post-list.html")$

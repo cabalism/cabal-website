@@ -44,9 +44,8 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
-
-    match "index.html" $ do
-        route idRoute
+    match "index.md" $ do
+        route $ setExtension "html"
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let
@@ -55,8 +54,7 @@ main = hakyll $ do
                     ,defaultContext
                     ]
 
-
-            getResourceBody
+            pandocCompiler
                 >>= applyAsTemplate indexCtx
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls

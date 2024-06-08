@@ -12,7 +12,7 @@ title: The Haskell Cabal
 - [Browse open issues or report a bug][issues]
 - Questions can be [sent][mailto-libraries] to the [Haskell libraries mailing list][libraries-list]
 
-## Comon Architecture for Building Applications and Libraries
+## Common Architecture for Building Applications and Libraries
 
 Cabal is a system for building and packaging Haskell libraries and programs. It
 defines a common interface for package authors and distributors to easily build

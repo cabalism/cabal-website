@@ -1,0 +1,16 @@
+excluded-dirs:
+  - "dist-newstyle"
+  - .git
+  - .stack-work
+  - .vscode
+  - proposal*
+
+included-files:
+  - .gitignore
+  - "*.html"
+  - "*.js"
+  - "*.md"
+  - "*.project"
+  - "*.rst"
+  - "*.yaml"
+  - "*.yml"

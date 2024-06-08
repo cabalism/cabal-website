@@ -28,7 +28,7 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" postCtx
                 >>= relativizeUrls
 
-    create ["blog.html"] $ do
+    create ["blog/index.html"] $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"

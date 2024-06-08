@@ -4,7 +4,6 @@ title: The Haskell Cabal
 
 ## Quick Links
 
-- [How to install a Cabal package][installing]
 - [Hackage: the Haskell Package Database][hackage]
 - [How to make a Cabal package][how-to]
 - [Browse open issues or report a bug][issues]
@@ -32,7 +31,6 @@ $partial("templates/post-list.html")$
 
 …or you can find more in the [archives][/blog].
 
-[installing]: http://cabal.readthedocs.io/en/latest/installing-packages.html#building-and-installing-packages
 [hackage]: http://hackage.haskell.org/
 [how-to]: https://wiki.haskell.org/How_to_write_a_Haskell_program
 [issues]: https://github.com/haskell/cabal/issues?utf8=%E2%9C%93&q=is%3Aopen

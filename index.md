@@ -6,7 +6,6 @@ title: The Haskell Cabal
 
 - [Hackage: the Haskell Package Database][hackage]
 - [Browse open issues or report a bug][issues]
-- Questions can be [sent][mailto-libraries] to the [Haskell libraries mailing list][libraries-list]
 
 ## Common Architecture for Building Applications and Libraries
 
@@ -32,5 +31,3 @@ $partial("templates/post-list.html")$
 
 [hackage]: http://hackage.haskell.org/
 [issues]: https://github.com/haskell/cabal/issues?utf8=%E2%9C%93&q=is%3Aopen
-[mailto-libraries]: mailto:libraries@haskell.org
-[libraries-list]: http://www.haskell.org/mailman/listinfo/libraries

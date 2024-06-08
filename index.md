@@ -27,7 +27,7 @@ want; how orphan packages find new owners; and so on.
 ## Posts
 $partial("templates/post-list.html")$
 
-…or you can find more in the [archives][/blog].
+…or you can find more in the [archives](/blog).
 
 [hackage]: http://hackage.haskell.org/
 [issues]: https://github.com/haskell/cabal/issues?utf8=%E2%9C%93&q=is%3Aopen

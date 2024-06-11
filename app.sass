@@ -1,0 +1,56 @@
+@use "sass:meta"
+
+@use "@fortawesome/fontawesome-free/scss/fontawesome.scss" as * with ($fa-font-path: "./fonts")
+@use "@fortawesome/fontawesome-free/scss/solid.scss" as * with ($fa-font-path: "./fonts")
+@use "@fortawesome/fontawesome-free/scss/brands.scss" as * with ($fa-font-path: "./fonts")
+
+@use "bootstrap/scss/bootstrap.scss" as *
+
+@use "./pandoc-solarized.css" as *
+
+#nav-side
+    background-image: linear-gradient(#f1f1f1, var(--bs-body-bg))
+    border: inherit
+
+#nav-side
+    border-radius: 0
+    border: inherit
+
+#nav-side
+    border-radius: 0
+
+#nav-side a.nav-link
+    font-size: 1.4rem
+    font-weight: 500
+
+a
+    color: a11y-color(#007bff, #fffff8)
+
+#content,
+#nav-side
+    padding-top: 0.5rem
+
+.d-lg-block #content
+    @extend .col-9
+
+.d-lg-none #content
+    @extend .col-12
+
+div.error,
+div.info,
+div.warning,
+div.sourceCode
+    @extend .alert
+    padding-bottom: 0
+
+div.error
+    @extend .alert-danger
+
+div.info
+    @extend .alert-info
+
+div.warning
+    @extend .alert-warning
+
+div.sourceCode
+    @extend .alert-light

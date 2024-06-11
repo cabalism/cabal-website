@@ -4,6 +4,13 @@ title: The Haskell Cabal
 
 Cabal: Common Architecture for Building Applications and Libraries
 
+<div class="bs-callout bs-callout-info">
+  <p>
+    <h4>Cabal and Stack: which one should I install?</h4>
+    We recommend installing both. Most Haskell projects can be built using Cabal, but some might require Stack. Installing both guarantees that you can use either, and while following a tutorial or book you can use whatever they recommend.
+  </p>
+</div>
+
 ## Quick Links
 
 - [Hackage: the Haskell Package Database][hackage]

@@ -2,3 +2,4 @@ dist-newstyle
 .stack-work
 _cache
 _site
+node_modules

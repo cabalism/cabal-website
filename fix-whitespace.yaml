@@ -4,6 +4,7 @@ excluded-dirs:
   - .stack-work
   - .vscode
   - proposal*
+  - node_modules
 
 included-files:
   - .gitignore

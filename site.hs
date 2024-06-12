@@ -13,7 +13,7 @@ main = hakyll $ do
         route idRoute
         compile compressCssCompiler
 
-    match (fromList ["pages/download.md", "pages/faq.md"]) $ do
+    match (fromList ["pages/download.md", "pages/faq.md", "pages/history.md"]) $ do
         route $ setExtension "html"
         compile $
             pandocCompiler

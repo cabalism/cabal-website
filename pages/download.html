@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Cabal">
+<meta name="description" content="Build Haskell applications and libraries">
+
+    <title>Getting The Haskell Cabal</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../images/Cabal-tiny.png" rel="icon">
+
+</head>
+
+<body>
+    <div class="d-lg-none">
+        <div id="nav-top" class="d-print-none">
+            <nav>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/">documentation</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://github.com/haskell/cabal/blob/master/README.md">contribute</a></li>
+    </ul>
+</nav>
+
+        </div>
+        <div id="content" class="d-print-col-12">
+            <p><strong>Note:</strong> Most people already have Cabal because it is included in the <a href="http://www.haskell.org/platform/">Haskell Platform</a></p>
+<p>If you want to upgrade to the latest stable version, just run:</p>
+<pre><code>$ cabal install cabal cabal-install</code></pre>
+<p>Sometimes the older installed version is still on the program search $PATH, you can check you’re running the latest version with:</p>
+<pre><code>$ cabal --version</code></pre>
+<h2 id="cabal-library-version-2.0.0.2">Cabal library (version 2.0.0.2)</h2>
+<p>August 2017: Release 2.0.0.2</p>
+<p>Source download: <a href="release/cabal-2.0.0.2/Cabal-2.0.0.2.tar.gz">Cabal-2.0.0.2.tar.gz</a></p>
+<p>Please see the <a href="release/cabal-2.0.0.2/doc/users-guide/">User’s guide</a>, the <a href="release/cabal-2.0.0.2/doc/API/Cabal/">API documentation</a>, and the <a href="release/cabal-2.0.0.2/changelog">change log</a>.</p>
+<h2 id="cabal-install-tool-version-2.0.0.0">cabal-install tool (version 2.0.0.0)</h2>
+<p>cabal-install is the command line interface to Cabal and hackage.
+This is the package that provides the ‘cabal’ command line program.</p>
+<p>Source download: <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0.tar.gz">cabal-install-2.0.0.0.tar.gz</a></p>
+<h3 id="binary-downloads">Binary downloads</h3>
+<ul>
+<li>Windows (x86): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-i386-unknown-mingw32.zip">cabal-install-2.0.0.0-i386-unknown-mingw32.zip</a></li>
+<li>Windows (x86-64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-unknown-mingw32.zip">cabal-install-2.0.0.0-x86_64-unknown-mingw32.zip</a></li>
+<li>macOS Sierra (x86_64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-apple-darwin-sierra.tar.xz">cabal-install-2.0.0.0-x86_64-apple-darwin-sierra.tar.xz</a></li>
+<li>Linux (x86): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-i386-unknown-linux.tar.gz">cabal-install-2.0.0.0-i386-unknown-linux.tar.gz</a></li>
+<li>Linux (x86-64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-unknown-linux.tar.gz">cabal-install-2.0.0.0-x86_64-unknown-linux.tar.gz</a></li>
+<li>AIX (PowerPC): <a href="release/cabal-install-1.24.0.0/cabal-1.24.0.0-powerpc-ibm-aix7.1.0.0.xz">cabal-1.24.0.0-powerpc-ibm-aix7.1.0.0.xz</a></li>
+</ul>
+<p>Binaries for cabal-install for many platforms are available on <a href="https://halcyon.sh/">Halcyon</a>.</p>
+<p>Packages for Ubuntu Linux (multiple versions) are available on <a href="https://launchpad.net/~hvr/+archive/ubuntu/ghc">hvr’s PPA</a>.</p>
+<p>The source package requires the Cabal package above and also further packages,
+which can be found on Hackage. To make the process easier the cabal-install
+tarball contains a bootstrap.sh script which downloads and installs all the
+dependencies.</p>
+<h2 id="bugs">Bugs</h2>
+<p>Report bugs <a href="https://github.com/haskell/cabal/issues">here</a> or to the <a href="mailto:cabal-devel@haskell.org">cabal-devel</a> mailing list.</p>
+<h2 id="code">Code</h2>
+<p>You can get the development version of the code <a href="code.html">here</a>.</p>
+<h2 id="version-numbers">Version Numbers</h2>
+<p>Stable Releases are numbered a.b.c.d, where b is even. Unstable snapshots between releases are numbered a.b.c.d, where b is odd. Changes for c and d are minor.</p>
+<p>For example, 2.1.x.x is the development version leading up to the stable release 2.2.x.x.</p>
+<h2 id="older-releases">Older Releases</h2>
+<ul>
+<li>The previous stable release series for Cabal was 1.24.x.</li>
+<li>The previous stable release series for cabal-install was 1.24.x.</li>
+</ul>
+<p>The versions bundled with recent Haskell implementation releases include:</p>
+<ul>
+<li>GHC 8.2.1 includes Cabal 2.0.0.2.</li>
+<li>GHC 8.0.2 includes Cabal 1.24.2.0.</li>
+<li>GHC 8.0.1 includes Cabal 1.24.0.0.</li>
+<li>GHC 7.10.3 includes Cabal 1.22.5.0.</li>
+</ul>
+<!-- GHC 7.8.4 includes Cabal 1.18.1.5. -->
+<!-- GHC 7.8.1 includes Cabal 1.18.1.3. -->
+<!-- GHC 7.4.1 includes Cabal 1.14.0. -->
+<!-- GHC 7.2.2 includes Cabal 1.12.0. -->
+<!-- GHC 7.0.4 includes Cabal 1.10.2.0. -->
+<!-- GHC 6.12.3 includes Cabal 1.8.0.6. -->
+<!-- GHC 6.10.4 includes Cabal 1.6.0.3. -->
+<!-- GHC 6.8.3 includes Cabal 1.2.4.0. -->
+<!-- GHC 6.6.1 includes Cabal 1.1.6.2. -->
+<!-- Hugs98 September 2006 includes Cabal 1.1.5.9.2 (the 2nd release candidate for 1.1.6). -->
+<!-- nhc98 1.20 includes Cabal-1.2.2.0. -->
+<ul>
+<li><a href="release/cabal-2.0.0.2/Cabal-2.0.0.2.tar.gz">2.0.0.2</a> August 2017</li>
+<li><a href="release/cabal-1.24.2.0/Cabal-1.24.2.0.tar.gz">1.24.2.0</a> December 2016</li>
+<li><a href="release/cabal-1.24.1.0/Cabal-1.24.1.0.tar.gz">1.24.1.0</a> October 2016</li>
+<li><a href="release/cabal-1.24.0.0/Cabal-1.24.0.0.tar.gz">1.24.0.0</a> May 2016</li>
+<li><a href="release/cabal-1.22.8.0/Cabal-1.22.8.0.tar.gz">1.22.8.0</a> March 2016</li>
+<li><a href="release/cabal-1.22.7.0/Cabal-1.22.7.0.tar.gz">1.22.7.0</a> January 2016</li>
+<li><a href="release/cabal-1.20.0.4/Cabal-1.20.0.4.tar.gz">1.20.0.4</a> January 2016</li>
+<li><a href="release/cabal-1.18.1.7/Cabal-1.18.1.7.tar.gz">1.18.1.7</a> January 2016</li>
+<li><a href="release/cabal-1.22.6.0/Cabal-1.22.6.0.tar.gz">1.22.6.0</a> December 2015</li>
+<li><a href="release/cabal-1.22.4.0/Cabal-1.22.4.0.tar.gz">1.22.4.0</a> June 2015</li>
+<li><a href="release/cabal-1.22.3.0/Cabal-1.22.3.0.tar.gz">1.22.3.0</a> April 2015</li>
+<li><a href="release/cabal-1.22.2.0/Cabal-1.22.2.0.tar.gz">1.22.2.0</a> March 2015</li>
+<li><a href="release/cabal-1.22.0.0/Cabal-1.22.0.0.tar.gz">1.22.0.0</a> January 2015</li>
+<li><a href="release/cabal-1.18.1.6/Cabal-1.18.1.6.tar.gz">1.18.1.6</a> January 2015</li>
+<li><a href="release/cabal-1.20.0.3/Cabal-1.20.0.3.tar.gz">1.20.0.3</a> December 2014</li>
+<li><a href="release/cabal-1.18.1.5/Cabal-1.18.1.5.tar.gz">1.18.1.5</a> December 2014</li>
+<li><a href="release/cabal-1.20.0.2/Cabal-1.20.0.2.tar.gz">1.20.0.2</a> July 2014</li>
+<li><a href="release/cabal-1.18.1.4/Cabal-1.18.1.4.tar.gz">1.18.1.4</a> July 2014</li>
+<li><a href="release/cabal-1.20.0.1/Cabal-1.20.0.1.tar.gz">1.20.0.1</a> May 2014</li>
+<li><a href="release/cabal-1.20.0.0/Cabal-1.20.0.0.tar.gz">1.20.0.0</a> April 2014</li>
+<li><a href="release/cabal-1.18.1.3/Cabal-1.18.1.3.tar.gz">1.18.1.3</a> March 2014</li>
+<li><a href="release/cabal-1.18.1.2/Cabal-1.18.1.2.tar.gz">1.18.1.2</a> October 2013</li>
+<li><a href="release/cabal-1.18.1.1/Cabal-1.18.1.1.tar.gz">1.18.1.1</a> October 2013</li>
+<li><a href="release/cabal-1.18.1/Cabal-1.18.1.tar.gz">1.18.1</a> September 2013</li>
+<li><a href="release/cabal-1.18.0/Cabal-1.18.0.tar.gz">1.18.0</a> September 2013</li>
+<li><a href="release/cabal-1.14.0/Cabal-1.14.0.tar.gz">1.14.0</a> February 2012</li>
+<li><a href="release/cabal-1.12.0/Cabal-1.12.0.tar.gz">1.12.0</a> January 2012</li>
+<li><a href="release/cabal-1.10.2.0/Cabal-1.10.2.0.tar.gz">1.10.2.0</a> June 2010</li>
+<li><a href="release/cabal-1.10.1.0/Cabal-1.10.1.0.tar.gz">1.10.1.0</a> February 2010</li>
+<li><a href="release/cabal-1.10.0.0/Cabal-1.10.0.0.tar.gz">1.10.0.0</a> November 2010</li>
+<li><a href="release/cabal-1.8.0.6/Cabal-1.8.0.6.tar.gz">1.8.0.6</a> June 2010</li>
+<li><a href="release/cabal-1.8.0.4/Cabal-1.8.0.4.tar.gz">1.8.0.4</a> March 2010</li>
+<li><a href="release/cabal-1.8.0.2/Cabal-1.8.0.2.tar.gz">1.8.0.2</a> December 2009</li>
+<li><a href="release/cabal-1.6.0.2/Cabal-1.6.0.2.tar.gz">1.6.0.2</a> February 2009</li>
+<li><a href="release/cabal-1.6.0.2/Cabal-1.6.0.2.tar.gz">1.6.0.2</a> February 2009</li>
+<li><a href="release/cabal-1.6.0.1/Cabal-1.6.0.1.tar.gz">1.6.0.1</a> October 2008</li>
+<li><a href="release/cabal-1.4.0.2/Cabal-1.4.0.2.tar.gz">1.4.0.2</a> August 2008</li>
+<li><a href="release/cabal-1.4.0.1/Cabal-1.4.0.1.tar.gz">1.4.0.1</a> June 2008</li>
+<li><a href="release/cabal-1.2.3.0/cabal-1.2.3.0.tar.gz">1.2.3.0</a> December 2007</li>
+<li><a href="release/cabal-1.2.2.0/cabal-1.2.2.0.tar.gz">1.2.2.0</a> October 2007</li>
+<li><a href="release/cabal-1.2.1.0/cabal-1.2.1.0.tar.gz">1.2.1.0</a> October 2007</li>
+<li><a href="release/cabal-1.1.6.2/cabal-1.1.6.2.tar.gz">1.2.0</a> September 2007</li>
+<li><a href="release/cabal-1.1.6.2/cabal-1.1.6.2.tar.gz">1.1.6.2</a> May 2007</li>
+<li><a href="release/cabal-1.1.6.1/cabal-1.1.6.1.tar.gz">1.1.6.1</a> October 2006</li>
+<li><a href="release/cabal-1.1.6/cabal-1.1.6.tar.gz">1.1.6</a> October 2006</li>
+<li><a href="release/cabal-1.1.4/cabal-1.1.4.tar.gz">1.1.4</a> May 2006</li>
+<li><a href="release/cabal-1.1.3/cabal-1.1.3.tar.gz">1.1.3</a> September 2005</li>
+<li><a href="release/old/cabal-1.1.1/cabal-1.1.1.tar.gz">1.1.1</a> July 2005</li>
+<li><a href="release/old/cabal-0.5.tgz">0.5</a> February 2005</li>
+<li><a href="release/old/cabal-0.4.tgz">0.4</a> January 2005</li>
+<li><a href="release/old/cabal-0.2.tgz">0.2</a> November 2004</li>
+<li><a href="release/old/cabal-0.1.tgz">0.1</a> August 2004</li>
+</ul>
+        </div>
+    </div>
+    <div class="d-none d-lg-block">
+        <div class="fluid-container">
+            <div class="row">
+                <div id="nav-side" class="col-2 card d-print-none">
+                    <div class="card-body">
+    <h1 class="card-title" title="Cabal"><a href="../"><img src="../images/Cabal-light.png" style="width:80%"></a></h1>
+
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/">documentation</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/haskell/cabal/blob/master/README.md">contribute</a></li>
+        </ul>
+    </nav>
+</div>
+
+                </div>
+                <div id="content" class="d-print-col-12">
+                    <p><strong>Note:</strong> Most people already have Cabal because it is included in the <a href="http://www.haskell.org/platform/">Haskell Platform</a></p>
+<p>If you want to upgrade to the latest stable version, just run:</p>
+<pre><code>$ cabal install cabal cabal-install</code></pre>
+<p>Sometimes the older installed version is still on the program search $PATH, you can check you’re running the latest version with:</p>
+<pre><code>$ cabal --version</code></pre>
+<h2 id="cabal-library-version-2.0.0.2">Cabal library (version 2.0.0.2)</h2>
+<p>August 2017: Release 2.0.0.2</p>
+<p>Source download: <a href="release/cabal-2.0.0.2/Cabal-2.0.0.2.tar.gz">Cabal-2.0.0.2.tar.gz</a></p>
+<p>Please see the <a href="release/cabal-2.0.0.2/doc/users-guide/">User’s guide</a>, the <a href="release/cabal-2.0.0.2/doc/API/Cabal/">API documentation</a>, and the <a href="release/cabal-2.0.0.2/changelog">change log</a>.</p>
+<h2 id="cabal-install-tool-version-2.0.0.0">cabal-install tool (version 2.0.0.0)</h2>
+<p>cabal-install is the command line interface to Cabal and hackage.
+This is the package that provides the ‘cabal’ command line program.</p>
+<p>Source download: <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0.tar.gz">cabal-install-2.0.0.0.tar.gz</a></p>
+<h3 id="binary-downloads">Binary downloads</h3>
+<ul>
+<li>Windows (x86): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-i386-unknown-mingw32.zip">cabal-install-2.0.0.0-i386-unknown-mingw32.zip</a></li>
+<li>Windows (x86-64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-unknown-mingw32.zip">cabal-install-2.0.0.0-x86_64-unknown-mingw32.zip</a></li>
+<li>macOS Sierra (x86_64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-apple-darwin-sierra.tar.xz">cabal-install-2.0.0.0-x86_64-apple-darwin-sierra.tar.xz</a></li>
+<li>Linux (x86): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-i386-unknown-linux.tar.gz">cabal-install-2.0.0.0-i386-unknown-linux.tar.gz</a></li>
+<li>Linux (x86-64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-unknown-linux.tar.gz">cabal-install-2.0.0.0-x86_64-unknown-linux.tar.gz</a></li>
+<li>AIX (PowerPC): <a href="release/cabal-install-1.24.0.0/cabal-1.24.0.0-powerpc-ibm-aix7.1.0.0.xz">cabal-1.24.0.0-powerpc-ibm-aix7.1.0.0.xz</a></li>
+</ul>
+<p>Binaries for cabal-install for many platforms are available on <a href="https://halcyon.sh/">Halcyon</a>.</p>
+<p>Packages for Ubuntu Linux (multiple versions) are available on <a href="https://launchpad.net/~hvr/+archive/ubuntu/ghc">hvr’s PPA</a>.</p>
+<p>The source package requires the Cabal package above and also further packages,
+which can be found on Hackage. To make the process easier the cabal-install
+tarball contains a bootstrap.sh script which downloads and installs all the
+dependencies.</p>
+<h2 id="bugs">Bugs</h2>
+<p>Report bugs <a href="https://github.com/haskell/cabal/issues">here</a> or to the <a href="mailto:cabal-devel@haskell.org">cabal-devel</a> mailing list.</p>
+<h2 id="code">Code</h2>
+<p>You can get the development version of the code <a href="code.html">here</a>.</p>
+<h2 id="version-numbers">Version Numbers</h2>
+<p>Stable Releases are numbered a.b.c.d, where b is even. Unstable snapshots between releases are numbered a.b.c.d, where b is odd. Changes for c and d are minor.</p>
+<p>For example, 2.1.x.x is the development version leading up to the stable release 2.2.x.x.</p>
+<h2 id="older-releases">Older Releases</h2>
+<ul>
+<li>The previous stable release series for Cabal was 1.24.x.</li>
+<li>The previous stable release series for cabal-install was 1.24.x.</li>
+</ul>
+<p>The versions bundled with recent Haskell implementation releases include:</p>
+<ul>
+<li>GHC 8.2.1 includes Cabal 2.0.0.2.</li>
+<li>GHC 8.0.2 includes Cabal 1.24.2.0.</li>
+<li>GHC 8.0.1 includes Cabal 1.24.0.0.</li>
+<li>GHC 7.10.3 includes Cabal 1.22.5.0.</li>
+</ul>
+<!-- GHC 7.8.4 includes Cabal 1.18.1.5. -->
+<!-- GHC 7.8.1 includes Cabal 1.18.1.3. -->
+<!-- GHC 7.4.1 includes Cabal 1.14.0. -->
+<!-- GHC 7.2.2 includes Cabal 1.12.0. -->
+<!-- GHC 7.0.4 includes Cabal 1.10.2.0. -->
+<!-- GHC 6.12.3 includes Cabal 1.8.0.6. -->
+<!-- GHC 6.10.4 includes Cabal 1.6.0.3. -->
+<!-- GHC 6.8.3 includes Cabal 1.2.4.0. -->
+<!-- GHC 6.6.1 includes Cabal 1.1.6.2. -->
+<!-- Hugs98 September 2006 includes Cabal 1.1.5.9.2 (the 2nd release candidate for 1.1.6). -->
+<!-- nhc98 1.20 includes Cabal-1.2.2.0. -->
+<ul>
+<li><a href="release/cabal-2.0.0.2/Cabal-2.0.0.2.tar.gz">2.0.0.2</a> August 2017</li>
+<li><a href="release/cabal-1.24.2.0/Cabal-1.24.2.0.tar.gz">1.24.2.0</a> December 2016</li>
+<li><a href="release/cabal-1.24.1.0/Cabal-1.24.1.0.tar.gz">1.24.1.0</a> October 2016</li>
+<li><a href="release/cabal-1.24.0.0/Cabal-1.24.0.0.tar.gz">1.24.0.0</a> May 2016</li>
+<li><a href="release/cabal-1.22.8.0/Cabal-1.22.8.0.tar.gz">1.22.8.0</a> March 2016</li>
+<li><a href="release/cabal-1.22.7.0/Cabal-1.22.7.0.tar.gz">1.22.7.0</a> January 2016</li>
+<li><a href="release/cabal-1.20.0.4/Cabal-1.20.0.4.tar.gz">1.20.0.4</a> January 2016</li>
+<li><a href="release/cabal-1.18.1.7/Cabal-1.18.1.7.tar.gz">1.18.1.7</a> January 2016</li>
+<li><a href="release/cabal-1.22.6.0/Cabal-1.22.6.0.tar.gz">1.22.6.0</a> December 2015</li>
+<li><a href="release/cabal-1.22.4.0/Cabal-1.22.4.0.tar.gz">1.22.4.0</a> June 2015</li>
+<li><a href="release/cabal-1.22.3.0/Cabal-1.22.3.0.tar.gz">1.22.3.0</a> April 2015</li>
+<li><a href="release/cabal-1.22.2.0/Cabal-1.22.2.0.tar.gz">1.22.2.0</a> March 2015</li>
+<li><a href="release/cabal-1.22.0.0/Cabal-1.22.0.0.tar.gz">1.22.0.0</a> January 2015</li>
+<li><a href="release/cabal-1.18.1.6/Cabal-1.18.1.6.tar.gz">1.18.1.6</a> January 2015</li>
+<li><a href="release/cabal-1.20.0.3/Cabal-1.20.0.3.tar.gz">1.20.0.3</a> December 2014</li>
+<li><a href="release/cabal-1.18.1.5/Cabal-1.18.1.5.tar.gz">1.18.1.5</a> December 2014</li>
+<li><a href="release/cabal-1.20.0.2/Cabal-1.20.0.2.tar.gz">1.20.0.2</a> July 2014</li>
+<li><a href="release/cabal-1.18.1.4/Cabal-1.18.1.4.tar.gz">1.18.1.4</a> July 2014</li>
+<li><a href="release/cabal-1.20.0.1/Cabal-1.20.0.1.tar.gz">1.20.0.1</a> May 2014</li>
+<li><a href="release/cabal-1.20.0.0/Cabal-1.20.0.0.tar.gz">1.20.0.0</a> April 2014</li>
+<li><a href="release/cabal-1.18.1.3/Cabal-1.18.1.3.tar.gz">1.18.1.3</a> March 2014</li>
+<li><a href="release/cabal-1.18.1.2/Cabal-1.18.1.2.tar.gz">1.18.1.2</a> October 2013</li>
+<li><a href="release/cabal-1.18.1.1/Cabal-1.18.1.1.tar.gz">1.18.1.1</a> October 2013</li>
+<li><a href="release/cabal-1.18.1/Cabal-1.18.1.tar.gz">1.18.1</a> September 2013</li>
+<li><a href="release/cabal-1.18.0/Cabal-1.18.0.tar.gz">1.18.0</a> September 2013</li>
+<li><a href="release/cabal-1.14.0/Cabal-1.14.0.tar.gz">1.14.0</a> February 2012</li>
+<li><a href="release/cabal-1.12.0/Cabal-1.12.0.tar.gz">1.12.0</a> January 2012</li>
+<li><a href="release/cabal-1.10.2.0/Cabal-1.10.2.0.tar.gz">1.10.2.0</a> June 2010</li>
+<li><a href="release/cabal-1.10.1.0/Cabal-1.10.1.0.tar.gz">1.10.1.0</a> February 2010</li>
+<li><a href="release/cabal-1.10.0.0/Cabal-1.10.0.0.tar.gz">1.10.0.0</a> November 2010</li>
+<li><a href="release/cabal-1.8.0.6/Cabal-1.8.0.6.tar.gz">1.8.0.6</a> June 2010</li>
+<li><a href="release/cabal-1.8.0.4/Cabal-1.8.0.4.tar.gz">1.8.0.4</a> March 2010</li>
+<li><a href="release/cabal-1.8.0.2/Cabal-1.8.0.2.tar.gz">1.8.0.2</a> December 2009</li>
+<li><a href="release/cabal-1.6.0.2/Cabal-1.6.0.2.tar.gz">1.6.0.2</a> February 2009</li>
+<li><a href="release/cabal-1.6.0.2/Cabal-1.6.0.2.tar.gz">1.6.0.2</a> February 2009</li>
+<li><a href="release/cabal-1.6.0.1/Cabal-1.6.0.1.tar.gz">1.6.0.1</a> October 2008</li>
+<li><a href="release/cabal-1.4.0.2/Cabal-1.4.0.2.tar.gz">1.4.0.2</a> August 2008</li>
+<li><a href="release/cabal-1.4.0.1/Cabal-1.4.0.1.tar.gz">1.4.0.1</a> June 2008</li>
+<li><a href="release/cabal-1.2.3.0/cabal-1.2.3.0.tar.gz">1.2.3.0</a> December 2007</li>
+<li><a href="release/cabal-1.2.2.0/cabal-1.2.2.0.tar.gz">1.2.2.0</a> October 2007</li>
+<li><a href="release/cabal-1.2.1.0/cabal-1.2.1.0.tar.gz">1.2.1.0</a> October 2007</li>
+<li><a href="release/cabal-1.1.6.2/cabal-1.1.6.2.tar.gz">1.2.0</a> September 2007</li>
+<li><a href="release/cabal-1.1.6.2/cabal-1.1.6.2.tar.gz">1.1.6.2</a> May 2007</li>
+<li><a href="release/cabal-1.1.6.1/cabal-1.1.6.1.tar.gz">1.1.6.1</a> October 2006</li>
+<li><a href="release/cabal-1.1.6/cabal-1.1.6.tar.gz">1.1.6</a> October 2006</li>
+<li><a href="release/cabal-1.1.4/cabal-1.1.4.tar.gz">1.1.4</a> May 2006</li>
+<li><a href="release/cabal-1.1.3/cabal-1.1.3.tar.gz">1.1.3</a> September 2005</li>
+<li><a href="release/old/cabal-1.1.1/cabal-1.1.1.tar.gz">1.1.1</a> July 2005</li>
+<li><a href="release/old/cabal-0.5.tgz">0.5</a> February 2005</li>
+<li><a href="release/old/cabal-0.4.tgz">0.4</a> January 2005</li>
+<li><a href="release/old/cabal-0.2.tgz">0.2</a> November 2004</li>
+<li><a href="release/old/cabal-0.1.tgz">0.1</a> August 2004</li>
+</ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

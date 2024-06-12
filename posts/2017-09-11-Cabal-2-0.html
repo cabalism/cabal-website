@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Cabal">
+<meta name="description" content="Build Haskell applications and libraries">
+
+    <title>What's new in Cabal/cabal-install 2.0 &mdash; improved new-build, Backpack, foreign libraries and more!</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../images/Cabal-tiny.png" rel="icon">
+
+</head>
+
+<body>
+    <div class="d-lg-none">
+        <div id="nav-top" class="d-print-none">
+            <nav>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/">documentation</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://github.com/haskell/cabal/blob/master/README.md">contribute</a></li>
+    </ul>
+</nav>
+
+        </div>
+        <div id="content" class="d-print-col-12">
+            <article>
+    <section class="header">
+        Posted on September 11, 2017
+        
+    </section>
+    <section>
+        <p>A couple of weeks ago we’ve quietly released versions 2.0 of both
+Cabal and <code>cabal-install</code> after approximately a year of
+development. The 2.0 release incorporates more than 1500 commits by
+<a href="https://gist.github.com/23Skidoo/7109479c43a8de44f8e29fa335e9645c">64 different
+contributors</a>. This
+post serves as a formal release announcement and describes what’s new
+and improved in version 2.0.</p>
+<p>There is a number of backwards-incompatible Cabal library API changes
+in this release that affect packages with Custom setup
+scripts. Therefore <code>cabal-install</code> will by default use a previous
+version of Cabal to build setup scripts that don’t <a href="https://www.well-typed.com/blog/2015/07/cabal-setup-deps/">explicitly declare
+compatibility with Cabal
+2.0</a>. The
+<a href="https://github.com/haskell/cabal/wiki/2.0-migration-guide">2.0 migration
+guide</a>
+gives advice for package authors on how to adapt Custom setup scripts
+to backwards-incompatible changes in this release.</p>
+<h2 id="major-new-features">Major new features</h2>
+<ul>
+<li><p>Much improved <a href="https://www.haskell.org/cabal/users-guide/nix-local-build-overview.html"><code>new-build</code>
+feature</a>
+(also known as nix-style local builds), that solves many
+long-standing problems and is going to become the default mode of
+operation of <code>cabal-install</code> in version 3.0 (tentative release date:
+Autumn 2018). Killer features of <code>new-build</code> are reproducible
+isolated builds with global dependency caching and multi-package
+projects. For a more extensive introduction to <code>new-build</code>, see
+<a href="http://blog.ezyang.com/2016/05/announcing-cabal-new-build-nix-style-local-builds/">this blog post by Edward
+Z. Yang</a>.</p></li>
+<li><p>Support for Backpack, a new system for mix-in packages. See <a href="https://github.com/ezyang/ghc-proposals/blob/backpack/proposals/0000-backpack.rst">this
+article by Edward
+Z. Yang</a>
+for an introduction to Backpack and its features.</p></li>
+<li><p>Native suport for <a href="https://github.com/haskell/cabal/pull/2540">foreign
+libraries</a>: Haskell
+libraries that are intended to be used by non-Haskell code. See
+<a href="https://www.haskell.org/cabal/users-guide/developing-packages.html#foreign-libraries">this section of the user
+guide</a>
+for an introduction to this feature.</p></li>
+<li><p>Convenience/internal libraries are now supported
+(<a href="https://github.com/haskell/cabal/issues/269">#269</a>). An internal
+library is declared using the stanza <code>library 'libname'</code> and can be
+only used by other components inside a package.</p></li>
+<li><p>Package components can be now built and installed in parallel. This
+is especially handy when compiling packages with large numbers of
+independent components (usually those are executables). As a
+consequence, the <code>Setup.hs</code> command-line interface <a href="https://github.com/ghc-proposals/ghc-proposals/pull/4">now allows to
+specify the component to be
+configured</a>.</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/nix-integration.html">Nix package manager integration</a>
+(<a href="https://github.com/haskell/cabal/issues/3651">#3651</a>).</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=outdated#listing-outdated-dependency-version-bounds">New <code>cabal-install</code> command: <code>outdated</code></a>, for listing outdated
+version bounds in a <code>.cabal</code> file or a freeze file
+(<a href="https://github.com/haskell/cabal/issues/4207">#4201</a>). Work on
+this feature was sponsored by <a href="https://scrive.com/">Scrive AB</a>.</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/installing-packages.html?highlight=reconfigure">New <code>cabal-install</code> command
+<code>reconfigure</code></a>,
+which re-runs <code>configure</code> with the most recently used flags
+(<a href="https://github.com/haskell/cabal/issues/2214">#2214</a>).</p></li>
+<li><p>Package repos are now assumed to be <code>hackage-security</code>-enabled by
+default. If a <code>remote-repo</code> section in <code>~/.cabal/config</code> doesn’t
+have an explicit <code>secure</code> field, it now defaults to <code>secure: True</code>,
+unlike in <code>cabal-install</code> 1.24. See <a href="https://www.well-typed.com/blog/2015/04/improving-hackage-security/">this post on the Well-Typed
+blog</a>
+for an introduction to <code>hackage-security</code> and what benefits it
+brings.</p></li>
+<li><p>New caret-style version range operator <code>^&gt;=</code>
+(<a href="https://github.com/haskell/cabal/issues/3705">#3705</a>) that is
+equivalent to <code>&gt;=</code> intersected with an automatically inferred major
+upper bound. For example, <code>foo ^&gt;= 1.3.1</code> is equivalent to <code>foo &gt;=   1.3.1 &amp;&amp; &lt; 1.4</code>. Besides being a convenient syntax sugar, <code>^&gt;=</code>
+allows to distinguish “strong” and “weak” upper bounds: <code>foo &gt;=   1.3.1 &amp;&amp; &lt; 1.4</code> means “I know for sure that my package doesn’t work
+with <code>foo-1.4</code>”, while <code>foo ^&gt;= 1.3.1</code> means “I don’t know whether
+<code>foo-1.4</code>, which is not out yet, will break my package, but I want
+to be cautious and follow <a href="https://pvp.haskell.org/">PVP</a>”. In the
+future, this feature will allow to implement automatic version
+bounds relaxation in a formally sound way (work on this front is
+progressing on
+<a href="https://matrix.hackage.haskell.org/"><code>matrix.hackage.haskell.org</code></a>). See
+<a href="https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=caret#pkg-field-build-depends">this section of the
+manual</a>
+for more information.</p></li>
+<li><p>Changed <code>cabal upload</code> to upload a package candidate by default
+(<a href="https://github.com/haskell/cabal/issues/3419">#3419</a>). Same
+applies to uploading documentation. Also added a new <code>cabal upload</code>
+flag <code>--publish</code> for publishing a package on Hackage instead of
+uploading a candidate
+(<a href="https://github.com/haskell/cabal/issues/3419">#3419</a>).</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/nix-local-build.html?highlight=allow%20older#cfg-flag---allow-older">Support for
+<code>--allow-older</code></a>
+(dual to <code>--allow-newer</code>)
+(<a href="https://github.com/haskell/cabal/issues/3466">#3466</a>).</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=build%20tool%20depends#pkg-field-build-tool-depends">New <code>build-tool-depends</code>
+field</a>
+that replaces <code>build-tools</code> and has a better defined semantics
+(<a href="https://github.com/haskell/cabal/issues/3708">#3708</a>,
+<a href="https://github.com/haskell/cabal/issues/1541">#1541</a>). <code>cabal-install</code>
+will now install required build tools and add them to PATH
+automatically.</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=autogen%20modules#pkg-field-custom-setup-autogen-modules">New <code>autogen-modules</code>
+field</a>
+for automatically generated modules (like <code>Paths_PACKAGENAME</code>) that
+are not distributed inside the package tarball
+(<a href="https://github.com/haskell/cabal/issues/3656">#3656</a>).</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=scope#pkg-field-executable-scope">Added a new <code>scope</code>
+field</a>
+to the <code>executable</code> stanza
+(<a href="https://github.com/haskell/cabal/issues/3461">#3461</a>). Executable
+scope can be either <code>public</code> or <code>private</code>; private executables are
+those that are expected to be run by other programs rather than
+users and get installed into
+<code>$libexecdir/$libexecsubdir</code>. Additionally, <code>$libexecdir</code> now has a
+subdir structure similar to <code>$lib(sub)dir</code> to allow installing
+private executables of different packages and package versions
+alongside one another.</p></li>
+<li><p>New <code>--index-state</code> flag for requesting a specific version of
+the package index
+(<a href="https://github.com/haskell/cabal/issues/3893">#3893</a>,
+<a href="https://github.com/haskell/cabal/issues/4115">#4115</a>).</p></li>
+<li><p>Added <code>CURRENT_PACKAGE_VERSION</code> CPP constant to <code>cabal_macros.h</code>
+(<a href="https://github.com/haskell/cabal/issues/4319">#4319</a>).</p></li>
+</ul>
+<h2 id="minor-improvements-and-bug-fixes">Minor improvements and bug fixes</h2>
+<ul>
+<li><p>Dropped support for versions of GHC earlier than 6.12
+(<a href="https://github.com/haskell/cabal/issues/3111">#3111</a>). Also, GHC
+compatibility window for the Cabal library has been extended to five
+years (<a href="https://github.com/haskell/cabal/issues/3838">#3838</a>).</p></li>
+<li><p>Added a technical preview version of the ‘cabal doctest’ command
+(<a href="https://github.com/haskell/cabal/issues/4480">#4480</a>).</p></li>
+<li><p>Cabal now invokes GHC with <code>-Wmissing-home-modules</code>, if that flag is
+supported (added in version 8.2). This means that you’ll get a
+warning if you forget to list a module in <code>other-modules</code> or
+<code>exposed-modules</code>
+(<a href="https://github.com/haskell/cabal/pull/4254">#4254</a>).</p></li>
+<li><p>Verbosity <code>-v</code> now takes an extended format which allows specifying
+exactly what you want to be logged. The format is
+<code>[silent|normal|verbose|debug] flags</code>, where <code>flags</code> is a space
+separated list of flags. At the moment, only the flags <code>+callsite</code>
+and <code>+callstack</code> are supported; these report the call site/stack of
+a logging output respectively (these are only supported if Cabal is
+built with GHC 8.0/7.10.2 or greater, respectively).</p></li>
+<li><p>The <code>-v/--verbosity</code> option no longer affects GHC verbosity (except
+in the case of <code>-v0</code>). Use <code>--ghc-options=-v</code> to enable verbose GHC
+output (<a href="https://github.com/haskell/cabal/issues/3540">#3540</a>,
+<a href="https://github.com/haskell/cabal/issues/3671">#3671</a>).</p></li>
+<li><p>Packages which use internal libraries can result in multiple
+registrations; thus <code>--gen-pkg-config</code> can now output a directory of
+registration scripts rather than a single file.</p></li>
+<li><p>Changed the default logfile template from <code>.../$pkgid.log</code> to
+<code>.../$compiler/$libname.log</code>
+(<a href="https://github.com/haskell/cabal/issues/3807">#3807</a>).</p></li>
+<li><p>Macros in ‘cabal_macros.h’ are now <code>#ifndef</code>’d, so that they don’t
+cause an error if the macro is already defined
+(<a href="https://github.com/haskell/cabal/issues/3041">#3041</a>).</p></li>
+<li><p>Added qualified constraints for setup dependencies. For example,
+<code>--constraint="setup.bar == 1.0"</code> constrains all setup dependencies
+on bar, and <code>--constraint="foo:setup.bar == 1.0"</code> constrains foo’s
+setup dependency on bar (part of
+<a href="https://github.com/haskell/cabal/issues/3502">#3502</a>).</p></li>
+<li><p>Non-qualified constraints, such as –constraint=“bar == 1.0”, now
+only apply to top-level dependencies. They don’t constrain setup or
+build-tool dependencies. The new syntax <code>--constraint="any.bar   ==1.0"</code> constrains all uses of bar.</p></li>
+<li><p>Added a new solver flag, <code>--allow-boot-library-installs</code>, that
+allows normally non-upgradeable packages like <code>base</code> to be installed
+or upgraded
+(<a href="https://github.com/haskell/cabal/issues/4209">#4209</a>). Made the
+‘template-haskell’ package non-upgradable again
+(<a href="https://github.com/haskell/cabal/issues/4185">#4185</a>).</p></li>
+<li><p>Fixed password echoing on MinTTY
+(<a href="https://github.com/haskell/cabal/issues/4128">#4128</a>).</p></li>
+<li><p>Added optional solver output visualisation support via the
+<code>tracetree</code> package
+(<a href="https://github.com/haskell/cabal/issues/3410">#3410</a>). Mainly
+intended for debugging.</p></li>
+<li><p>New <code>./Setup configure</code> flag <code>--cabal-file</code>, allowing multiple
+.cabal files in a single directory
+(<a href="https://github.com/haskell/cabal/issues/3553">#3553</a>). Primarily
+intended for internal use.</p></li>
+<li><p>Removed the <code>--check</code> option from <code>cabal upload</code>
+(<a href="https://github.com/haskell/cabal/issues/1823">#1823</a>). It was
+replaced by <a href="https://hackage.haskell.org/upload#candidates">Hackage package
+candidates</a>.</p></li>
+<li><p>Removed the <code>--root-cmd</code> parameter of the ‘install’ command and
+deprecated <code>cabal install --global</code>
+(<a href="https://github.com/haskell/cabal/issues/3356">#3356</a>).</p></li>
+<li><p>Removed the top-down solver
+(<a href="https://github.com/haskell/cabal/issues/3598">#3598</a>).</p></li>
+<li><p>Cabal no longer supports using a version bound to disambiguate
+between an internal and external package
+(<a href="https://github.com/haskell/cabal/issues/4020">#4020</a>). This
+should not affect many people, as this mode of use already did not
+work with the dependency solver.</p></li>
+<li><p>Miscellaneous minor and/or internal bug fixes and improvements.</p></li>
+</ul>
+<p>See the full <a href="https://github.com/haskell/cabal/blob/2.0/Cabal/changelog">Cabal
+2.0</a> and
+<a href="https://github.com/haskell/cabal/blob/2.0/cabal-install/changelog"><code>cabal-install</code>
+2.0</a>
+changelogs for the complete list of changes in the 2.0 release.</p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>Thanks to everyone who contributed code and bug reports. Full list of
+people who contributed patches to Cabal/<code>cabal-install</code> 2.0 is
+available
+<a href="https://gist.github.com/23Skidoo/7109479c43a8de44f8e29fa335e9645c">here</a>.</p>
+<h2 id="looking-forward">Looking forward</h2>
+<p>We plan to make a new release of Cabal/<code>cabal-install</code> before the end
+of the year – that is, around December 2018. We want to decouple the
+Cabal release cycle from the GHC one; that’ll allow us to release a
+new version of Cabal/<code>cabal-install</code> approximately every six months in
+the future. Main features that are currently targeted at the 2.2
+milestone are:</p>
+<ul>
+<li><p>Further improvements in <code>new-build</code>, incorporating <a href="https://github.com/haskell/cabal/projects/4">work done by
+Francesco Gazzetta during HSOC
+2017</a>. Currently we are
+planning to make <code>new-build</code> the default in the 3.0 release
+(tentative release date: Autumn 2018).</p></li>
+<li><p>New Parsec-based parser for <code>.cabal</code> files, joint work by Oleg
+Grenrus and Duncan Coutts. Faster, less memory hungry, and easier to
+extend.</p></li>
+<li><p><a href="https://github.com/haskell/cabal/issues/4013">A revamped homepage for
+Cabal</a>, <a href="https://github.com/haskell/cabal/labels/documentation">rewritten
+user manual</a>,
+and <a href="https://github.com/haskell/cabal/issues/4637">automated build bots for binary
+releases</a>. Help in
+this area would be appreciated!</p></li>
+</ul>
+<p>We would like to encourage people considering contributing to take a
+look at <a href="https://github.com/haskell/cabal/issues/">the bug tracker on
+GitHub</a>, take part in
+discussions on tickets and pull requests, or submit their own. The bug
+tracker is reasonably well maintained and it should be relatively
+clear to new contributors what is in need of attention and which tasks
+are considered relatively easy. Additionally, <a href="https://github.com/haskell/cabal/wiki/ZuriHac-2017">the list of potential
+projects from the latest
+hackathon</a> and the
+tickets marked
+<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3A%22meta%3A+easy%22">“easy”</a>
+and
+<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3Anewcomer">“newcomer”</a>
+can be used as a source of ideas for what to work on.</p>
+<p>For more in-depth discussion there is also the <a href="https://mail.haskell.org/mailman/listinfo/cabal-devel"><code>cabal-devel</code> mailing
+list</a> and the
+<a href="https://wiki.haskell.org/IRC_channel"><code>#hackage</code> IRC channel</a> on
+FreeNode.</p>
+    </section>
+</article>
+
+        </div>
+    </div>
+    <div class="d-none d-lg-block">
+        <div class="fluid-container">
+            <div class="row">
+                <div id="nav-side" class="col-2 card d-print-none">
+                    <div class="card-body">
+    <h1 class="card-title" title="Cabal"><a href="../"><img src="../images/Cabal-light.png" style="width:80%"></a></h1>
+
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/">documentation</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/haskell/cabal/blob/master/README.md">contribute</a></li>
+        </ul>
+    </nav>
+</div>
+
+                </div>
+                <div id="content" class="d-print-col-12">
+                    <article>
+    <section class="header">
+        Posted on September 11, 2017
+        
+    </section>
+    <section>
+        <p>A couple of weeks ago we’ve quietly released versions 2.0 of both
+Cabal and <code>cabal-install</code> after approximately a year of
+development. The 2.0 release incorporates more than 1500 commits by
+<a href="https://gist.github.com/23Skidoo/7109479c43a8de44f8e29fa335e9645c">64 different
+contributors</a>. This
+post serves as a formal release announcement and describes what’s new
+and improved in version 2.0.</p>
+<p>There is a number of backwards-incompatible Cabal library API changes
+in this release that affect packages with Custom setup
+scripts. Therefore <code>cabal-install</code> will by default use a previous
+version of Cabal to build setup scripts that don’t <a href="https://www.well-typed.com/blog/2015/07/cabal-setup-deps/">explicitly declare
+compatibility with Cabal
+2.0</a>. The
+<a href="https://github.com/haskell/cabal/wiki/2.0-migration-guide">2.0 migration
+guide</a>
+gives advice for package authors on how to adapt Custom setup scripts
+to backwards-incompatible changes in this release.</p>
+<h2 id="major-new-features">Major new features</h2>
+<ul>
+<li><p>Much improved <a href="https://www.haskell.org/cabal/users-guide/nix-local-build-overview.html"><code>new-build</code>
+feature</a>
+(also known as nix-style local builds), that solves many
+long-standing problems and is going to become the default mode of
+operation of <code>cabal-install</code> in version 3.0 (tentative release date:
+Autumn 2018). Killer features of <code>new-build</code> are reproducible
+isolated builds with global dependency caching and multi-package
+projects. For a more extensive introduction to <code>new-build</code>, see
+<a href="http://blog.ezyang.com/2016/05/announcing-cabal-new-build-nix-style-local-builds/">this blog post by Edward
+Z. Yang</a>.</p></li>
+<li><p>Support for Backpack, a new system for mix-in packages. See <a href="https://github.com/ezyang/ghc-proposals/blob/backpack/proposals/0000-backpack.rst">this
+article by Edward
+Z. Yang</a>
+for an introduction to Backpack and its features.</p></li>
+<li><p>Native suport for <a href="https://github.com/haskell/cabal/pull/2540">foreign
+libraries</a>: Haskell
+libraries that are intended to be used by non-Haskell code. See
+<a href="https://www.haskell.org/cabal/users-guide/developing-packages.html#foreign-libraries">this section of the user
+guide</a>
+for an introduction to this feature.</p></li>
+<li><p>Convenience/internal libraries are now supported
+(<a href="https://github.com/haskell/cabal/issues/269">#269</a>). An internal
+library is declared using the stanza <code>library 'libname'</code> and can be
+only used by other components inside a package.</p></li>
+<li><p>Package components can be now built and installed in parallel. This
+is especially handy when compiling packages with large numbers of
+independent components (usually those are executables). As a
+consequence, the <code>Setup.hs</code> command-line interface <a href="https://github.com/ghc-proposals/ghc-proposals/pull/4">now allows to
+specify the component to be
+configured</a>.</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/nix-integration.html">Nix package manager integration</a>
+(<a href="https://github.com/haskell/cabal/issues/3651">#3651</a>).</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=outdated#listing-outdated-dependency-version-bounds">New <code>cabal-install</code> command: <code>outdated</code></a>, for listing outdated
+version bounds in a <code>.cabal</code> file or a freeze file
+(<a href="https://github.com/haskell/cabal/issues/4207">#4201</a>). Work on
+this feature was sponsored by <a href="https://scrive.com/">Scrive AB</a>.</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/installing-packages.html?highlight=reconfigure">New <code>cabal-install</code> command
+<code>reconfigure</code></a>,
+which re-runs <code>configure</code> with the most recently used flags
+(<a href="https://github.com/haskell/cabal/issues/2214">#2214</a>).</p></li>
+<li><p>Package repos are now assumed to be <code>hackage-security</code>-enabled by
+default. If a <code>remote-repo</code> section in <code>~/.cabal/config</code> doesn’t
+have an explicit <code>secure</code> field, it now defaults to <code>secure: True</code>,
+unlike in <code>cabal-install</code> 1.24. See <a href="https://www.well-typed.com/blog/2015/04/improving-hackage-security/">this post on the Well-Typed
+blog</a>
+for an introduction to <code>hackage-security</code> and what benefits it
+brings.</p></li>
+<li><p>New caret-style version range operator <code>^&gt;=</code>
+(<a href="https://github.com/haskell/cabal/issues/3705">#3705</a>) that is
+equivalent to <code>&gt;=</code> intersected with an automatically inferred major
+upper bound. For example, <code>foo ^&gt;= 1.3.1</code> is equivalent to <code>foo &gt;=   1.3.1 &amp;&amp; &lt; 1.4</code>. Besides being a convenient syntax sugar, <code>^&gt;=</code>
+allows to distinguish “strong” and “weak” upper bounds: <code>foo &gt;=   1.3.1 &amp;&amp; &lt; 1.4</code> means “I know for sure that my package doesn’t work
+with <code>foo-1.4</code>”, while <code>foo ^&gt;= 1.3.1</code> means “I don’t know whether
+<code>foo-1.4</code>, which is not out yet, will break my package, but I want
+to be cautious and follow <a href="https://pvp.haskell.org/">PVP</a>”. In the
+future, this feature will allow to implement automatic version
+bounds relaxation in a formally sound way (work on this front is
+progressing on
+<a href="https://matrix.hackage.haskell.org/"><code>matrix.hackage.haskell.org</code></a>). See
+<a href="https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=caret#pkg-field-build-depends">this section of the
+manual</a>
+for more information.</p></li>
+<li><p>Changed <code>cabal upload</code> to upload a package candidate by default
+(<a href="https://github.com/haskell/cabal/issues/3419">#3419</a>). Same
+applies to uploading documentation. Also added a new <code>cabal upload</code>
+flag <code>--publish</code> for publishing a package on Hackage instead of
+uploading a candidate
+(<a href="https://github.com/haskell/cabal/issues/3419">#3419</a>).</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/nix-local-build.html?highlight=allow%20older#cfg-flag---allow-older">Support for
+<code>--allow-older</code></a>
+(dual to <code>--allow-newer</code>)
+(<a href="https://github.com/haskell/cabal/issues/3466">#3466</a>).</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=build%20tool%20depends#pkg-field-build-tool-depends">New <code>build-tool-depends</code>
+field</a>
+that replaces <code>build-tools</code> and has a better defined semantics
+(<a href="https://github.com/haskell/cabal/issues/3708">#3708</a>,
+<a href="https://github.com/haskell/cabal/issues/1541">#1541</a>). <code>cabal-install</code>
+will now install required build tools and add them to PATH
+automatically.</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=autogen%20modules#pkg-field-custom-setup-autogen-modules">New <code>autogen-modules</code>
+field</a>
+for automatically generated modules (like <code>Paths_PACKAGENAME</code>) that
+are not distributed inside the package tarball
+(<a href="https://github.com/haskell/cabal/issues/3656">#3656</a>).</p></li>
+<li><p><a href="https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=scope#pkg-field-executable-scope">Added a new <code>scope</code>
+field</a>
+to the <code>executable</code> stanza
+(<a href="https://github.com/haskell/cabal/issues/3461">#3461</a>). Executable
+scope can be either <code>public</code> or <code>private</code>; private executables are
+those that are expected to be run by other programs rather than
+users and get installed into
+<code>$libexecdir/$libexecsubdir</code>. Additionally, <code>$libexecdir</code> now has a
+subdir structure similar to <code>$lib(sub)dir</code> to allow installing
+private executables of different packages and package versions
+alongside one another.</p></li>
+<li><p>New <code>--index-state</code> flag for requesting a specific version of
+the package index
+(<a href="https://github.com/haskell/cabal/issues/3893">#3893</a>,
+<a href="https://github.com/haskell/cabal/issues/4115">#4115</a>).</p></li>
+<li><p>Added <code>CURRENT_PACKAGE_VERSION</code> CPP constant to <code>cabal_macros.h</code>
+(<a href="https://github.com/haskell/cabal/issues/4319">#4319</a>).</p></li>
+</ul>
+<h2 id="minor-improvements-and-bug-fixes">Minor improvements and bug fixes</h2>
+<ul>
+<li><p>Dropped support for versions of GHC earlier than 6.12
+(<a href="https://github.com/haskell/cabal/issues/3111">#3111</a>). Also, GHC
+compatibility window for the Cabal library has been extended to five
+years (<a href="https://github.com/haskell/cabal/issues/3838">#3838</a>).</p></li>
+<li><p>Added a technical preview version of the ‘cabal doctest’ command
+(<a href="https://github.com/haskell/cabal/issues/4480">#4480</a>).</p></li>
+<li><p>Cabal now invokes GHC with <code>-Wmissing-home-modules</code>, if that flag is
+supported (added in version 8.2). This means that you’ll get a
+warning if you forget to list a module in <code>other-modules</code> or
+<code>exposed-modules</code>
+(<a href="https://github.com/haskell/cabal/pull/4254">#4254</a>).</p></li>
+<li><p>Verbosity <code>-v</code> now takes an extended format which allows specifying
+exactly what you want to be logged. The format is
+<code>[silent|normal|verbose|debug] flags</code>, where <code>flags</code> is a space
+separated list of flags. At the moment, only the flags <code>+callsite</code>
+and <code>+callstack</code> are supported; these report the call site/stack of
+a logging output respectively (these are only supported if Cabal is
+built with GHC 8.0/7.10.2 or greater, respectively).</p></li>
+<li><p>The <code>-v/--verbosity</code> option no longer affects GHC verbosity (except
+in the case of <code>-v0</code>). Use <code>--ghc-options=-v</code> to enable verbose GHC
+output (<a href="https://github.com/haskell/cabal/issues/3540">#3540</a>,
+<a href="https://github.com/haskell/cabal/issues/3671">#3671</a>).</p></li>
+<li><p>Packages which use internal libraries can result in multiple
+registrations; thus <code>--gen-pkg-config</code> can now output a directory of
+registration scripts rather than a single file.</p></li>
+<li><p>Changed the default logfile template from <code>.../$pkgid.log</code> to
+<code>.../$compiler/$libname.log</code>
+(<a href="https://github.com/haskell/cabal/issues/3807">#3807</a>).</p></li>
+<li><p>Macros in ‘cabal_macros.h’ are now <code>#ifndef</code>’d, so that they don’t
+cause an error if the macro is already defined
+(<a href="https://github.com/haskell/cabal/issues/3041">#3041</a>).</p></li>
+<li><p>Added qualified constraints for setup dependencies. For example,
+<code>--constraint="setup.bar == 1.0"</code> constrains all setup dependencies
+on bar, and <code>--constraint="foo:setup.bar == 1.0"</code> constrains foo’s
+setup dependency on bar (part of
+<a href="https://github.com/haskell/cabal/issues/3502">#3502</a>).</p></li>
+<li><p>Non-qualified constraints, such as –constraint=“bar == 1.0”, now
+only apply to top-level dependencies. They don’t constrain setup or
+build-tool dependencies. The new syntax <code>--constraint="any.bar   ==1.0"</code> constrains all uses of bar.</p></li>
+<li><p>Added a new solver flag, <code>--allow-boot-library-installs</code>, that
+allows normally non-upgradeable packages like <code>base</code> to be installed
+or upgraded
+(<a href="https://github.com/haskell/cabal/issues/4209">#4209</a>). Made the
+‘template-haskell’ package non-upgradable again
+(<a href="https://github.com/haskell/cabal/issues/4185">#4185</a>).</p></li>
+<li><p>Fixed password echoing on MinTTY
+(<a href="https://github.com/haskell/cabal/issues/4128">#4128</a>).</p></li>
+<li><p>Added optional solver output visualisation support via the
+<code>tracetree</code> package
+(<a href="https://github.com/haskell/cabal/issues/3410">#3410</a>). Mainly
+intended for debugging.</p></li>
+<li><p>New <code>./Setup configure</code> flag <code>--cabal-file</code>, allowing multiple
+.cabal files in a single directory
+(<a href="https://github.com/haskell/cabal/issues/3553">#3553</a>). Primarily
+intended for internal use.</p></li>
+<li><p>Removed the <code>--check</code> option from <code>cabal upload</code>
+(<a href="https://github.com/haskell/cabal/issues/1823">#1823</a>). It was
+replaced by <a href="https://hackage.haskell.org/upload#candidates">Hackage package
+candidates</a>.</p></li>
+<li><p>Removed the <code>--root-cmd</code> parameter of the ‘install’ command and
+deprecated <code>cabal install --global</code>
+(<a href="https://github.com/haskell/cabal/issues/3356">#3356</a>).</p></li>
+<li><p>Removed the top-down solver
+(<a href="https://github.com/haskell/cabal/issues/3598">#3598</a>).</p></li>
+<li><p>Cabal no longer supports using a version bound to disambiguate
+between an internal and external package
+(<a href="https://github.com/haskell/cabal/issues/4020">#4020</a>). This
+should not affect many people, as this mode of use already did not
+work with the dependency solver.</p></li>
+<li><p>Miscellaneous minor and/or internal bug fixes and improvements.</p></li>
+</ul>
+<p>See the full <a href="https://github.com/haskell/cabal/blob/2.0/Cabal/changelog">Cabal
+2.0</a> and
+<a href="https://github.com/haskell/cabal/blob/2.0/cabal-install/changelog"><code>cabal-install</code>
+2.0</a>
+changelogs for the complete list of changes in the 2.0 release.</p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>Thanks to everyone who contributed code and bug reports. Full list of
+people who contributed patches to Cabal/<code>cabal-install</code> 2.0 is
+available
+<a href="https://gist.github.com/23Skidoo/7109479c43a8de44f8e29fa335e9645c">here</a>.</p>
+<h2 id="looking-forward">Looking forward</h2>
+<p>We plan to make a new release of Cabal/<code>cabal-install</code> before the end
+of the year – that is, around December 2018. We want to decouple the
+Cabal release cycle from the GHC one; that’ll allow us to release a
+new version of Cabal/<code>cabal-install</code> approximately every six months in
+the future. Main features that are currently targeted at the 2.2
+milestone are:</p>
+<ul>
+<li><p>Further improvements in <code>new-build</code>, incorporating <a href="https://github.com/haskell/cabal/projects/4">work done by
+Francesco Gazzetta during HSOC
+2017</a>. Currently we are
+planning to make <code>new-build</code> the default in the 3.0 release
+(tentative release date: Autumn 2018).</p></li>
+<li><p>New Parsec-based parser for <code>.cabal</code> files, joint work by Oleg
+Grenrus and Duncan Coutts. Faster, less memory hungry, and easier to
+extend.</p></li>
+<li><p><a href="https://github.com/haskell/cabal/issues/4013">A revamped homepage for
+Cabal</a>, <a href="https://github.com/haskell/cabal/labels/documentation">rewritten
+user manual</a>,
+and <a href="https://github.com/haskell/cabal/issues/4637">automated build bots for binary
+releases</a>. Help in
+this area would be appreciated!</p></li>
+</ul>
+<p>We would like to encourage people considering contributing to take a
+look at <a href="https://github.com/haskell/cabal/issues/">the bug tracker on
+GitHub</a>, take part in
+discussions on tickets and pull requests, or submit their own. The bug
+tracker is reasonably well maintained and it should be relatively
+clear to new contributors what is in need of attention and which tasks
+are considered relatively easy. Additionally, <a href="https://github.com/haskell/cabal/wiki/ZuriHac-2017">the list of potential
+projects from the latest
+hackathon</a> and the
+tickets marked
+<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3A%22meta%3A+easy%22">“easy”</a>
+and
+<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3Anewcomer">“newcomer”</a>
+can be used as a source of ideas for what to work on.</p>
+<p>For more in-depth discussion there is also the <a href="https://mail.haskell.org/mailman/listinfo/cabal-devel"><code>cabal-devel</code> mailing
+list</a> and the
+<a href="https://wiki.haskell.org/IRC_channel"><code>#hackage</code> IRC channel</a> on
+FreeNode.</p>
+    </section>
+</article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

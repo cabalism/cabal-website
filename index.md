@@ -167,9 +167,14 @@ dependency solver that will pick versions of dependencies that are not pinned,
 if it can.
 
 Stack's project is a `.yaml` file and Cabal's is a `.project` file (by
-convention). Each tools' command allows specifying alternate projects with their
-`--stack-yaml` and `--project-file` options. Both tools will pick up the project
-if it uses the default name, `stack.yaml` and `cabal.project` respectively.
+convention). Each tools' command allows specifying alternate projects with
+options, shown below specifying the default project names.
+
+- `--stack-yaml=stack.yaml`
+- `--project-file=cabal.project`
+
+Both tools will pick up the project implicitly if it uses the default project
+file name.
 
 ::: info
 Everything in a Stack project must be in the one file. That's a limitation of

@@ -53,7 +53,8 @@ Package source code can be published to Hackage and vetted by Stackage.
 
 ## Demo
 
-Having installed `GHC` and `cabal` with GHCup on Ubuntu Linux, let's find `cabal`;
+Having installed `GHC` and `cabal` with [GHCup][ghcup] on Ubuntu Linux, let's
+find `cabal`;
 
 ```shell
 $$ type cabal
@@ -215,3 +216,4 @@ curl: (22) The requested URL returned error: 404
 [cabal-install-pkg]: https://hackage.haskell.org/package/cabal-install
 [target-forms]: https://cabal.readthedocs.io/en/latest/cabal-commands.html#target-forms
 [pr-targets]: https://github.com/haskell/cabal/pull/9744
+[ghcup]: https://www.haskell.org/ghcup/

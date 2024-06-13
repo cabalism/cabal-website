@@ -245,8 +245,8 @@ curl: (22) The requested URL returned error: 404
 
 ## Extra Dependencies
 
-Extra dependencies are a Stack concept that doesn't really exist in Cabal. These
-are exact versions of packages that a project dependends on that are not
+Extra dependencies are a Stack concept that doesn't really exist in Cabal.
+These are exact versions of packages that a project depends on that are not
 included with the resolver in use (`snapshot` is a synonym of `resolver`). Here
 are Stack's own extra dependencies:
 
@@ -258,6 +258,38 @@ extra-deps:
   # lts-22.21 provides tar-0.5.1.1, which does not support Unicode filenames:
   - tar-0.6.2.0@sha256:619828cae098a7b6deeb0316e12f55011101d88f756787ed024ceedb81cf1eba,4576
 ```
+
+::: info
+If you're committing the `stack.yaml.lock` file then it is enough to leave off
+the hash as the `.lock` file contains that detail. This way we can see that
+Stack's `extra-deps` are exact version equality constraints.
+
+```yaml
+extra-deps:
+  - pantry-0.10.0
+  - tar-0.6.2.0
+```
+:::
+
+The same exact version equality constraints in a `cabal.project` would be:
+
+```cabal
+constraints:
+    pantry ==0.10.0
+  , tar ==0.6.2.0
+```
+
+Stack needs these versions to be explicitly declared but Cabal will use its dependency
+solver to fill in the gaps.
+
+Whether using Stack or Cabal, the versions of dependencies needs to fit within
+the version ranges for dependencies as specified in the `build-depends` field of
+the package description. There is a way of relaxing the version constraints with
+`--allow-newer` but this should only be used as a temporary workaround in order
+to get a project to build. If there's a version range bound problem with a
+dependency then you may fork it and fix the problem there (and hopefully
+upstreaming the change) or you can ask the maintainer for a Hackage revision of
+the package to relax an upper bound.
 
 ## Package (and Description) Generators
 

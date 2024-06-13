@@ -180,7 +180,7 @@ packages that we can get from source code repositories or other means.
 - **Vendored Packages** - When source code for a package is copied locally and
   used if it was a local package.
 
-## Build Tools
+## Build with Stackage
 
 There are two main build tools in the Haskell ecosystem, Cabal and Stack with
 exe names `cabal` and `stack`. The main difference between them is how they deal
@@ -224,6 +224,13 @@ constraints: abstract-deque ==0.3,
              zot ==0.0.3,
              zstd ==0.1.3.0
 ```
+:::
+
+::: warning
+While importing directly from Stackage may work, it can lead to unsolveable
+version constraints. The way around this is to download the `cabal.config` from
+Stackage for the resolver you want to use and then to comment out any
+conflicting version constraints.
 :::
 
 ::: warning

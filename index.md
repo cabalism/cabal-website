@@ -291,6 +291,37 @@ dependency then you may fork it and fix the problem there (and hopefully
 upstreaming the change) or you can ask the maintainer for a Hackage revision of
 the package to relax an upper bound.
 
+## Source Dependencies
+
+From this snippet of a `cabal.project` for
+[unison/cabal.project][updo-unison-project], we can see that it is possible to
+pull in dependencies from a source code repository (in addition to some version
+constraints) with `source-repository-package` stanzas.
+
+```cabal
+import: ./project-stackage/lts-20.26.config
+
+source-repository-package
+  type: git
+  location: https://github.com/unisonweb/configurator
+  tag: e47e9e9fe1f576f8c835183b9def52d73c01327a
+source-repository-package
+  type: git
+  location: https://github.com/unisonweb/haskeline
+  tag: 9275eea7982dabbf47be2ba078ced669ae7ef3d5
+```
+
+The Stack equivalent is very similar:
+
+```yaml
+resolver: lts-20.26
+extra-deps:
+  - git: https://github.com/unisonweb/configurator
+    commit: e47e9e9fe1f576f8c835183b9def52d73c01327a
+  - git: https://github.com/unisonweb/haskeline
+    commit: 9275eea7982dabbf47be2ba078ced669ae7ef3d5
+```
+
 ## Package (and Description) Generators
 
 Starting with a blank slate, `cabal init` can be used to generate a skeleton
@@ -309,7 +340,7 @@ What does the package build:
    3) Library and Executable
    4) Test suite
 ...
-Add informative comments to each field in the cabal file. (y/n)? [default: y] 
+Add informative comments to each field in the cabal file. (y/n)? [default: y]
 [Log] Using cabal specification: 3.0
 [Log] Creating fresh file LICENSE...
 [Log] Creating fresh file CHANGELOG.md...
@@ -343,6 +374,7 @@ not, the same way Cabal does, as the package description.
 [ghcup]: https://www.haskell.org/ghcup/
 [hpack]: https://github.com/sol/hpack
 [hpack-dhall]: https://github.com/cabalism/hpack-dhall#use
+[updo-unison-project]: https://github.com/up-do/unison/blob/add/updo/cabal.project
 
 [^1]: We recommend using GHCup to install `cabal` so it is best not to also
     install it yourself by other means unless you intend to hack on Cabal.

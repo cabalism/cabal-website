@@ -238,10 +238,9 @@ curl: (22) The requested URL returned error: 404
 
 ## Package Description Generators
 
-Starting with a blank slate, `cabal init` can be used to generate a package
-description, `.cabal` file. This command will interactively walk you through
-package creation, collecting required inputs and asking you to choose from the
-available options.
+Starting with a blank slate, `cabal init` can be used to generate a skeleton
+package. This command will interactively walk you through package creation,
+collecting required inputs and asking you to choose from the available options.
 
 ```shell
 $$ mkdir flash-new-package

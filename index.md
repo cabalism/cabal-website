@@ -213,7 +213,57 @@ curl: (22) The requested URL returned error: 404
 ```
 :::
 
+## Package Description Generators
+
+Starting with a blank slate, `cabal init` can be used to generate a package
+description, `.cabal` file. This command will interactively walk you through
+package creation, collecting required inputs and asking you to choose from the
+available options.
+
+```shell
+$$ mkdir flash-new-package
+
+$$ cd flash-new-package/
+
+$$ cabal init
+What does the package build:
+   1) Library
+ * 2) Executable
+   3) Library and Executable
+   4) Test suite
+...
+Add informative comments to each field in the cabal file. (y/n)? [default: y] 
+[Log] Using cabal specification: 3.0
+[Log] Creating fresh file LICENSE...
+[Log] Creating fresh file CHANGELOG.md...
+[Log] Creating fresh directory ./app...
+[Log] Creating fresh file app/Main.hs...
+[Log] Creating fresh file flash-new-package.cabal...
+[Warning] No synopsis given. You should edit the .cabal file and add one.
+[Info] You may want to edit the .cabal file and add a Description field.
+
+$$ tree .
+.
+├── app
+│   └── Main.hs
+├── CHANGELOG.md
+├── flash-new-package.cabal
+└── LICENSE
+```
+
+Stack bundles [hpack][hpack]. This is a package description file generator that
+generates a `.cabal` file from a `package.yaml`. This is similar to the `.cabal`
+description except that it used different names for some fields (different
+phraseology) and can infer some fields (detecting modules from disk) and expand
+on terser values. The `hpack` command can be used standalone and there is a
+similar `dhall-hpack-cabal` command that takes its import from a `package.dhall`
+file. Ultimately Stack deals with the `.cabal` file whether it is generated or
+not, the same way Cabal does, as the package description.
+
 [cabal-install-pkg]: https://hackage.haskell.org/package/cabal-install
 [target-forms]: https://cabal.readthedocs.io/en/latest/cabal-commands.html#target-forms
 [pr-targets]: https://github.com/haskell/cabal/pull/9744
 [ghcup]: https://www.haskell.org/ghcup/
+[hpack]: https://github.com/sol/hpack
+[hpack-dhall]: https://github.com/cabalism/hpack-dhall#use
+

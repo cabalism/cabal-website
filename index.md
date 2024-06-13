@@ -4,11 +4,6 @@ title: The Haskell Cabal
 
 Cabal: Common Architecture for Building Applications and Libraries
 
-## Quick Links
-
-- [Hackage: the Haskell Package Database][hackage]
-- [Browse open issues or report a bug][issues]
-
 ## Common Architecture for Building Applications and Libraries
 
 Cabal is a system for building and packaging Haskell libraries and programs. It
@@ -25,11 +20,3 @@ The Cabal is only one contribution to the larger goal. In particular, the Cabal
 says nothing about more global issues such as how authors decide where in the
 module name space their library should live; how users can find a package they
 want; how orphan packages find new owners; and so on.
-
-## Posts
-$partial("templates/post-list.html")$
-
-…or you can find more in the [archives](/blog).
-
-[hackage]: http://hackage.haskell.org/
-[issues]: https://github.com/haskell/cabal/issues?utf8=%E2%9C%93&q=is%3Aopen

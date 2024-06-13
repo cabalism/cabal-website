@@ -1,6 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Data.Foldable
+import Data.List (stripPrefix)
+import System.FilePath ((</>))
 import Hakyll
 
 main :: IO ()
@@ -12,6 +14,10 @@ main = hakyll $ do
     match "css/*" $ do
         route idRoute
         compile compressCssCompiler
+
+    match "node_modules/@fortawesome/fontawesome-free/webfonts/*.*" $ do
+        route $ customRoute (faFontRoute . toFilePath)
+        compile copyFileCompiler
 
     match (fromList ["pages/download.md", "pages/faq.md", "pages/history.md"]) $ do
         route $ setExtension "html"
@@ -81,3 +87,9 @@ postCtx =
         [ dateField "date" "%B %e, %Y"
         , defaultContext
         ]
+
+faFontRoute :: FilePath -> FilePath
+faFontRoute x
+    | Just y <- stripPrefix "node_modules/@fortawesome/fontawesome-free/webfonts/" x
+    = "css" </> "fonts" </> y
+    | otherwise = error $ "Unexpected fontawesome font of " ++ x

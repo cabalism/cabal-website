@@ -158,12 +158,54 @@ packages that we can get from source code repositories or other means.
 
 ## Build Tools
 
-There are two main build tools in the Haskell ecosystem, Cabal and Stack. The
-main difference between them is how they deal with dependencies in their
-projects. Stack works with a Stackage resolver and any dependency that is not
-included in the resolver must be pinned to an exact version as an extra
-dependency. Cabal can work this way too but has a built-in dependency solver
-that will pick versions of dependencies that are not pinned, if it can.
+There are two main build tools in the Haskell ecosystem, Cabal and Stack with
+exe names `cabal` and `stack`. The main difference between them is how they deal
+with dependencies in their projects. Stack works with a Stackage resolver and
+any dependency that is not included in the resolver must be pinned to an exact
+version as an extra dependency. Cabal can work this way too but has a built-in
+dependency solver that will pick versions of dependencies that are not pinned,
+if it can.
+
+Stack's project is a `.yaml` file and Cabal's is a `.project` file (by
+convention). Each tools' command allows specifying alternate projects with their
+`--stack-yaml` and `--project-file` options. Both tools will pick up the project
+if it uses the default name, `stack.yaml` and `cabal.project` respectively.
+
+::: info
+Everything in a Stack project must be in the one file. That's a limitation of
+`YAML`. The `.project` file format has no formal specification but uses the same
+parser as the `.cabal` format that does, reusing some of the same fields as well
+as having some fields specific to a project. The `import` field can be used to
+import another project file configuration fragment and this is how Cabal can use
+Stackage resolvers.
+
+```cabal
+import: https://www.stackage.org/nightly-2024-06-13/cabal.config
+```
+
+```shell
+$$ curl -fsSL https://www.stackage.org/nightly-2024-06-13/cabal.config
+...
+with-compiler: ghc-9.8.2
+constraints: abstract-deque ==0.3,
+             abstract-deque-tests ==0.3,
+             abstract-par ==0.3.3,
+...
+             zlib-clib ==1.3.1,
+             zot ==0.0.3,
+             zstd ==0.1.3.0
+```
+:::
+
+::: warning
+While Stack can work with Stackage `ghc-x.y.z` resolvers, no such resolver is
+provided in `cabal.config` (cabal project) format.
+
+```shell
+$$ curl -fsSL https://www.stackage.org/ghc-9.8.2/cabal.config
+curl: (22) The requested URL returned error: 404
+```
+:::
 
 [cabal-install-pkg]: https://hackage.haskell.org/package/cabal-install
 [target-forms]: https://cabal.readthedocs.io/en/latest/cabal-commands.html#target-forms

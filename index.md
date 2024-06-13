@@ -180,7 +180,7 @@ packages that we can get from source code repositories or other means.
 - **Vendored Packages** - When source code for a package is copied locally and
   used if it was a local package.
 
-## Build with Stackage
+## Building with Stackage
 
 There are two main build tools in the Haskell ecosystem, Cabal and Stack with
 exe names `cabal` and `stack`. The main difference between them is how they deal
@@ -242,6 +242,14 @@ $$ curl -fsSL https://www.stackage.org/ghc-9.8.2/cabal.config
 curl: (22) The requested URL returned error: 404
 ```
 :::
+
+## Building without Stackage
+
+A Cabal project can be set up without importing constraints from Stackage.  If
+you encounter constraint solver failures then picking a subset of a Stackage
+resolvers' version constraints may help resolve the problem quicker than
+fiddling with version choices and `allow-newer` exeptions until the constraint
+solver is happy.
 
 ## Extra Dependencies
 

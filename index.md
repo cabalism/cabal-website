@@ -243,6 +243,22 @@ curl: (22) The requested URL returned error: 404
 ```
 :::
 
+## Extra Dependencies
+
+Extra dependencies are a Stack concept that doesn't really exist in Cabal. These
+are exact versions of packages that a project dependends on that are not
+included with the resolver in use (`snapshot` is a synonym of `resolver`). Here
+are Stack's own extra dependencies:
+
+```yaml
+snapshot: lts-22.21 # GHC 9.6.5
+extra-deps:
+  # lts-22.21 provides pantry-0.9.3.2.
+  - pantry-0.10.0@sha256:6f99ee8d7cfeeb0e2513638618acf80c72d018e7f10120048fa120a409b9dcd2,7864
+  # lts-22.21 provides tar-0.5.1.1, which does not support Unicode filenames:
+  - tar-0.6.2.0@sha256:619828cae098a7b6deeb0316e12f55011101d88f756787ed024ceedb81cf1eba,4576
+```
+
 ## Package (and Description) Generators
 
 Starting with a blank slate, `cabal init` can be used to generate a skeleton

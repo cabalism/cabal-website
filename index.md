@@ -236,7 +236,7 @@ curl: (22) The requested URL returned error: 404
 ```
 :::
 
-## Package Description Generators
+## Package (and Description) Generators
 
 Starting with a blank slate, `cabal init` can be used to generate a skeleton
 package. This command will interactively walk you through package creation,

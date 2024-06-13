@@ -68,6 +68,12 @@ cabal-3.10.3.0 is ~/.ghcup/bin/cabal-3.10.3.0
 
 We can use `cabal` to download its own package, `cabal-install`, from Hackage.
 
+::: info
+A package is its description, in a `.cabal` file, and all of the source referred
+to by that description. The package description file name must be the same as
+the name of the package. An `sdist` is a `.tar.gz` archive of a package.
+:::
+
 ```shell
 $$ VER=3.10.3.0 cabal get cabal-install-{$$VER}
 Downloading  cabal-install-3.10.3.0
@@ -83,8 +89,22 @@ executable cabal
 ...
 ```
 
-From this source, we can install `cabal` it again, showing that `cabal` can
-build and install local packages downloaded from Hackage.
+We can install `cabal` it again, showing that `cabal` can build and install
+local packages from source and when doing so downloads dependencies from
+Hackage, in this case `cabal-install-solver` and `hackage-security`.
+
+::: info
+We can (and oftentimes must) use [targets][target-forms] to specify some or all
+of the components of a package.  Many `cabal` build tool commands require a
+target and in fact, `cabal build` will fail if not given a target.
+
+- The `all` target includes every component.
+- The `all:ctype` target includes every component of a certain component type
+  (`ctype`), such as `libs`, `exes` and `tests`.
+- `cabal-install:exe:cabal` is a fully qualified name for `cabal`, as an `exe`
+  component of the `cabal-install` package.
+:::
+
 
 ```shell
 $$ cd cabal-install-3.10.3.0/
@@ -120,6 +140,11 @@ Completed    cabal-install-3.10.3.0 (exe:cabal)
 Symlinking 'cabal' to '~/.cabal/bin/cabal'
 ```
 
+::: warning
+There is currently no command to show the available targets, but `cabal targets`
+has been proposed for this purpose with [cabal#9744][pr-targets].
+:::
+
 ## Projects
 
 Even larger, projects are a collections of packages. These allow us to develop a
@@ -140,7 +165,6 @@ included in the resolver must be pinned to an exact version as an extra
 dependency. Cabal can work this way too but has a built-in dependency solver
 that will pick versions of dependencies that are not pinned, if it can.
 
-
-
-
 [cabal-install-pkg]: https://hackage.haskell.org/package/cabal-install
+[target-forms]: https://cabal.readthedocs.io/en/latest/cabal-commands.html#target-forms
+[pr-targets]: https://github.com/haskell/cabal/pull/9744

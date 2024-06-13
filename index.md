@@ -18,6 +18,29 @@ do to support packages. It also specifies some infrastructure (code) that makes
 it easy for tool authors to build and distribute conforming packages.
 :::
 
+Here's an elided dump of `cabal --help` showing the fundamental commands:
+
+```shell
+$$ cabal --help
+Command line interface to the Haskell Cabal infrastructure.
+
+Commands:
+ [initialization and download]
+  init                   Create a new cabal package.
+
+ [project building and installing]
+  build                  Compile targets within the project.
+  clean                  Clean the package store and remove temporary files.
+
+ [running and testing]
+  repl                   Open an interactive session for the given component.
+  run                    Run an executable.
+  test                   Run test-suites.
+
+ [sanity checks and shipping]
+  sdist                  Generate a source distribution file (.tar.gz).
+```
+
 ::: warning
 The architecture says nothing about more global issues such as how authors
 decide where in the module name space their library should live; how users can
@@ -90,7 +113,7 @@ executable cabal
 ...
 ```
 
-We can install `cabal` it again, showing that `cabal` can build and install
+We can install `cabal` it again[^1], showing that `cabal` can build and install
 local packages from source and when doing so downloads dependencies from
 Hackage, in this case `cabal-install-solver` and `hackage-security`.
 
@@ -267,3 +290,5 @@ not, the same way Cabal does, as the package description.
 [hpack]: https://github.com/sol/hpack
 [hpack-dhall]: https://github.com/cabalism/hpack-dhall#use
 
+[^1]: We recommend using GHCup to install `cabal` so it is best not to also
+    install it yourself by other means unless you intend to hack on Cabal.

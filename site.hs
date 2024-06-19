@@ -13,7 +13,11 @@ main = hakyll $ do
 
     match "css/*" $ do
         route idRoute
-        compile compressCssCompiler
+        compile copyFileCompiler
+
+    match "js/*" $ do
+        route idRoute
+        compile copyFileCompiler
 
     match "node_modules/@fortawesome/fontawesome-free/webfonts/*.*" $ do
         route $ customRoute (faFontRoute . toFilePath)

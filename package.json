@@ -4,13 +4,22 @@
     "@fortawesome/fontawesome-free": "^6.5.2",
     "@popperjs/core": "^2.11.8",
     "automated-a11y-sass": "link:automated-a11y-sass",
-    "bootstrap": "^5.3.3",
-    "jquery": "^3.7.1"
+    "bootstrap": "^5.3.3"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.8.1",
+    "purgecss": "^6.0.0",
     "sass": "^1.77.4"
   },
   "scripts": {
-    "style": "sass app.sass:css/app.css --load-path ./node_modules"
+    "js-copy-dir": "mkdir -p js",
+    "js-copy-bootstrap": "cp node_modules/bootstrap/dist/js/bootstrap.min.* js/",
+    "js-copy-popper": "cp node_modules/@popperjs/core/dist/umd/popper.min.js js/ && cp node_modules/@popperjs/core/dist/umd/popper.min.js.map js/",
+    "js-copy": "pnpm run js-copy-dir && pnpm run js-copy-bootstrap && pnpm run js-copy-popper",
+    "sass-to-css": "sass app.sass:css/app.css --load-path ./node_modules",
+    "sass-to-css-working": "mkdir -p .css-working && sass app.sass:.css-working/app.css --load-path ./node_modules",
+    "purge-css": "purgecss --config ./purge-css-static.config.js --css .css-working/app.css --output .css-working/as-purged.css",
+    "format-css": "cp .css-working/as-purged.css .css-working/as-formatted.css && biome format .css-working/as-formatted.css --write",
+    "style": "pnpm run sass-to-css-working && pnpm run purge-css && pnpm run format-css && cp .css-working/as-formatted.css css/app.css"
   }
 }

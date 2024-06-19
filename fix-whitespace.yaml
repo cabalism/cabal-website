@@ -6,6 +6,7 @@ excluded-dirs:
   - proposal*
   - node_modules
   - _site
+  - js
 
 included-files:
   - .gitignore

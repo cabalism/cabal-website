@@ -1,5 +1,5 @@
 module.exports = {
-    content: ['_site/**/*.html', '_site/**/*.js'],
-    variables: true,
-    fonts: true
+  content: ["templates/**/*.html", "js/**/*.js"],
+  variables: true,
+  fonts: true,
 };

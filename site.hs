@@ -2,8 +2,8 @@
 
 import Data.Foldable
 import Data.List (stripPrefix)
-import System.FilePath ((</>))
 import Hakyll
+import System.FilePath ((</>))
 
 main :: IO ()
 main = hakyll $ do
@@ -94,6 +94,6 @@ postCtx =
 
 faFontRoute :: FilePath -> FilePath
 faFontRoute x
-    | Just y <- stripPrefix "node_modules/@fortawesome/fontawesome-free/webfonts/" x
-    = "css" </> "fonts" </> y
+    | Just y <- stripPrefix "node_modules/@fortawesome/fontawesome-free/webfonts/" x =
+        "css" </> "fonts" </> y
     | otherwise = error $ "Unexpected fontawesome font of " ++ x

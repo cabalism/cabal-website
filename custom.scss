@@ -1,0 +1,14 @@
+@import "bootstrap/scss/_functions.scss";
+
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+
+$gray-100: tint-color($indigo, 80%);
+$gray-200: tint-color($indigo, 60%);
+$gray-300: tint-color($indigo, 40%);
+$gray-400: tint-color($indigo, 20%);
+$gray-500: $indigo;
+$gray-600: shade-color($indigo, 20%);
+$gray-700: shade-color($indigo, 40%);
+$gray-800: shade-color($indigo, 60%);
+$gray-900: shade-color($indigo, 80%);

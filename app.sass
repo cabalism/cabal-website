@@ -4,13 +4,14 @@
 @use "@fortawesome/fontawesome-free/scss/solid.scss" as * with ($fa-font-path: "./fonts")
 @use "@fortawesome/fontawesome-free/scss/brands.scss" as * with ($fa-font-path: "./fonts")
 
-@use "bootstrap/scss/bootstrap.scss" as *
+@use "./pandoc-solarized.css"
 
-@use "./pandoc-solarized.css" as *
+@import "custom.scss"
+@import "bootstrap/scss/bootstrap.scss"
 
 @include color-mode(dark)
-  #nav-side
-    background-image: linear-gradient(#303030, var(--bs-body-bg))
+    #nav-side
+        background-image: linear-gradient(#303030, var(--bs-body-bg))
 
 @include color-mode(light)
     #nav-side

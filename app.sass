@@ -8,8 +8,15 @@
 
 @use "./pandoc-solarized.css" as *
 
+@include color-mode(dark)
+  #nav-side
+    background-image: linear-gradient(#303030, var(--bs-body-bg))
+
+@include color-mode(light)
+    #nav-side
+        background-image: linear-gradient(#f1f1f1, var(--bs-body-bg))
+
 #nav-side
-    background-image: linear-gradient(#f1f1f1, var(--bs-body-bg))
     border: inherit
 
 #nav-side

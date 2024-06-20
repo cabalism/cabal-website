@@ -42,12 +42,14 @@
         </div>
     </div>
     <script>
-        var switchText = () => {
+        var switchColor = () => {
             if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
                 document.getElementById('btn-switch-color-mode').innerHTML = 'light'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
             }
             else {
                 document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
             }
         };
 
@@ -59,10 +61,10 @@
                 document.documentElement.setAttribute('data-bs-theme','dark')
             }
 
-            switchText();
+            switchColor();
         })
 
-        switchText();
+        switchColor();
     </script>
 </body>
 

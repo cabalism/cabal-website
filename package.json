@@ -22,7 +22,9 @@
     "format-copy": "cp .css-working/as-purged.css .css-working/as-formatted.css",
     "format-write": "biome format .css-working/as-formatted.css --write --no-errors-on-unmatched",
     "format-css": "pnpm run format-copy && pnpm run format-write",
-    "style": "pnpm run sass-to-css-working && pnpm run purge-css && pnpm run format-css && cp .css-working/as-formatted.css css/app.css",
+    "css-copy-dir": "mkdir -p css",
+    "css-copy": "cp .css-working/as-formatted.css css/app.css",
+    "style": "pnpm run sass-to-css-working && pnpm run purge-css && pnpm run format-css && pnpm run css-copy-dir && pnpm run css-copy",
     "build": "cabal run site -- clean && cabal run site -- build && pnpm run js-copy && pnpm run style && cabal run site -- build",
     "watch": "cabal run site -- watch"
   }

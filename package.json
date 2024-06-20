@@ -19,7 +19,7 @@
     "sass-to-css": "sass app.sass:css/app.css --load-path ./node_modules",
     "sass-to-css-working": "mkdir -p .css-working && sass app.sass:.css-working/app.css --load-path ./node_modules",
     "purge-css": "purgecss --config ./purge-css-static.config.js --css .css-working/app.css --output .css-working/as-purged.css",
-    "format-css": "cp .css-working/as-purged.css .css-working/as-formatted.css && biome format .css-working/as-formatted.css --write",
+    "format-css": "cp .css-working/as-purged.css .css-working/as-formatted.css && biome format .css-working/as-formatted.css --write --no-errors-on-unmatched",
     "style": "pnpm run sass-to-css-working && pnpm run purge-css && pnpm run format-css && cp .css-working/as-formatted.css css/app.css"
   }
 }

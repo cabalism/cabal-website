@@ -96,3 +96,31 @@ a.footnote-back
 
 #color-switch
     font-family: "monospace"
+
+div.info:before
+    content: "✓"
+    font-family: "monospace"
+    position: absolute
+    top: -0.8em
+    background-color: var(--bs-info-bg-subtle)
+    border: solid 1px var(--bs-info-border-subtle)
+    border-bottom: none
+    padding: 0.3em 1em
+    padding-bottom: 0
+
+div.warning:before
+    content: "!"
+    font-family: "monospace"
+    position: absolute
+    top: -0.8em
+    background-color: var(--bs-warning-bg-subtle)
+    border: solid 1px var(--bs-warning-border-subtle)
+    border-bottom: none
+    padding: 0.3em 1em
+    padding-bottom: 0
+
+div.info:hover:before
+    content: "Info"
+
+div.warning:hover:before
+    content: "Note"

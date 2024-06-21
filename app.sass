@@ -3,10 +3,11 @@
 @use "@fortawesome/fontawesome-free/scss/fontawesome.scss" as * with ($fa-font-path: "./fonts")
 @use "@fortawesome/fontawesome-free/scss/solid.scss" as * with ($fa-font-path: "./fonts")
 @use "@fortawesome/fontawesome-free/scss/brands.scss" as * with ($fa-font-path: "./fonts")
-
-@use "bootstrap/scss/bootstrap.scss" as *
-
 @use "./pandoc-solarized.css" as *
+
+// Use @import to override variables.
+@import "colors.scss"
+@import "bootstrap/scss/bootstrap.scss"
 
 @include color-mode(dark)
   #nav-side
@@ -15,6 +16,8 @@
 @include color-mode(light)
     #nav-side
         background-image: linear-gradient(#f1f1f1, var(--bs-body-bg))
+    #nav-side a.nav-link
+        color: $headings-color
 
 #nav-side
     border: inherit
@@ -30,9 +33,6 @@
     font-size: 1.4rem
     font-weight: 500
 
-a
-    color: a11y-color(#007bff, #fffff8)
-
 #content,
 #nav-side
     padding-top: 0.5rem
@@ -43,21 +43,43 @@ a
 .d-lg-none #content
     @extend .col-12
 
-div.error,
-div.info,
+// Bootstrap alerts with default colors are:
+//  - primary #cfe2ff
+//  - secondary #e2e3e5
+//  - success #d1e7dd
+//  - danger #f8d7da
+//  - warning #fff3cd
+//  - info #cff4fc
+//  - light #fcfcfd
+//  - dark #ced4da
+
+// Cabal .rst docs use note and warning admonitions only. These correspond to
+// Bootstrap's warning and danger, repsectivly. We'll add tip as a synonym for
+// info.
+.note
+    @extend .warning
+.tip
+    @extend .info
+
+div.success,
+div.danger,
 div.warning,
+div.info,
 div.sourceCode
     @extend .alert
     padding-bottom: 0
 
-div.error
-    @extend .alert-danger
+div.success
+    @extend .alert-success
 
-div.info
-    @extend .alert-info
+div.danger
+    @extend .alert-danger
 
 div.warning
     @extend .alert-warning
+
+div.info
+    @extend .alert-info
 
 div.sourceCode
     @extend .alert-light

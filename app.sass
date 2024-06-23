@@ -1,3 +1,6 @@
+// Cabal .rst docs use note and warning admonitions only. Add tip as a synonym for
+// info and note as a synonym for warning to match Bootstrap's alert classes.
+
 @use "sass:meta"
 
 @use "@fortawesome/fontawesome-free/scss/fontawesome.scss" as * with ($fa-font-path: "./fonts")
@@ -43,6 +46,12 @@
 .d-lg-none #content
     @extend .col-12
 
+pre.shell,
+pre.cabal
+    @extend .alert
+    @extend .alert-light
+    font-size: 0.6rem
+
 // Bootstrap alerts with default colors are:
 //  - primary #cfe2ff
 //  - secondary #e2e3e5
@@ -53,74 +62,86 @@
 //  - light #fcfcfd
 //  - dark #ced4da
 
-// Cabal .rst docs use note and warning admonitions only. These correspond to
-// Bootstrap's warning and danger, repsectivly. We'll add tip as a synonym for
-// info.
-.note
-    @extend .warning
-.tip
-    @extend .info
-
-div.success,
-div.danger,
-div.warning,
-div.info,
-div.sourceCode
-    @extend .alert
-    padding-bottom: 0
-
-div.success
-    @extend .alert-success
-
-div.danger
-    @extend .alert-danger
-
-div.warning
-    @extend .alert-warning
-
-div.info
-    @extend .alert-info
-
-div.sourceCode
-    @extend .alert-light
-    font-size: 0.6rem
-
-pre.shell,
-pre.cabal
-    @extend .alert
-    @extend .alert-light
-    font-size: 0.6rem
-
 a.footnote-back
     font-family: "Font Awesome 5 Free"
 
 #color-switch
     font-family: "monospace"
 
-div.info:before
-    content: "✓"
-    font-family: "monospace"
-    position: absolute
-    top: -0.8em
-    background-color: var(--bs-info-bg-subtle)
-    border: solid 1px var(--bs-info-border-subtle)
-    border-bottom: none
-    padding: 0.3em 1em
+div.sourceCode
+    @extend .alert
     padding-bottom: 0
 
-div.warning:before
-    content: "!"
-    font-family: "monospace"
-    position: absolute
-    top: -0.8em
-    background-color: var(--bs-warning-bg-subtle)
-    border: solid 1px var(--bs-warning-border-subtle)
-    border-bottom: none
-    padding: 0.3em 1em
+div.sourceCode
+    @extend .alert-light
+    font-size: 0.6rem
+
+div.success
+    @extend .alert, .alert-success
+    &:before
+        content: "✓"
+        background-color: var(--bs-success-bg-subtle)
+        border-color: var(--bs-success-border-subtle)
+    &:hover:before
+        content: "Success"
+
+div.danger
+    @extend .alert, .alert-danger
+    &:before
+        content: "✗"
+        background-color: var(--bs-danger-bg-subtle)
+        border-color: var(--bs-danger-border-subtle)
+    &:hover:before
+        content: "Danger"
+
+div.warning
+    @extend .alert, .alert-warning
+    &:before
+        content: "!"
+        background-color: var(--bs-warning-bg-subtle)
+        border-color: var(--bs-warning-border-subtle)
+    &:hover:before
+        content: "Warning"
+
+div.info
+    @extend .alert, .alert-info
+    &:before
+        content: "i"
+        background-color: var(--bs-info-bg-subtle)
+        border-color: var(--bs-info-border-subtle)
+    &:hover:before
+        content: "Info"
+
+div.note
+    @extend .warning, .alert-warning
+    &:before
+        content: "🗉"
+        background-color: var(--bs-warning-bg-subtle)
+        border-color: var(--bs-warning-border-subtle)
+    &:hover:before
+        content: "Note"
+
+div.tip
+    @extend .info, .alert-info
+    &:before
+        content: "🟓"
+        background-color: var(--bs-info-bg-subtle)
+        border-color: var(--bs-info-border-subtle)
+    &:hover:before
+        content: "Tip"
+
+div.success,
+div.danger,
+div.warning,
+div.info,
+div.note,
+div.tip
     padding-bottom: 0
-
-div.info:hover:before
-    content: "Info"
-
-div.warning:hover:before
-    content: "Note"
+    &:before
+        font-family: "monospace"
+        position: absolute
+        top: -0.8em
+        padding: 0.3em 1em
+        padding-bottom: 0
+        border-style: solid
+        border-width: 1px 1px 0 1px

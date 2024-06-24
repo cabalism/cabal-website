@@ -23,7 +23,10 @@ main = hakyll $ do
         route $ customRoute (faFontRoute . toFilePath)
         compile copyFileCompiler
 
-    match (fromList ["pages/download.md", "pages/faq.md", "pages/history.md"]) $ do
+    match
+        ( fromList
+            ["pages/sample.rst", "pages/download.md", "pages/faq.md", "pages/history.md"]
+        ) $ do
         route $ setExtension "html"
         compile $
             pandocCompiler

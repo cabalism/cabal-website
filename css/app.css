@@ -230,14 +230,20 @@ readers do not read off random characters that represent icons */
  */
 :root,
 [data-bs-theme=light] {
+  --bs-success-text-emphasis: rgba(0, 24, 0, 0.92);
   --bs-info-text-emphasis: #2a2b56;
   --bs-warning-text-emphasis: rgba(63, 63, 0, 0.92);
+  --bs-danger-text-emphasis: rgba(63, 0, 0, 0.92);
   --bs-light-text-emphasis: #495057;
+  --bs-success-bg-subtle: rgba(219, 230, 219, 0.96);
   --bs-info-bg-subtle: #e1e1f7;
   --bs-warning-bg-subtle: rgba(248, 248, 219, 0.96);
+  --bs-danger-bg-subtle: rgba(248, 219, 219, 0.96);
   --bs-light-bg-subtle: #fcfcfd;
+  --bs-success-border-subtle: rgba(177, 200, 177, 0.92);
   --bs-info-border-subtle: #c3c4ef;
   --bs-warning-border-subtle: rgba(239, 239, 177, 0.92);
+  --bs-danger-border-subtle: rgba(239, 177, 177, 0.92);
   --bs-light-border-subtle: #e9ecef;
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -282,14 +288,20 @@ readers do not read off random characters that represent icons */
   --bs-secondary-bg: #343a40;
   --bs-tertiary-color: rgba(222, 226, 230, 0.5);
   --bs-tertiary-bg: #2b3035;
+  --bs-success-text-emphasis: rgba(128, 166, 128, 0.88);
   --bs-info-text-emphasis: #a6a6e7;
   --bs-warning-text-emphasis: rgba(230, 230, 128, 0.88);
+  --bs-danger-text-emphasis: rgba(230, 128, 128, 0.88);
   --bs-light-text-emphasis: #f8f9fa;
+  --bs-success-bg-subtle: rgba(0, 11, 0, 0.96);
   --bs-info-bg-subtle: #15152b;
   --bs-warning-bg-subtle: rgba(29, 29, 0, 0.96);
+  --bs-danger-bg-subtle: rgba(29, 0, 0, 0.96);
   --bs-light-bg-subtle: #343a40;
+  --bs-success-border-subtle: rgba(0, 39, 0, 0.88);
   --bs-info-border-subtle: #404081;
   --bs-warning-border-subtle: rgba(102, 102, 0, 0.88);
+  --bs-danger-border-subtle: rgba(102, 0, 0, 0.88);
   --bs-light-border-subtle: #495057;
   --bs-heading-color: #6bc9dd;
   --bs-link-color: #6bc9dd;
@@ -1080,13 +1092,8 @@ summary {
   color: var(--bs-card-title-color);
 }
 
-.alert, pre.shell,
-pre.cabal,
-div.warning,
-div.note,
-div.info,
-div.tip,
-div.sourceCode {
+.alert, div.info, div.tip, div.warning, div.note, div.danger, div.success, div.sourceCode, pre.shell,
+pre.cabal {
   --bs-alert-bg: transparent;
   --bs-alert-padding-x: 1rem;
   --bs-alert-padding-y: 1rem;
@@ -1104,6 +1111,12 @@ div.sourceCode {
   border-radius: var(--bs-alert-border-radius);
 }
 
+ div.success {
+  --bs-alert-color: var(--bs-success-text-emphasis);
+  --bs-alert-bg: var(--bs-success-bg-subtle);
+  --bs-alert-border-color: var(--bs-success-border-subtle);
+}
+
  div.info, div.tip {
   --bs-alert-color: var(--bs-info-text-emphasis);
   --bs-alert-bg: var(--bs-info-bg-subtle);
@@ -1116,8 +1129,14 @@ div.sourceCode {
   --bs-alert-border-color: var(--bs-warning-border-subtle);
 }
 
- pre.shell,
-pre.cabal, div.sourceCode {
+ div.danger {
+  --bs-alert-color: var(--bs-danger-text-emphasis);
+  --bs-alert-bg: var(--bs-danger-bg-subtle);
+  --bs-alert-border-color: var(--bs-danger-border-subtle);
+}
+
+ div.sourceCode, pre.shell,
+pre.cabal {
   --bs-alert-color: var(--bs-light-text-emphasis);
   --bs-alert-bg: var(--bs-light-bg-subtle);
   --bs-alert-border-color: var(--bs-light-border-subtle);
@@ -1684,19 +1703,6 @@ pre.cabal, div.sourceCode {
   padding-top: 0.5rem;
 }
 
-
-div.warning,
-div.note,
-div.info,
-div.tip,
-div.sourceCode {
-  padding-bottom: 0;
-}
-
-div.sourceCode {
-  font-size: 0.6rem;
-}
-
 pre.shell,
 pre.cabal {
   font-size: 0.6rem;
@@ -1708,4 +1714,89 @@ a.footnote-back {
 
 #color-switch {
   font-family: "monospace";
+}
+
+div.sourceCode {
+  padding-bottom: 0;
+}
+
+div.sourceCode {
+  font-size: 0.6rem;
+}
+
+div.success:before {
+  content: "✓";
+  background-color: var(--bs-success-bg-subtle);
+  border-color: var(--bs-success-border-subtle);
+}
+div.success:hover:before {
+  content: "Success";
+}
+
+div.danger:before {
+  content: "✗";
+  background-color: var(--bs-danger-bg-subtle);
+  border-color: var(--bs-danger-border-subtle);
+}
+div.danger:hover:before {
+  content: "Danger";
+}
+
+div.warning:before, div.note:before {
+  content: "!";
+  background-color: var(--bs-warning-bg-subtle);
+  border-color: var(--bs-warning-border-subtle);
+}
+div.warning:hover:before, div.note:hover:before {
+  content: "Warning";
+}
+
+div.info:before, div.tip:before {
+  content: "i";
+  background-color: var(--bs-info-bg-subtle);
+  border-color: var(--bs-info-border-subtle);
+}
+div.info:hover:before, div.tip:hover:before {
+  content: "Info";
+}
+
+div.note:before {
+  content: "🗉";
+  background-color: var(--bs-warning-bg-subtle);
+  border-color: var(--bs-warning-border-subtle);
+}
+div.note:hover:before {
+  content: "Note";
+}
+
+div.tip:before {
+  content: "🟓";
+  background-color: var(--bs-info-bg-subtle);
+  border-color: var(--bs-info-border-subtle);
+}
+div.tip:hover:before {
+  content: "Tip";
+}
+
+div.success,
+div.danger,
+div.warning,
+div.info,
+div.note,
+div.tip {
+  padding-bottom: 0;
+}
+div.success:before,
+div.danger:before,
+div.warning:before,
+div.info:before,
+div.note:before,
+div.tip:before {
+  font-family: "monospace";
+  position: absolute;
+  top: -0.8em;
+  padding: 0.3em 1em;
+  padding-bottom: 0;
+  border-style: solid;
+  border-width: 1px 1px 0 1px;
 }

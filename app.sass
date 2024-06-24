@@ -122,13 +122,21 @@ div.note
         content: "Note"
 
 div.tip
-    @extend .info, .alert-info
+    @extend .success, .alert-success
     &:before
         content: "🟓"
-        background-color: var(--bs-info-bg-subtle)
-        border-color: var(--bs-info-border-subtle)
+        background-color: var(--bs-success-bg-subtle)
+        border-color: var(--bs-success-border-subtle)
     &:hover:before
         content: "Tip"
+
+div.danger,
+div.warning,
+div.note,
+div.tip
+    div.title > p
+        position: absolute
+        visibility: hidden
 
 div.success,
 div.danger,

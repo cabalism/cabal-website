@@ -10,11 +10,13 @@
             $description$
         </p>
     $endif$
-    <p>
-    <em>Posted $date$
-    $if(author)$
-        by $author$
+    $if(date)$
+        <p>
+        <em>Posted $date$
+        $if(author)$
+            by $author$
+        $endif$
+        </em>
+        </p>
     $endif$
-    </em>
-    </p>
 </section>

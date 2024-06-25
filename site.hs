@@ -26,12 +26,14 @@ main = hakyll $ do
     match
         ( fromList
             ["pages/sample.rst", "pages/download.md", "pages/faq.md", "pages/history.md"]
-        ) $ do
-        route $ setExtension "html"
-        compile $
-            pandocCompiler
-                >>= loadAndApplyTemplate "templates/default.html" defaultContext
-                >>= relativizeUrls
+        )
+        $ do
+            route $ setExtension "html"
+            compile $
+                pandocCompiler
+                    >>= loadAndApplyTemplate "templates/post.html" postCtx
+                    >>= loadAndApplyTemplate "templates/default.html" defaultContext
+                    >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"

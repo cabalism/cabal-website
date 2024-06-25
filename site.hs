@@ -91,7 +91,7 @@ main = hakyll $ do
 postCtx :: Context String
 postCtx =
     fold
-        [ dateField "date" "%B %e, %Y"
+        [ dateField "date" "%Y-%m-%d"
         , defaultContext
         ]
 

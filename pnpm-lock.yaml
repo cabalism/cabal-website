@@ -14,9 +14,6 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
-      automated-a11y-sass:
-        specifier: link:automated-a11y-sass
-        version: link:automated-a11y-sass
       bootstrap:
         specifier: ^5.3.3
         version: 5.3.3(@popperjs/core@2.11.8)

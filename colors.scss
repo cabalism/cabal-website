@@ -13,8 +13,9 @@ $cabal-background-dark: #303030;
 
 $headings-color: $cabal-bottom;
 $headings-color-dark: $cabal-top-dark;
-$link-color: $headings-color;
-$link-color-dark: $headings-color-dark;
+
+$link-color: $cabal-star;
+$link-color-dark: $cabal-bottom-dark;
 
 $primary: $cabal-star;
 $info: $cabal-bottom-dark;

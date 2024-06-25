@@ -1,5 +1,5 @@
 ---
-title: "FAQ"
+title: Frequently Asked Questions
 ---
 
 Select the name of a problem to jump to a full explanation and solution.

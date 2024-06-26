@@ -1,10 +1,15 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+import Data.Char (isDigit)
 import Data.Foldable
-import Data.List (stripPrefix, isPrefixOf)
+import Data.Function (on)
+import Data.List (isPrefixOf, sortBy, stripPrefix)
+import Data.Ord (Down (..))
+import Data.Version (Version (..), parseVersion)
 import Hakyll
 import Hakyll.Core.Item (Item (..))
-import System.FilePath ((</>), takeBaseName)
+import System.FilePath (takeBaseName, (</>))
+import Text.ParserCombinators.ReadP (ReadP, readP_to_S)
 
 main :: IO ()
 main = hakyll $ do
@@ -57,11 +62,13 @@ main = hakyll $ do
         compile $ do
             versions <- loadAll "release-notes/*"
             let
-                filterOn s = filter ((s `isPrefixOf`) . takeBaseName . toFilePath . itemIdentifier) versions
+                title = takeBaseName . toFilePath . itemIdentifier
+                filterOn s = filter ((s `isPrefixOf`) . title) versions
+                order = sortBy (compare `on` (Down . versionOf . title))
 
-                libs = filterOn "Cabal-"
-                exes = filterOn "cabal-install-"
-                wips = filterOn "WIP-"
+                libs = order $ filterOn "Cabal-"
+                exes = order $ filterOn "cabal-install-"
+                wips = order $ filterOn "WIP-"
 
                 ctx =
                     fold
@@ -134,3 +141,15 @@ faFontRoute x
     | Just y <- stripPrefix "node_modules/@fortawesome/fontawesome-free/webfonts/" x =
         "css" </> "fonts" </> y
     | otherwise = error $ "Unexpected fontawesome font of " ++ x
+
+versionOf :: String -> Maybe Version
+versionOf s = runReadP parseVersion version
+    where
+        version :: String
+        version = filter (\x -> isDigit x || x == '.') s
+
+-- SEE: hspec's BumpVersion.hs
+runReadP :: ReadP a -> String -> Maybe a
+runReadP p input = case reverse $ readP_to_S p input of
+    (v, "") : _ -> Just v
+    _ -> Nothing

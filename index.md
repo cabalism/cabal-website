@@ -8,30 +8,6 @@ Cabal is an acronym of **C**ommon **A**rchitecture for **B**uilding
 **A**pplications and **L**ibraries. Central to this architecture is `cabal`, the
 executable (exe) build tool from the [cabal-install][cabal-install-pkg] package.
 
-::: tip
-This is a tip
-:::
-
-::: info
-This is information
-:::
-
-::: note
-This is a note
-:::
-
-::: warning
-This is a warning
-:::
-
-::: success
-This is success
-:::
-
-::: danger
-This is danger
-:::
-
 ::: info
 This architecture defines a common interface for package authors and
 distributors to easily build their applications in a portable way. It is part of

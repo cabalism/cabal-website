@@ -1,6 +1,6 @@
 ---
 title: Downloading Cabal
-subtitle: Ways to download and install Cabal's executable tool, <kbd>cabal-install:exe:cabal</kbd>.
+subtitle: Ways to download and install Cabal's executable tool, <samp>cabal-install:exe:cabal</samp>.
 ---
 
 **Note:** Most people already have Cabal because it is included in the [Haskell Platform](http://www.haskell.org/platform/)

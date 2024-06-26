@@ -25,13 +25,13 @@ main = hakyll $ do
 
     match
         ( fromList
-            ["pages/sample.rst", "pages/download.md", "pages/faq.md", "pages/history.md"]
+            ["pages/download.md", "pages/faq.md", "pages/history.md"]
         )
         $ do
             route $ setExtension "html"
             compile $
                 pandocCompiler
-                    >>= loadAndApplyTemplate "templates/post.html" postCtx
+                    >>= loadAndApplyTemplate "templates/post.html" dateCtx
                     >>= loadAndApplyTemplate "templates/default.html" defaultContext
                     >>= relativizeUrls
 
@@ -39,8 +39,32 @@ main = hakyll $ do
         route $ setExtension "html"
         compile $
             pandocCompiler
-                >>= loadAndApplyTemplate "templates/post.html" postCtx
-                >>= loadAndApplyTemplate "templates/default.html" postCtx
+                >>= loadAndApplyTemplate "templates/post.html" dateCtx
+                >>= loadAndApplyTemplate "templates/default.html" dateCtx
+                >>= relativizeUrls
+
+    match "release-notes/*" $ do
+        route $ setExtension "html"
+        compile $
+            pandocCompiler
+                >>= loadAndApplyTemplate "templates/post.html" dateCtx
+                >>= loadAndApplyTemplate "templates/default.html" dateCtx
+                >>= relativizeUrls
+
+    create ["releases/index.html"] $ do
+        route idRoute
+        compile $ do
+            versions <- loadAll "release-notes/*"
+            let
+                ctx =
+                    fold
+                        [ listField "versions" defaultContext (return versions)
+                        , defaultContext
+                        ]
+
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/releases.html" ctx
+                >>= loadAndApplyTemplate "templates/default.html" ctx
                 >>= relativizeUrls
 
     create ["blog/index.html"] $ do
@@ -48,16 +72,15 @@ main = hakyll $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let
-                archiveCtx =
+                ctx =
                     fold
-                        [ listField "posts" postCtx (return posts)
-                        , constField "title" "Archives"
+                        [ listField "posts" dateCtx (return posts)
                         , defaultContext
                         ]
 
             makeItem ""
-                >>= loadAndApplyTemplate "templates/blog.html" archiveCtx
-                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+                >>= loadAndApplyTemplate "templates/blog.html" ctx
+                >>= loadAndApplyTemplate "templates/default.html" ctx
                 >>= relativizeUrls
 
     match "index.md" $ do
@@ -67,7 +90,7 @@ main = hakyll $ do
             let
                 indexCtx =
                     fold
-                        [ listField "posts" postCtx (return posts)
+                        [ listField "posts" dateCtx (return posts)
                         , defaultContext
                         ]
 
@@ -90,8 +113,8 @@ main = hakyll $ do
         route idRoute
         compile $ getResourceBody >>= relativizeUrls
 
-postCtx :: Context String
-postCtx =
+dateCtx :: Context String
+dateCtx =
     fold
         [ dateField "date" "%Y-%m-%d"
         , defaultContext

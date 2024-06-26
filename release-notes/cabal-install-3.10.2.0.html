@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Cabal">
+<meta name="description" content="Build Haskell applications and libraries">
+
+    <title>cabal-install-3.10.2.0</title>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../images/Cabal-tiny.png" rel="icon">
+
+</head>
+
+<body>
+    <div class="d-lg-none">
+        <div id="nav-top" class="d-print-none">
+            <nav>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">docs</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/download.html">download</a></li>
+        <li class="nav-item"><a class="nav-link" href="../releases/">releases</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/history.html">history</a></li>
+    </ul>
+</nav>
+
+        </div>
+        <div id="content" class="d-print-col-12">
+            <article>
+    <section class="header">
+    <h2 class="display-4">cabal-install-3.10.2.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-install-and-cabal-install-solver-3.10.2.0-changelog-and-release-notes">cabal-install and cabal-install-solver 3.10.2.0 changelog and release notes</h2>
+<h2 id="release-3.10.2.0-is-strictly-a-bug-fix-release-with-the-fixes-listed-below">Release 3.10.2.0 is strictly a bug-fix release, with the fixes listed below</h2>
+<ul>
+<li><p>Fix parsing of password-command option <a href="https://github.com/haskell/cabal/pull/9002">#9002</a></p>
+<p>The password-command option did not parse its value correctly.
+Quotes were ignored, making many kinds of commands impossible to
+express (e.g. <code>sh -c "foo | bar"</code>). Also, <code>cabal user-config</code>
+treated the argument list as a <em>list of option values</em>, rather than a
+<em>value that is a list</em>. As a consequence, <code>cabal user-config update</code> corrupted the value in the config file.</p>
+<p>Fixed these issues by parsing the command as a space separated list
+of tokens (which may be enclosed in double quotes), and treating the
+parsed list-of-token as one value (not multiple).</p></li>
+<li><p>Existence of $XDG_CONFIG_HOME/cabal/config now overrides existence of $HOME/.cabal <a href="https://github.com/haskell/cabal/issues/8577">#8577</a></p>
+<p>To avoid pre-XDG backwards compatibility from triggering due to other
+tools accidentally creating a <span class="math inline"><em>H</em><em>O</em><em>M</em><em>E</em>/.<em>c</em><em>a</em><em>b</em><em>a</em><em>l</em><em>d</em><em>i</em><em>r</em><em>e</em><em>c</em><em>t</em><em>o</em><em>r</em><em>y</em>, <em>t</em><em>h</em><em>e</em><em>p</em><em>r</em><em>e</em><em>s</em><em>e</em><em>n</em><em>c</em><em>e</em><em>o</em><em>f</em></span>XDG_CONFIG_HOME/cabal/config now disables pre-XDG backwards
+compatibility. Presumably $XDG_CONFIG_HOME/cabal/config will never be
+created by accident.</p></li>
+<li><p>Shorten script-builds paths <a href="https://github.com/haskell/cabal/issues/8841">#8841</a> <a href="https://github.com/haskell/cabal/pull/8898">#8898</a></p>
+<ul>
+<li>Use Base64 hash truncated to 26 chars for script-build cache directories.</li>
+<li>Use the cache directory as the dist directory.</li>
+<li>Use script-<your-sanitized-script-name> as the component name instead of cabal-script-&lt;…&gt;.</li>
+<li>Use cabal-script-<your-actual-script-name> for the executable name.</li>
+<li>This change is incompatible with previous cabal versions in terms of cache location,
+you should manually remove your old caches once you no longer need them.</li>
+</ul></li>
+<li><p>Don’t add <code>extra-prog-path: ~/.local/bin</code> when initially creating <code>~/.config/cabal/config</code> <a href="https://github.com/haskell/cabal/issues/8951">#8951</a></p></li>
+<li><p>Use compiler flags for caching project config <a href="https://github.com/haskell/cabal/pull/8819">#8819</a></p>
+<p>This ensures that cached project configs with conditionals re-execute the conditional logic when the compiler changes.</p></li>
+<li><p>Fix default Nix configuration option in generated ~/.cabal/config file <a href="https://github.com/haskell/cabal/pull/8878">#8878</a></p>
+<p>Fixes the default for ~/.cabal/config file. The nix option should now be commented out by default.</p></li>
+<li><p>add base to cabal install –lib default env file <a href="https://github.com/haskell/cabal/pull/8903">#8903</a></p>
+<p>This adds base by default to the env file created by <code>cabal install --lib</code>. Further it ensures that packagedbs have been created before adding them to the env file.</p></li>
+<li><p>Do not check PVP on internal targets <a href="https://github.com/haskell/cabal/issues/8361">#8361</a> <a href="https://github.com/haskell/cabal/pull/9004">#9004</a></p>
+<ul>
+<li><code>cabal check</code> will not check for dependencies upper bounds in internal
+targets (i.e. test-suites and benchmarks)</li>
+</ul></li>
+<li><p>Add new Hackage root keys to bootstrap set <a href="https://github.com/haskell/cabal/pull/9068">#9068</a></p>
+<p>The two new <a href="https://github.com/haskell-infra/hackage-root-keys/tree/master/root-keys">Hackage root keyholders</a> were added to the bootstrap set.</p>
+<ul>
+<li>Added Hackage root key for Joachim Breitner</li>
+<li>Added Hackage root key for Mathieu Boespflug</li>
+</ul></li>
+</ul>
+    </section>
+</article>
+
+            <hr />
+            <footer>
+                <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+            </footer>
+        </div>
+    </div>
+    <div class="d-none d-lg-block">
+        <div class="fluid-container">
+            <div class="row">
+                <div id="nav-side" class="col-2 card d-print-none">
+                    <div class="card-body">
+    <h1 class="card-title" title="Cabal"><a href="../"><img id="img-logo" src="../images/Cabal-light.png" style="width:80%"></a></h1>
+
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">
+                    <i class="fa fa-book"></i>
+                    docs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/download.html">
+                    <i class="fa fa-download"></i>
+                    download</a></li>
+            <li class="nav-item"><a class="nav-link" href="../releases/">
+                    <i class="fa fa-calendar"></i>
+                    releases</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">
+                    <i class="fa fa-question-circle"></i>
+                    FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="../blog/">
+                    <i class="fa fa-pen-nib"></i>
+                    blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/history.html">
+                    <i class="fa fa-clock-rotate-left"></i>
+                    history</a></li>
+        </ul>
+    </nav>
+    <div class="card">
+        <div class="card-body">
+            <span id="color-switch">set color&nbsp;<a class="link" id="btn-switch-color-mode">light</a></span>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <div id="content" class="d-print-col-12">
+                    <article>
+    <section class="header">
+    <h2 class="display-4">cabal-install-3.10.2.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-install-and-cabal-install-solver-3.10.2.0-changelog-and-release-notes">cabal-install and cabal-install-solver 3.10.2.0 changelog and release notes</h2>
+<h2 id="release-3.10.2.0-is-strictly-a-bug-fix-release-with-the-fixes-listed-below">Release 3.10.2.0 is strictly a bug-fix release, with the fixes listed below</h2>
+<ul>
+<li><p>Fix parsing of password-command option <a href="https://github.com/haskell/cabal/pull/9002">#9002</a></p>
+<p>The password-command option did not parse its value correctly.
+Quotes were ignored, making many kinds of commands impossible to
+express (e.g. <code>sh -c "foo | bar"</code>). Also, <code>cabal user-config</code>
+treated the argument list as a <em>list of option values</em>, rather than a
+<em>value that is a list</em>. As a consequence, <code>cabal user-config update</code> corrupted the value in the config file.</p>
+<p>Fixed these issues by parsing the command as a space separated list
+of tokens (which may be enclosed in double quotes), and treating the
+parsed list-of-token as one value (not multiple).</p></li>
+<li><p>Existence of $XDG_CONFIG_HOME/cabal/config now overrides existence of $HOME/.cabal <a href="https://github.com/haskell/cabal/issues/8577">#8577</a></p>
+<p>To avoid pre-XDG backwards compatibility from triggering due to other
+tools accidentally creating a <span class="math inline"><em>H</em><em>O</em><em>M</em><em>E</em>/.<em>c</em><em>a</em><em>b</em><em>a</em><em>l</em><em>d</em><em>i</em><em>r</em><em>e</em><em>c</em><em>t</em><em>o</em><em>r</em><em>y</em>, <em>t</em><em>h</em><em>e</em><em>p</em><em>r</em><em>e</em><em>s</em><em>e</em><em>n</em><em>c</em><em>e</em><em>o</em><em>f</em></span>XDG_CONFIG_HOME/cabal/config now disables pre-XDG backwards
+compatibility. Presumably $XDG_CONFIG_HOME/cabal/config will never be
+created by accident.</p></li>
+<li><p>Shorten script-builds paths <a href="https://github.com/haskell/cabal/issues/8841">#8841</a> <a href="https://github.com/haskell/cabal/pull/8898">#8898</a></p>
+<ul>
+<li>Use Base64 hash truncated to 26 chars for script-build cache directories.</li>
+<li>Use the cache directory as the dist directory.</li>
+<li>Use script-<your-sanitized-script-name> as the component name instead of cabal-script-&lt;…&gt;.</li>
+<li>Use cabal-script-<your-actual-script-name> for the executable name.</li>
+<li>This change is incompatible with previous cabal versions in terms of cache location,
+you should manually remove your old caches once you no longer need them.</li>
+</ul></li>
+<li><p>Don’t add <code>extra-prog-path: ~/.local/bin</code> when initially creating <code>~/.config/cabal/config</code> <a href="https://github.com/haskell/cabal/issues/8951">#8951</a></p></li>
+<li><p>Use compiler flags for caching project config <a href="https://github.com/haskell/cabal/pull/8819">#8819</a></p>
+<p>This ensures that cached project configs with conditionals re-execute the conditional logic when the compiler changes.</p></li>
+<li><p>Fix default Nix configuration option in generated ~/.cabal/config file <a href="https://github.com/haskell/cabal/pull/8878">#8878</a></p>
+<p>Fixes the default for ~/.cabal/config file. The nix option should now be commented out by default.</p></li>
+<li><p>add base to cabal install –lib default env file <a href="https://github.com/haskell/cabal/pull/8903">#8903</a></p>
+<p>This adds base by default to the env file created by <code>cabal install --lib</code>. Further it ensures that packagedbs have been created before adding them to the env file.</p></li>
+<li><p>Do not check PVP on internal targets <a href="https://github.com/haskell/cabal/issues/8361">#8361</a> <a href="https://github.com/haskell/cabal/pull/9004">#9004</a></p>
+<ul>
+<li><code>cabal check</code> will not check for dependencies upper bounds in internal
+targets (i.e. test-suites and benchmarks)</li>
+</ul></li>
+<li><p>Add new Hackage root keys to bootstrap set <a href="https://github.com/haskell/cabal/pull/9068">#9068</a></p>
+<p>The two new <a href="https://github.com/haskell-infra/hackage-root-keys/tree/master/root-keys">Hackage root keyholders</a> were added to the bootstrap set.</p>
+<ul>
+<li>Added Hackage root key for Joachim Breitner</li>
+<li>Added Hackage root key for Mathieu Boespflug</li>
+</ul></li>
+</ul>
+    </section>
+</article>
+
+                    <hr />
+                    <footer>
+                        <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var switchColor = () => {
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'light'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
+            }
+            else {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
+            }
+        };
+
+        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.documentElement.setAttribute('data-bs-theme','light')
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme','dark')
+            }
+
+            switchColor();
+        })
+
+        switchColor();
+    </script>
+</body>
+
+</html>

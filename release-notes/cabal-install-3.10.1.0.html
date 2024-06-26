@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Cabal">
+<meta name="description" content="Build Haskell applications and libraries">
+
+    <title>cabal-install-3.10.1.0</title>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../images/Cabal-tiny.png" rel="icon">
+
+</head>
+
+<body>
+    <div class="d-lg-none">
+        <div id="nav-top" class="d-print-none">
+            <nav>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">docs</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/download.html">download</a></li>
+        <li class="nav-item"><a class="nav-link" href="../releases/">releases</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/history.html">history</a></li>
+    </ul>
+</nav>
+
+        </div>
+        <div id="content" class="d-print-col-12">
+            <article>
+    <section class="header">
+    <h2 class="display-4">cabal-install-3.10.1.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-install-and-cabal-install-solver-3.10.1.0-changelog-and-release-notes">cabal-install and cabal-install-solver 3.10.1.0 changelog and release notes</h2>
+<p>Release 3.10.1.0 of cabal now sets the <code>--enable-documentation</code> option by default
+when running <code>cabal haddock</code> (https://github.com/haskell/cabal/issues/7462).
+If the new default does not fit your workflow, pass an explicit <code>--disable-documentation</code>
+option or consider (helping to implement) the other workarounds proposed
+in https://github.com/haskell/cabal/issues/8725.</p>
+<p>This version of cabal introduces support for JS cross-compilation (https://github.com/haskell/cabal/pull/8636).
+We’ve seen related Windows segfaults on CI, so please kindly report if you can reproduce either
+cabal or GHC segfaults when cross-compiling for JS or compiling normally but with any files
+listed in the <code>js-sources</code> field of a .cabal file.</p>
+<p>This release of cabal also fixes a lot of bugs in cabal 3.8.1.0 and not all of the fixes
+are listed here.</p>
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p><code>Cabal-3.10.1.0</code> is used, which brings <a href="./Cabal-3.10.1.0.md">its own set of changes</a>,
+many of which are significant. The Cabal and Cabal-syntax changes that touch
+the cabal-install or cabal-install-solver codebases are pasted here again in full.</p></li>
+<li><p>Add support for the XDG Base Directory Specification <a href="https://github.com/haskell/cabal/issues/680">#680</a> <a href="https://github.com/haskell/cabal/pull/7386">#7386</a></p>
+<p>Cabal/cabal-install now uses the XDG Base Directory Specification to
+store configuration, caches, and the store. Specifically,
+<code>$XDG_CONFIG_HOME/cabal</code> stores the configuration file,
+<code>$XDG_CACHE_HOME/cabal</code> stores downloaded packages and similar, and
+<code>$XDG_STATE_HOME/cabal</code> mainly contains the store of compiled
+packages. Further, <code>cabal install</code> will put executables in
+<code>~/.local/bin</code> by default.</p>
+<p>The <code>dist</code>/<code>dist-newstyle</code> directories are not affected.</p>
+<p>On Windows, these XDG paths are mapped to other (hopefully)
+appropriate locations. See the Cabal User Guide for information.</p>
+<p>If the <code>CABAL_DIR</code> environment variable is set, the indicated
+directory will be used to store all Cabal-related files, as in
+previous versions.</p>
+<p><strong>Backwards compatibility</strong>: If <code>~/.cabal</code> already exists, this will be
+interpreted as <code>CABAL_DIR=~/.cabal</code>. This means that upgrading on an
+existing system already using cabal-install should not cause any
+change in behaviour. An existing system can be migrated by deleting
+<code>~/.cabal</code> (possibly copying <code>~/.cabal/config</code> to
+<code>~/.config/cabal/config</code> first).</p></li>
+<li><p>Add <code>installDirs</code> (<code>datadir</code>, etc) to v2-build and remove them from v2-install <a href="https://github.com/haskell/cabal/pull/8556">#8556</a></p>
+<ul>
+<li>Passes through <code>--prefix</code>, <code>--datadir</code> and other <code>installdir</code>-arguments properly in v2-build, allowing its use in preparing somewhat more relocatable compilation targets (no worse than v1-build).</li>
+<li>Removes these flags (which never worked) from v2-install</li>
+</ul></li>
+<li><p>No global packages auto written to environment files, allow <code>--force-reinstalls</code> <a href="https://github.com/haskell/cabal/issues/5559">#5559</a> <a href="https://github.com/haskell/cabal/issues/6165">#6165</a> <a href="https://github.com/haskell/cabal/pull/8607">#8607</a></p>
+<ul>
+<li>When v2-install runs on a library, it does not pin global packages in the env file, only those directly necessary for the library.</li>
+</ul></li>
+<li><p>Add support for GHC 9.4+ <code>-fprof-late</code> flag <a href="https://github.com/haskell/cabal/pull/8528">#8528</a></p>
+<ul>
+<li>This adds the new <code>late-toplevel</code> (and its alias <code>late</code>) profiling-detail option which enables <code>-fprof-late</code>-based automatic cost centre annotations for GHCs that support it (<a href="https://downloads.haskell.org/ghc/9.4.1/docs/users_guide/profiling.html#ghc-flag--fprof-late">earliest is GHC 9.4.1</a>).</li>
+</ul></li>
+<li><p>Added <code>haddock-project</code> command <a href="https://github.com/haskell/cabal/issues/7669">#7669</a> <a href="https://github.com/haskell/cabal/pull/8162">#8162</a></p>
+<p>The <code>haddock-project</code> command can be used to build documentation of multiple
+packages. By passing <code>--local</code> option the directory will be self contained,
+by passing <code>--hackage</code> links to dependencies will link to <code>hackage</code>. Both
+<code>--local</code> and <code>--hackage</code> options imply <code>--quickfix</code>, <code>--gen-index</code>,
+<code>--gen-contents</code>, and <code>--hyperlinked-source</code>.</p>
+<p>Building self contained directory is the default, unless <code>--hackage</code> or
+<code>--html-location</code>.</p>
+<p>The PR #8162 also fixes the <code>--with-haddock</code> option.</p></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Pretty-print run targets on failure <a href="https://github.com/haskell/cabal/issues/8189">#8189</a> <a href="https://github.com/haskell/cabal/pull/8234">#8234</a></p>
+<ul>
+<li>Targets of the <code>run</code> command are pretty-printed when failing due to multiple targets.</li>
+<li>Duplicate targets are removed in the output.</li>
+</ul></li>
+<li><p>Expose <code>BuildFlags</code> and <code>ClientHaddockFlags</code> <a href="https://github.com/haskell/cabal/issues/8351">#8351</a> <a href="https://github.com/haskell/cabal/pull/8353">#8353</a></p>
+<p>Some types are present in public functions in cabal-install, but they are not exported.
+This PR fix it for BuildFlags and ClientHaddockFlags.</p></li>
+<li><p><code>cabal man</code> handles <code>$PAGER</code> containing arguments now <a href="https://github.com/haskell/cabal/issues/8405">#8405</a> <a href="https://github.com/haskell/cabal/pull/8353">#8353</a></p>
+<p>Things like <code>PAGER="less -FX" cabal man</code> work now.</p>
+<p>There’s a slight change in the default behavior. We still use <code>less -R</code> as the default,
+but if the user passes <code>PAGER=less</code>, we won’t add -R to that, unlike before. This is
+reasonable, as the user should be able to set the variable as they see fit.</p></li>
+<li><p>Fix issue with “nix” config option <a href="https://github.com/haskell/cabal/issues/8452">#8452</a> <a href="https://github.com/haskell/cabal/pull/8522">#8522</a></p>
+<p>Nix option in config file was broken with <a href="https://github.com/haskell/cabal/pull/8054">#8054</a>, this should fix it.</p></li>
+<li><p>“Build profile” message now reflects optimization level set in global config <a href="https://github.com/haskell/cabal/issues/8487">#8487</a> <a href="https://github.com/haskell/cabal/pull/8488">#8488</a></p>
+<p>Imagine you have <code>optimization: 2</code> in your <code>~/.cabal/config</code>, and you call <code>cabal build</code>
+in a project that doesn’t have optimization level explicitly set in its project file.
+You will still see ‘Build profile: -w ghc-<VER> -O1’. This is incorrect and was fixed
+in this patch: now you’ll see ‘-O2’.</p></li>
+<li><p><code>ghc</code>, <code>ghc-boot</code>, <code>ghci</code> packages should be non-upgradable <a href="https://github.com/haskell/cabal/issues/8489">#8489</a> <a href="https://github.com/haskell/cabal/pull/8501">#8501</a></p>
+<ul>
+<li>Changed both <code>Distribution.Client.Dependency</code>’s <code>dontUpgradeNonUpgradeablePackages</code>
+and <code>Distribution.Solver.Modular.Solver</code>’s <code>nonInstallable</code> to be in sync.</li>
+</ul></li>
+<li><p>Apply command line flags to install packages <a href="https://github.com/haskell/cabal/issues/8637">#8637</a> <a href="https://github.com/haskell/cabal/pull/8779">#8779</a></p>
+<ul>
+<li>Command line flags usually only apply to “local” packages (packages specified
+in the cabal.project). This change causes the v2-install command to ignore
+that distinction to better match the expected behavior for packages specified
+directly in the command.</li>
+</ul></li>
+<li><p>Print a warning when assertions are enabled <a href="https://github.com/haskell/cabal/issues/4377">#4377</a> <a href="https://github.com/haskell/cabal/pull/8240">#8240</a></p>
+<ul>
+<li>Now cabal-install executable will print a warning if assertions are enabled</li>
+</ul></li>
+<li><p>Implement <code>--prefer-oldest</code> <a href="https://github.com/haskell/cabal/pull/8261">#8261</a></p>
+<ul>
+<li>The new flag makes Cabal solver try to find a build plan with the oldest versions possible. This is useful to establish lower bounds.</li>
+</ul></li>
+<li><p>Update and sdist now only check for compiler when project file has conditionals <a href="https://github.com/haskell/cabal/issues/8352">#8352</a> <a href="https://github.com/haskell/cabal/issues/8550">#8550</a> <a href="https://github.com/haskell/cabal/issues/8589">#8589</a> <a href="https://github.com/haskell/cabal/pull/8358">#8358</a> <a href="https://github.com/haskell/cabal/pull/8627">#8627</a></p>
+<ul>
+<li>Cabal update and sdist will not require a ghc in path unless the project has conditionals that require it</li>
+</ul></li>
+<li><p>Allow offline bootstrapping of cabal-install <a href="https://github.com/haskell/cabal/pull/8368">#8368</a></p>
+<ul>
+<li>The bootstrap script for cabal-install now supports fetching the sources of the dependencies in a separate step.
+One can then copy over the resulting archive and perform offline bootstrapping of cabal-install.</li>
+</ul></li>
+<li><p>Pass some haddock flags to dependencies <a href="https://github.com/haskell/cabal/issues/395">#395</a> <a href="https://github.com/haskell/cabal/issues/8104">#8104</a> <a href="https://github.com/haskell/cabal/pull/8414">#8414</a></p>
+<ul>
+<li>Pass <code>--haddock-hoogle</code>, <code>--haddock-html</code>, <code>--haddock-internal</code>, <code>--haddock-quickjump</code>, <code>--haddock-hyperlinked-source</code>
+to all the dependencies if they are specified as command line args</li>
+</ul></li>
+<li><p>build pkgconfig db individually when bulk fails <a href="https://github.com/haskell/cabal/issues/8494">#8494</a> <a href="https://github.com/haskell/cabal/pull/8496">#8496</a></p>
+<ul>
+<li>When pkg-config fails to get versions for all packages in bulk, falls back to querying one-by-one.</li>
+</ul></li>
+<li><p>improve install target handling logic regarding of project files <a href="https://github.com/haskell/cabal/issues/8094">#8094</a> <a href="https://github.com/haskell/cabal/issues/8352">#8352</a> <a href="https://github.com/haskell/cabal/pull/8498">#8498</a></p>
+<ul>
+<li>fixes an issue where <code>cabal install pkg-x.y.z</code> fails unless <code>--ignore-project</code> is given</li>
+<li>fixes an issue where <code>cabal install --ignore-project</code> crashes when a project file is present</li>
+</ul></li>
+<li><p>Redownload packages when source hash verification fails <a href="https://github.com/haskell/cabal/issues/7541">#7541</a> <a href="https://github.com/haskell/cabal/pull/8500">#8500</a></p>
+<ul>
+<li>Cabal-install will verify source hashes on cached downloads against the current index, and redownload on mismatch. (Which can occur with e.g. head.hackage)</li>
+</ul></li>
+<li><p><code>cabal init -i</code> should sanitize package name guessed from the directory name <a href="https://github.com/haskell/cabal/issues/8404">#8404</a> <a href="https://github.com/haskell/cabal/pull/8561">#8561</a></p>
+<p>If the current directory name has any non-alphanumeric symbols in its name, the symbols will be replaced with a dash. Also, will make sure that the resulting package name starts with a letter.</p>
+<p>This worked for cabal init -n already, and this PR only moves code around so that cabal init -i also benefits from this logic.</p></li>
+<li><p>Support <code>js-sources</code> with GHC, not only with GHCJS <a href="https://github.com/haskell/cabal/pull/8636">#8636</a></p>
+<ul>
+<li>Take into account <code>js-sources</code> when building library components with GHC</li>
+<li>Missing support for <code>js-sources</code> in executable components is tracked in #8639</li>
+</ul></li>
+<li><p>Fix <code>extra-source-file</code> rebuild tracking when run in a multi-package project <a href="https://github.com/haskell/cabal/issues/8632">#8632</a> <a href="https://github.com/haskell/cabal/issues/8634">#8634</a> <a href="https://github.com/haskell/cabal/pull/8640">#8640</a></p>
+<ul>
+<li>Fixes an issue where glob expansion of <code>extra-source-files</code> for rebuild tracking purposes was not occurring correctly when run in a multi-package setting (i.e. when the globs needed to be expanded relative to something other than “.”).</li>
+</ul></li>
+<li><p>No up-front warning that assertions are on for special commands (help, version, numeric-version) <a href="https://github.com/haskell/cabal/issues/8645">#8645</a> <a href="https://github.com/haskell/cabal/pull/8647">#8647</a></p>
+<ul>
+<li>When compiled with ghc option <code>-fno-ignore-assert</code>, <code>cabal-install</code> will issue a generic warning that assertions are on.
+This warning will no longer be emitted for special modes of operation like <code>cabal --numeric-version</code>, <code>--version</code> and help,
+and also not if <code>cabal</code> could not parse its command line.
+Further, the warning now goes to <code>stderr</code> rather than <code>stdout</code>.</li>
+</ul></li>
+<li><p>Fix and improve list parser for <code>cabal init</code> arguments <a href="https://github.com/haskell/cabal/issues/8659">#8659</a> <a href="https://github.com/haskell/cabal/pull/8663">#8663</a></p>
+<p>Occurrences of ‘Flag [a]’ seem to behave in an unexpected way. The monoid
+instance of ‘Flag’ is right associative and discard the value on the
+left, but we want to merge the contents of ‘Flag’.</p>
+<p>Permits:</p>
+<ul>
+<li><code>cabal init -d base -d vector -d containers</code></li>
+</ul>
+<p>Fixes for all Flag ‘[a]’ the cli parser in cabal init. Adds cli parser tests.</p>
+<p>Adds the feature to specify a comma-separated list of dependencies:</p>
+<ul>
+<li><code>cabal init -d base,vector,containers</code></li>
+</ul></li>
+<li><p>Fix resolution of imports by relative paths in cabal.project <a href="https://github.com/haskell/cabal/pull/8686">#8686</a></p>
+<p>Fix bug where cabal tries to resolve imports by relative paths against
+the directory cabal executable was invoked in rather than directory of
+cabal.project file that does the import.</p></li>
+<li><p>Fix <code>cabal repl</code> discarding <code>--build-depends</code> <a href="https://github.com/haskell/cabal/issues/6859">#6859</a> <a href="https://github.com/haskell/cabal/issues/7081">#7081</a> <a href="https://github.com/haskell/cabal/pull/8732">#8732</a></p>
+<ul>
+<li>Fix <code>repl</code> command discarding <code>--build-depends</code> argument when using
+<code>allow-newer</code> or <code>allow-older</code>.</li>
+</ul></li>
+<li><p>Add <code>cabal get --only-package-description</code> <a href="https://github.com/haskell/cabal/issues/1954">#1954</a> <a href="https://github.com/haskell/cabal/pull/1977">#1977</a> <a href="https://github.com/haskell/cabal/pull/5162">#5162</a> <a href="https://github.com/haskell/cabal/pull/8263">#8263</a></p></li>
+<li><p><code>cabal haddock</code> now implies <code>--enable-documentation</code> <a href="https://github.com/haskell/cabal/issues/7462">#7462</a> <a href="https://github.com/haskell/cabal/pull/8259">#8259</a></p></li>
+<li><p>Include <code>extra-lib-dirs-static</code> into <code>PackageHash</code> <a href="https://github.com/haskell/cabal/issues/6935">#6935</a> <a href="https://github.com/haskell/cabal/pull/7794">#7794</a></p></li>
+<li><p>Document <code>cabal check</code> in the user guide <a href="https://github.com/haskell/cabal/pull/8237">#8237</a></p></li>
+<li><p>Add documentation (or stubs) for cabal-install commands: <code>fetch</code>, <code>get</code>, <code>info</code>, <code>init</code>, <code>list</code>, <code>report</code>, <code>unpack</code>, <code>upload</code>, <code>user-config</code> <a href="https://github.com/haskell/cabal/issues/7884">#7884</a> <a href="https://github.com/haskell/cabal/issues/7978">#7978</a> <a href="https://github.com/haskell/cabal/issues/8308">#8308</a> <a href="https://github.com/haskell/cabal/pull/8309">#8309</a></p></li>
+<li><p>Add check for upper bound on any dependency in <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/8291">#8291</a> <a href="https://github.com/haskell/cabal/pull/8339">#8339</a></p></li>
+</ul>
+    </section>
+</article>
+
+            <hr />
+            <footer>
+                <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+            </footer>
+        </div>
+    </div>
+    <div class="d-none d-lg-block">
+        <div class="fluid-container">
+            <div class="row">
+                <div id="nav-side" class="col-2 card d-print-none">
+                    <div class="card-body">
+    <h1 class="card-title" title="Cabal"><a href="../"><img id="img-logo" src="../images/Cabal-light.png" style="width:80%"></a></h1>
+
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">
+                    <i class="fa fa-book"></i>
+                    docs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/download.html">
+                    <i class="fa fa-download"></i>
+                    download</a></li>
+            <li class="nav-item"><a class="nav-link" href="../releases/">
+                    <i class="fa fa-calendar"></i>
+                    releases</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">
+                    <i class="fa fa-question-circle"></i>
+                    FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="../blog/">
+                    <i class="fa fa-pen-nib"></i>
+                    blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/history.html">
+                    <i class="fa fa-clock-rotate-left"></i>
+                    history</a></li>
+        </ul>
+    </nav>
+    <div class="card">
+        <div class="card-body">
+            <span id="color-switch">set color&nbsp;<a class="link" id="btn-switch-color-mode">light</a></span>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <div id="content" class="d-print-col-12">
+                    <article>
+    <section class="header">
+    <h2 class="display-4">cabal-install-3.10.1.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-install-and-cabal-install-solver-3.10.1.0-changelog-and-release-notes">cabal-install and cabal-install-solver 3.10.1.0 changelog and release notes</h2>
+<p>Release 3.10.1.0 of cabal now sets the <code>--enable-documentation</code> option by default
+when running <code>cabal haddock</code> (https://github.com/haskell/cabal/issues/7462).
+If the new default does not fit your workflow, pass an explicit <code>--disable-documentation</code>
+option or consider (helping to implement) the other workarounds proposed
+in https://github.com/haskell/cabal/issues/8725.</p>
+<p>This version of cabal introduces support for JS cross-compilation (https://github.com/haskell/cabal/pull/8636).
+We’ve seen related Windows segfaults on CI, so please kindly report if you can reproduce either
+cabal or GHC segfaults when cross-compiling for JS or compiling normally but with any files
+listed in the <code>js-sources</code> field of a .cabal file.</p>
+<p>This release of cabal also fixes a lot of bugs in cabal 3.8.1.0 and not all of the fixes
+are listed here.</p>
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p><code>Cabal-3.10.1.0</code> is used, which brings <a href="./Cabal-3.10.1.0.md">its own set of changes</a>,
+many of which are significant. The Cabal and Cabal-syntax changes that touch
+the cabal-install or cabal-install-solver codebases are pasted here again in full.</p></li>
+<li><p>Add support for the XDG Base Directory Specification <a href="https://github.com/haskell/cabal/issues/680">#680</a> <a href="https://github.com/haskell/cabal/pull/7386">#7386</a></p>
+<p>Cabal/cabal-install now uses the XDG Base Directory Specification to
+store configuration, caches, and the store. Specifically,
+<code>$XDG_CONFIG_HOME/cabal</code> stores the configuration file,
+<code>$XDG_CACHE_HOME/cabal</code> stores downloaded packages and similar, and
+<code>$XDG_STATE_HOME/cabal</code> mainly contains the store of compiled
+packages. Further, <code>cabal install</code> will put executables in
+<code>~/.local/bin</code> by default.</p>
+<p>The <code>dist</code>/<code>dist-newstyle</code> directories are not affected.</p>
+<p>On Windows, these XDG paths are mapped to other (hopefully)
+appropriate locations. See the Cabal User Guide for information.</p>
+<p>If the <code>CABAL_DIR</code> environment variable is set, the indicated
+directory will be used to store all Cabal-related files, as in
+previous versions.</p>
+<p><strong>Backwards compatibility</strong>: If <code>~/.cabal</code> already exists, this will be
+interpreted as <code>CABAL_DIR=~/.cabal</code>. This means that upgrading on an
+existing system already using cabal-install should not cause any
+change in behaviour. An existing system can be migrated by deleting
+<code>~/.cabal</code> (possibly copying <code>~/.cabal/config</code> to
+<code>~/.config/cabal/config</code> first).</p></li>
+<li><p>Add <code>installDirs</code> (<code>datadir</code>, etc) to v2-build and remove them from v2-install <a href="https://github.com/haskell/cabal/pull/8556">#8556</a></p>
+<ul>
+<li>Passes through <code>--prefix</code>, <code>--datadir</code> and other <code>installdir</code>-arguments properly in v2-build, allowing its use in preparing somewhat more relocatable compilation targets (no worse than v1-build).</li>
+<li>Removes these flags (which never worked) from v2-install</li>
+</ul></li>
+<li><p>No global packages auto written to environment files, allow <code>--force-reinstalls</code> <a href="https://github.com/haskell/cabal/issues/5559">#5559</a> <a href="https://github.com/haskell/cabal/issues/6165">#6165</a> <a href="https://github.com/haskell/cabal/pull/8607">#8607</a></p>
+<ul>
+<li>When v2-install runs on a library, it does not pin global packages in the env file, only those directly necessary for the library.</li>
+</ul></li>
+<li><p>Add support for GHC 9.4+ <code>-fprof-late</code> flag <a href="https://github.com/haskell/cabal/pull/8528">#8528</a></p>
+<ul>
+<li>This adds the new <code>late-toplevel</code> (and its alias <code>late</code>) profiling-detail option which enables <code>-fprof-late</code>-based automatic cost centre annotations for GHCs that support it (<a href="https://downloads.haskell.org/ghc/9.4.1/docs/users_guide/profiling.html#ghc-flag--fprof-late">earliest is GHC 9.4.1</a>).</li>
+</ul></li>
+<li><p>Added <code>haddock-project</code> command <a href="https://github.com/haskell/cabal/issues/7669">#7669</a> <a href="https://github.com/haskell/cabal/pull/8162">#8162</a></p>
+<p>The <code>haddock-project</code> command can be used to build documentation of multiple
+packages. By passing <code>--local</code> option the directory will be self contained,
+by passing <code>--hackage</code> links to dependencies will link to <code>hackage</code>. Both
+<code>--local</code> and <code>--hackage</code> options imply <code>--quickfix</code>, <code>--gen-index</code>,
+<code>--gen-contents</code>, and <code>--hyperlinked-source</code>.</p>
+<p>Building self contained directory is the default, unless <code>--hackage</code> or
+<code>--html-location</code>.</p>
+<p>The PR #8162 also fixes the <code>--with-haddock</code> option.</p></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Pretty-print run targets on failure <a href="https://github.com/haskell/cabal/issues/8189">#8189</a> <a href="https://github.com/haskell/cabal/pull/8234">#8234</a></p>
+<ul>
+<li>Targets of the <code>run</code> command are pretty-printed when failing due to multiple targets.</li>
+<li>Duplicate targets are removed in the output.</li>
+</ul></li>
+<li><p>Expose <code>BuildFlags</code> and <code>ClientHaddockFlags</code> <a href="https://github.com/haskell/cabal/issues/8351">#8351</a> <a href="https://github.com/haskell/cabal/pull/8353">#8353</a></p>
+<p>Some types are present in public functions in cabal-install, but they are not exported.
+This PR fix it for BuildFlags and ClientHaddockFlags.</p></li>
+<li><p><code>cabal man</code> handles <code>$PAGER</code> containing arguments now <a href="https://github.com/haskell/cabal/issues/8405">#8405</a> <a href="https://github.com/haskell/cabal/pull/8353">#8353</a></p>
+<p>Things like <code>PAGER="less -FX" cabal man</code> work now.</p>
+<p>There’s a slight change in the default behavior. We still use <code>less -R</code> as the default,
+but if the user passes <code>PAGER=less</code>, we won’t add -R to that, unlike before. This is
+reasonable, as the user should be able to set the variable as they see fit.</p></li>
+<li><p>Fix issue with “nix” config option <a href="https://github.com/haskell/cabal/issues/8452">#8452</a> <a href="https://github.com/haskell/cabal/pull/8522">#8522</a></p>
+<p>Nix option in config file was broken with <a href="https://github.com/haskell/cabal/pull/8054">#8054</a>, this should fix it.</p></li>
+<li><p>“Build profile” message now reflects optimization level set in global config <a href="https://github.com/haskell/cabal/issues/8487">#8487</a> <a href="https://github.com/haskell/cabal/pull/8488">#8488</a></p>
+<p>Imagine you have <code>optimization: 2</code> in your <code>~/.cabal/config</code>, and you call <code>cabal build</code>
+in a project that doesn’t have optimization level explicitly set in its project file.
+You will still see ‘Build profile: -w ghc-<VER> -O1’. This is incorrect and was fixed
+in this patch: now you’ll see ‘-O2’.</p></li>
+<li><p><code>ghc</code>, <code>ghc-boot</code>, <code>ghci</code> packages should be non-upgradable <a href="https://github.com/haskell/cabal/issues/8489">#8489</a> <a href="https://github.com/haskell/cabal/pull/8501">#8501</a></p>
+<ul>
+<li>Changed both <code>Distribution.Client.Dependency</code>’s <code>dontUpgradeNonUpgradeablePackages</code>
+and <code>Distribution.Solver.Modular.Solver</code>’s <code>nonInstallable</code> to be in sync.</li>
+</ul></li>
+<li><p>Apply command line flags to install packages <a href="https://github.com/haskell/cabal/issues/8637">#8637</a> <a href="https://github.com/haskell/cabal/pull/8779">#8779</a></p>
+<ul>
+<li>Command line flags usually only apply to “local” packages (packages specified
+in the cabal.project). This change causes the v2-install command to ignore
+that distinction to better match the expected behavior for packages specified
+directly in the command.</li>
+</ul></li>
+<li><p>Print a warning when assertions are enabled <a href="https://github.com/haskell/cabal/issues/4377">#4377</a> <a href="https://github.com/haskell/cabal/pull/8240">#8240</a></p>
+<ul>
+<li>Now cabal-install executable will print a warning if assertions are enabled</li>
+</ul></li>
+<li><p>Implement <code>--prefer-oldest</code> <a href="https://github.com/haskell/cabal/pull/8261">#8261</a></p>
+<ul>
+<li>The new flag makes Cabal solver try to find a build plan with the oldest versions possible. This is useful to establish lower bounds.</li>
+</ul></li>
+<li><p>Update and sdist now only check for compiler when project file has conditionals <a href="https://github.com/haskell/cabal/issues/8352">#8352</a> <a href="https://github.com/haskell/cabal/issues/8550">#8550</a> <a href="https://github.com/haskell/cabal/issues/8589">#8589</a> <a href="https://github.com/haskell/cabal/pull/8358">#8358</a> <a href="https://github.com/haskell/cabal/pull/8627">#8627</a></p>
+<ul>
+<li>Cabal update and sdist will not require a ghc in path unless the project has conditionals that require it</li>
+</ul></li>
+<li><p>Allow offline bootstrapping of cabal-install <a href="https://github.com/haskell/cabal/pull/8368">#8368</a></p>
+<ul>
+<li>The bootstrap script for cabal-install now supports fetching the sources of the dependencies in a separate step.
+One can then copy over the resulting archive and perform offline bootstrapping of cabal-install.</li>
+</ul></li>
+<li><p>Pass some haddock flags to dependencies <a href="https://github.com/haskell/cabal/issues/395">#395</a> <a href="https://github.com/haskell/cabal/issues/8104">#8104</a> <a href="https://github.com/haskell/cabal/pull/8414">#8414</a></p>
+<ul>
+<li>Pass <code>--haddock-hoogle</code>, <code>--haddock-html</code>, <code>--haddock-internal</code>, <code>--haddock-quickjump</code>, <code>--haddock-hyperlinked-source</code>
+to all the dependencies if they are specified as command line args</li>
+</ul></li>
+<li><p>build pkgconfig db individually when bulk fails <a href="https://github.com/haskell/cabal/issues/8494">#8494</a> <a href="https://github.com/haskell/cabal/pull/8496">#8496</a></p>
+<ul>
+<li>When pkg-config fails to get versions for all packages in bulk, falls back to querying one-by-one.</li>
+</ul></li>
+<li><p>improve install target handling logic regarding of project files <a href="https://github.com/haskell/cabal/issues/8094">#8094</a> <a href="https://github.com/haskell/cabal/issues/8352">#8352</a> <a href="https://github.com/haskell/cabal/pull/8498">#8498</a></p>
+<ul>
+<li>fixes an issue where <code>cabal install pkg-x.y.z</code> fails unless <code>--ignore-project</code> is given</li>
+<li>fixes an issue where <code>cabal install --ignore-project</code> crashes when a project file is present</li>
+</ul></li>
+<li><p>Redownload packages when source hash verification fails <a href="https://github.com/haskell/cabal/issues/7541">#7541</a> <a href="https://github.com/haskell/cabal/pull/8500">#8500</a></p>
+<ul>
+<li>Cabal-install will verify source hashes on cached downloads against the current index, and redownload on mismatch. (Which can occur with e.g. head.hackage)</li>
+</ul></li>
+<li><p><code>cabal init -i</code> should sanitize package name guessed from the directory name <a href="https://github.com/haskell/cabal/issues/8404">#8404</a> <a href="https://github.com/haskell/cabal/pull/8561">#8561</a></p>
+<p>If the current directory name has any non-alphanumeric symbols in its name, the symbols will be replaced with a dash. Also, will make sure that the resulting package name starts with a letter.</p>
+<p>This worked for cabal init -n already, and this PR only moves code around so that cabal init -i also benefits from this logic.</p></li>
+<li><p>Support <code>js-sources</code> with GHC, not only with GHCJS <a href="https://github.com/haskell/cabal/pull/8636">#8636</a></p>
+<ul>
+<li>Take into account <code>js-sources</code> when building library components with GHC</li>
+<li>Missing support for <code>js-sources</code> in executable components is tracked in #8639</li>
+</ul></li>
+<li><p>Fix <code>extra-source-file</code> rebuild tracking when run in a multi-package project <a href="https://github.com/haskell/cabal/issues/8632">#8632</a> <a href="https://github.com/haskell/cabal/issues/8634">#8634</a> <a href="https://github.com/haskell/cabal/pull/8640">#8640</a></p>
+<ul>
+<li>Fixes an issue where glob expansion of <code>extra-source-files</code> for rebuild tracking purposes was not occurring correctly when run in a multi-package setting (i.e. when the globs needed to be expanded relative to something other than “.”).</li>
+</ul></li>
+<li><p>No up-front warning that assertions are on for special commands (help, version, numeric-version) <a href="https://github.com/haskell/cabal/issues/8645">#8645</a> <a href="https://github.com/haskell/cabal/pull/8647">#8647</a></p>
+<ul>
+<li>When compiled with ghc option <code>-fno-ignore-assert</code>, <code>cabal-install</code> will issue a generic warning that assertions are on.
+This warning will no longer be emitted for special modes of operation like <code>cabal --numeric-version</code>, <code>--version</code> and help,
+and also not if <code>cabal</code> could not parse its command line.
+Further, the warning now goes to <code>stderr</code> rather than <code>stdout</code>.</li>
+</ul></li>
+<li><p>Fix and improve list parser for <code>cabal init</code> arguments <a href="https://github.com/haskell/cabal/issues/8659">#8659</a> <a href="https://github.com/haskell/cabal/pull/8663">#8663</a></p>
+<p>Occurrences of ‘Flag [a]’ seem to behave in an unexpected way. The monoid
+instance of ‘Flag’ is right associative and discard the value on the
+left, but we want to merge the contents of ‘Flag’.</p>
+<p>Permits:</p>
+<ul>
+<li><code>cabal init -d base -d vector -d containers</code></li>
+</ul>
+<p>Fixes for all Flag ‘[a]’ the cli parser in cabal init. Adds cli parser tests.</p>
+<p>Adds the feature to specify a comma-separated list of dependencies:</p>
+<ul>
+<li><code>cabal init -d base,vector,containers</code></li>
+</ul></li>
+<li><p>Fix resolution of imports by relative paths in cabal.project <a href="https://github.com/haskell/cabal/pull/8686">#8686</a></p>
+<p>Fix bug where cabal tries to resolve imports by relative paths against
+the directory cabal executable was invoked in rather than directory of
+cabal.project file that does the import.</p></li>
+<li><p>Fix <code>cabal repl</code> discarding <code>--build-depends</code> <a href="https://github.com/haskell/cabal/issues/6859">#6859</a> <a href="https://github.com/haskell/cabal/issues/7081">#7081</a> <a href="https://github.com/haskell/cabal/pull/8732">#8732</a></p>
+<ul>
+<li>Fix <code>repl</code> command discarding <code>--build-depends</code> argument when using
+<code>allow-newer</code> or <code>allow-older</code>.</li>
+</ul></li>
+<li><p>Add <code>cabal get --only-package-description</code> <a href="https://github.com/haskell/cabal/issues/1954">#1954</a> <a href="https://github.com/haskell/cabal/pull/1977">#1977</a> <a href="https://github.com/haskell/cabal/pull/5162">#5162</a> <a href="https://github.com/haskell/cabal/pull/8263">#8263</a></p></li>
+<li><p><code>cabal haddock</code> now implies <code>--enable-documentation</code> <a href="https://github.com/haskell/cabal/issues/7462">#7462</a> <a href="https://github.com/haskell/cabal/pull/8259">#8259</a></p></li>
+<li><p>Include <code>extra-lib-dirs-static</code> into <code>PackageHash</code> <a href="https://github.com/haskell/cabal/issues/6935">#6935</a> <a href="https://github.com/haskell/cabal/pull/7794">#7794</a></p></li>
+<li><p>Document <code>cabal check</code> in the user guide <a href="https://github.com/haskell/cabal/pull/8237">#8237</a></p></li>
+<li><p>Add documentation (or stubs) for cabal-install commands: <code>fetch</code>, <code>get</code>, <code>info</code>, <code>init</code>, <code>list</code>, <code>report</code>, <code>unpack</code>, <code>upload</code>, <code>user-config</code> <a href="https://github.com/haskell/cabal/issues/7884">#7884</a> <a href="https://github.com/haskell/cabal/issues/7978">#7978</a> <a href="https://github.com/haskell/cabal/issues/8308">#8308</a> <a href="https://github.com/haskell/cabal/pull/8309">#8309</a></p></li>
+<li><p>Add check for upper bound on any dependency in <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/8291">#8291</a> <a href="https://github.com/haskell/cabal/pull/8339">#8339</a></p></li>
+</ul>
+    </section>
+</article>
+
+                    <hr />
+                    <footer>
+                        <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var switchColor = () => {
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'light'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
+            }
+            else {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
+            }
+        };
+
+        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.documentElement.setAttribute('data-bs-theme','light')
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme','dark')
+            }
+
+            switchColor();
+        })
+
+        switchColor();
+    </script>
+</body>
+
+</html>

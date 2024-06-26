@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Cabal">
+<meta name="description" content="Build Haskell applications and libraries">
+
+    <title>cabal-install-3.10.3.0</title>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../images/Cabal-tiny.png" rel="icon">
+
+</head>
+
+<body>
+    <div class="d-lg-none">
+        <div id="nav-top" class="d-print-none">
+            <nav>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">docs</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/download.html">download</a></li>
+        <li class="nav-item"><a class="nav-link" href="../releases/">releases</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/history.html">history</a></li>
+    </ul>
+</nav>
+
+        </div>
+        <div id="content" class="d-print-col-12">
+            <article>
+    <section class="header">
+    <h2 class="display-4">cabal-install-3.10.3.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-install-and-cabal-install-solver-3.10.3.0-changelog-and-release-notes">cabal-install and cabal-install-solver 3.10.3.0 changelog and release notes</h2>
+<h2 id="release-3.10.3.0-is-strictly-a-bug-fix-release-with-the-fixes-listed-below">Release 3.10.3.0 is strictly a bug-fix release, with the fixes listed below</h2>
+<ul>
+<li><p>PkgConfig individual calls <a href="https://github.com/haskell/cabal/pull/9134">#9134</a></p>
+<ul>
+<li><code>cabal</code> invokes <code>pkg-config</code> individually for each lib if querying for all doesn’t return the expected result</li>
+</ul></li>
+<li><p>Use compiler flags for caching project config <a href="https://github.com/haskell/cabal/pull/8819">#8819</a></p>
+<p>This ensures that cached project configs with conditionals re-execute the conditional logic when the compiler changes.</p></li>
+<li><p>Make <code>check</code> recognise <code>TypeAbstractions</code> <a href="https://github.com/haskell/cabal/issues/9496">#9496</a> <a href="https://github.com/haskell/cabal/pull/9503">#9503</a></p>
+<ul>
+<li><code>cabal check</code> will not complain about “Unknown extension” when
+finding <code>TypeAbstractions</code>.</li>
+</ul></li>
+<li><p><code>check</code>: add PackageInfo warning <a href="https://github.com/haskell/cabal/issues/9331">#9331</a> <a href="https://github.com/haskell/cabal/pull/9525">#9525</a></p>
+<p><code>cabal check</code> will warn about PackageInfo_* modules and provide an upgrade path to 3.12.</p></li>
+<li><p>Fix extra-prog-path propagation <a href="https://github.com/haskell/cabal/issues/7649">#7649</a> <a href="https://github.com/haskell/cabal/issues/9519">#9519</a> <a href="https://github.com/haskell/cabal/pull/9527">#9527</a></p>
+<ul>
+<li>extra-prog-paths are now propagated to all commands. This in particular helps
+when running a MinGW cabal in the PowerShell, where the MSYS2 paths are
+usually not available in the PowerShell PATH. GHCup already sets them up for
+us but they were sometimes lost on the way.</li>
+</ul></li>
+<li><p>fix pkgconfig-depends for pkgconf-1.9 <a href="https://github.com/haskell/cabal/issues/8923">#8923</a> <a href="https://github.com/haskell/cabal/pull/9391">#9391</a></p></li>
+<li><p>Ignore invalid Unicode in pkg-config descriptions <a href="https://github.com/haskell/cabal/issues/9608">#9608</a> <a href="https://github.com/haskell/cabal/pull/9609">#9609</a></p>
+<p>Previously, cabal-install would crash when <code>pkg-config --list-all</code> contained
+invalid Unicode. With this change, invalid unicode in package descriptions is
+ignored, and unparseable package names are considered nonexistent.</p></li>
+<li><p>Script cache dir is the base16 hash of the canonical path of the script. <a href="https://github.com/haskell/cabal/pull/9459">#9459</a></p>
+<p>Script cache dir is the base16 hash of the canonical path of the script.</p></li>
+<li><p>Fix run command environment <a href="https://github.com/haskell/cabal/issues/8391">#8391</a> <a href="https://github.com/haskell/cabal/pull/9341">#9341</a></p>
+<ul>
+<li>The Run command will now add binary paths of dependencies
+(build-tool-depends) to PATH, just like Exec and Test commands.</li>
+</ul></li>
+</ul>
+    </section>
+</article>
+
+            <hr />
+            <footer>
+                <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+            </footer>
+        </div>
+    </div>
+    <div class="d-none d-lg-block">
+        <div class="fluid-container">
+            <div class="row">
+                <div id="nav-side" class="col-2 card d-print-none">
+                    <div class="card-body">
+    <h1 class="card-title" title="Cabal"><a href="../"><img id="img-logo" src="../images/Cabal-light.png" style="width:80%"></a></h1>
+
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">
+                    <i class="fa fa-book"></i>
+                    docs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/download.html">
+                    <i class="fa fa-download"></i>
+                    download</a></li>
+            <li class="nav-item"><a class="nav-link" href="../releases/">
+                    <i class="fa fa-calendar"></i>
+                    releases</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">
+                    <i class="fa fa-question-circle"></i>
+                    FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="../blog/">
+                    <i class="fa fa-pen-nib"></i>
+                    blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/history.html">
+                    <i class="fa fa-clock-rotate-left"></i>
+                    history</a></li>
+        </ul>
+    </nav>
+    <div class="card">
+        <div class="card-body">
+            <span id="color-switch">set color&nbsp;<a class="link" id="btn-switch-color-mode">light</a></span>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <div id="content" class="d-print-col-12">
+                    <article>
+    <section class="header">
+    <h2 class="display-4">cabal-install-3.10.3.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-install-and-cabal-install-solver-3.10.3.0-changelog-and-release-notes">cabal-install and cabal-install-solver 3.10.3.0 changelog and release notes</h2>
+<h2 id="release-3.10.3.0-is-strictly-a-bug-fix-release-with-the-fixes-listed-below">Release 3.10.3.0 is strictly a bug-fix release, with the fixes listed below</h2>
+<ul>
+<li><p>PkgConfig individual calls <a href="https://github.com/haskell/cabal/pull/9134">#9134</a></p>
+<ul>
+<li><code>cabal</code> invokes <code>pkg-config</code> individually for each lib if querying for all doesn’t return the expected result</li>
+</ul></li>
+<li><p>Use compiler flags for caching project config <a href="https://github.com/haskell/cabal/pull/8819">#8819</a></p>
+<p>This ensures that cached project configs with conditionals re-execute the conditional logic when the compiler changes.</p></li>
+<li><p>Make <code>check</code> recognise <code>TypeAbstractions</code> <a href="https://github.com/haskell/cabal/issues/9496">#9496</a> <a href="https://github.com/haskell/cabal/pull/9503">#9503</a></p>
+<ul>
+<li><code>cabal check</code> will not complain about “Unknown extension” when
+finding <code>TypeAbstractions</code>.</li>
+</ul></li>
+<li><p><code>check</code>: add PackageInfo warning <a href="https://github.com/haskell/cabal/issues/9331">#9331</a> <a href="https://github.com/haskell/cabal/pull/9525">#9525</a></p>
+<p><code>cabal check</code> will warn about PackageInfo_* modules and provide an upgrade path to 3.12.</p></li>
+<li><p>Fix extra-prog-path propagation <a href="https://github.com/haskell/cabal/issues/7649">#7649</a> <a href="https://github.com/haskell/cabal/issues/9519">#9519</a> <a href="https://github.com/haskell/cabal/pull/9527">#9527</a></p>
+<ul>
+<li>extra-prog-paths are now propagated to all commands. This in particular helps
+when running a MinGW cabal in the PowerShell, where the MSYS2 paths are
+usually not available in the PowerShell PATH. GHCup already sets them up for
+us but they were sometimes lost on the way.</li>
+</ul></li>
+<li><p>fix pkgconfig-depends for pkgconf-1.9 <a href="https://github.com/haskell/cabal/issues/8923">#8923</a> <a href="https://github.com/haskell/cabal/pull/9391">#9391</a></p></li>
+<li><p>Ignore invalid Unicode in pkg-config descriptions <a href="https://github.com/haskell/cabal/issues/9608">#9608</a> <a href="https://github.com/haskell/cabal/pull/9609">#9609</a></p>
+<p>Previously, cabal-install would crash when <code>pkg-config --list-all</code> contained
+invalid Unicode. With this change, invalid unicode in package descriptions is
+ignored, and unparseable package names are considered nonexistent.</p></li>
+<li><p>Script cache dir is the base16 hash of the canonical path of the script. <a href="https://github.com/haskell/cabal/pull/9459">#9459</a></p>
+<p>Script cache dir is the base16 hash of the canonical path of the script.</p></li>
+<li><p>Fix run command environment <a href="https://github.com/haskell/cabal/issues/8391">#8391</a> <a href="https://github.com/haskell/cabal/pull/9341">#9341</a></p>
+<ul>
+<li>The Run command will now add binary paths of dependencies
+(build-tool-depends) to PATH, just like Exec and Test commands.</li>
+</ul></li>
+</ul>
+    </section>
+</article>
+
+                    <hr />
+                    <footer>
+                        <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var switchColor = () => {
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'light'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
+            }
+            else {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
+            }
+        };
+
+        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.documentElement.setAttribute('data-bs-theme','light')
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme','dark')
+            }
+
+            switchColor();
+        })
+
+        switchColor();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Cabal">
+<meta name="description" content="Build Haskell applications and libraries">
+
+    <title>Cabal-3.12.0.0</title>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../images/Cabal-tiny.png" rel="icon">
+
+</head>
+
+<body>
+    <div class="d-lg-none">
+        <div id="nav-top" class="d-print-none">
+            <nav>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">docs</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/download.html">download</a></li>
+        <li class="nav-item"><a class="nav-link" href="../releases/">releases</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/history.html">history</a></li>
+    </ul>
+</nav>
+
+        </div>
+        <div id="content" class="d-print-col-12">
+            <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.12.0.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-and-cabal-syntax-3.12.0.0-changelog-and-release-notes">Cabal and Cabal-syntax 3.12.0.0 changelog and release notes</h2>
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Add support for asm, cmm, and js sources in executable components <a href="https://github.com/haskell/cabal/issues/8639">#8639</a> <a href="https://github.com/haskell/cabal/pull/9061">#9061</a></p>
+<p>Executable components now support the inclusion of asm, cmm, and js source
+files in a cabal file using the same syntax as is used for these sources
+in library components, similar to how c and c++ sources are supported in
+both types of components. This syntax was already parsed in cabal files,
+but was silently ignored in the build step, so no changes to syntax are
+made.</p></li>
+<li><p>Add <code>--haddock-output-dir</code> flag to <code>cabal haddock</code>. <a href="https://github.com/haskell/cabal/issues/8720">#8720</a> <a href="https://github.com/haskell/cabal/pull/8788">#8788</a></p>
+<p>This flag gives the user full control over the directory where the documentation is placed. It allows both relative and absolute paths.</p></li>
+<li><p>Add <code>--semaphore</code> option to <code>./Setup build</code> interface <a href="https://github.com/haskell/cabal/pull/8557">#8557</a></p>
+<p>When <code>./Setup build --semaphore &lt;SEM&gt;</code> is called, <code>ghc</code> will be called
+with the <code>-jsem</code> option. It is the responsibility of the caller of
+<code>./Setup build</code> to manage the semaphore according to the GHC Jobserver
+Protocol.</p>
+<p>This low level interface is intended to be called by a high-level tool
+such as <code>cabal-install</code> which can create and manage the semaphore
+appropriately.</p>
+<p>The protocol is specified by <a href="https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0540-jsem.rst">GHC Proposal #540</a>.</p></li>
+<li><p>Add <code>--promised-dependency</code> flag to <code>./Setup configure</code> interface <a href="https://github.com/haskell/cabal/pull/8726">#8726</a></p>
+<p>There is a new flag <code>--promised-dependency</code>to allow users to configure a
+package <em>without</em> having previously built the dependency. Instead, we
+promise to the configure phase that we will have built it by the time we
+build the package. This allows us to configure all the packages we intend
+to load into the repl without building any dependenices which we will load
+in the same session, because the promise is satisifed due to loading the
+package and its dependency into one multi-session which ensures the
+dependency is built before it is needed.</p>
+<p>A user of ./Setup configure specifies a promised dependency by using the
+“–promised-dependency” flag with a normal dependency specification. For
+example:</p>
+<pre><code>'--promised-dependency=cabal-install-solver=cabal-install-solver-3.9.0.0-inplace'</code></pre></li>
+<li><p>Add <code>--ignore</code> to <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/8587">#8587</a> <a href="https://github.com/haskell/cabal/pull/9442">#9442</a></p>
+<ul>
+<li><code>Distribution.PackageDescription.Check.Warning</code> now exports
+<code>filterPackageChecksById</code>, this can be used by third-party
+tools to filter warnings.</li>
+</ul></li>
+<li><p>Add support for <code>GHC2024</code> <a href="https://github.com/haskell/cabal/issues/9736">#9736</a> <a href="https://github.com/haskell/cabal/pull/9791">#9791</a></p>
+<p>Support for the <code>GHC2024</code> language edition, introduced by GHC 9.10, has been
+added. It can now be used in the <code>default-language</code> and <code>other-languages</code>
+fields, and will be offered as an option by <code>cabal init</code>.</p></li>
+<li><p>Remove <code>initialBuildSteps</code> from <code>Distribution.Simple.Build</code> <a href="https://github.com/haskell/cabal/pull/9474">#9474</a></p>
+<p>Calling <code>initialBuildSteps</code> to prepare source files for a package is error
+prone, as <code>initialBuildSteps</code> only handles things like the paths module
+and nothing else.</p>
+<p>To mimick <code>initialBuildSteps</code> behaviour when there is no custom Setup, you
+can call <code>repl_setupHooks</code>.</p>
+<p>If you are dealing with a custom setup, you have to invoke
+<code>./Setup repl --repl-multi-file</code>.</p></li>
+<li><p>Cabal and Cabal-syntax 3.12 support GHC version 8.4.4 and up.</p>
+<p>Support for all previous GHC versions is deprecated.</p></li>
+<li><p>Label error messages with codes (following GHC, Stack)</p>
+<p>As with GHC and Stack, Cabal and cabal-install now generate warnings and errors prefixed with error codes of the form <code>[Cabal-xxxxx]</code>. These will be documented on https://errors.haskell.org, although very few are as yet.</p></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p><code>cabal init</code> should not suggest Cabal &lt; 2.0 <a href="https://github.com/haskell/cabal/issues/8680">#8680</a> <a href="https://github.com/haskell/cabal/pull/8700">#8700</a></p>
+<p>‘cabal init’ no longer suggests users to set cabal-version to less than
+2.0.</p></li>
+<li><p>Remove <code>Distribution.Utils.TempTestDir</code> module from Cabal library <a href="https://github.com/haskell/cabal/issues/9453">#9453</a> <a href="https://github.com/haskell/cabal/pull/9454">#9454</a></p>
+<p>This library was only used by internal tests, and now lives in the
+<code>Cabal-tests</code> library which is shared across test components.</p></li>
+<li><p>PkgConfig individual calls <a href="https://github.com/haskell/cabal/pull/9134">#9134</a></p>
+<p><code>cabal</code> invokes <code>pkg-config</code> individually for each lib if querying for all
+doesn’t return the expected result.</p></li>
+<li><p>Split up <code>Distribution.Simple.Setup</code> <a href="https://github.com/haskell/cabal/pull/8130">#8130</a></p>
+<p>The external interface of ‘Distribution.Simple.Setup’ has been kept the
+same, but internally it has been broken up into smaller modules. This
+improves build times in two ways:</p>
+<ol type="1">
+<li>GHC is superlinear in the size of files, meaning that splitting up a
+large file can reduce overall compile times.</li>
+<li>Breaking up the module allows dependent modules to refine their imports
+to just the parts they require, allowing them to start buildling quicker
+when GHC is run in parrallel make mode (‘–ghc-options -j’).</li>
+</ol></li>
+<li><p>Reimplementing <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/7423">#7423</a> <a href="https://github.com/haskell/cabal/pull/8427">#8427</a></p>
+<ul>
+<li><code>checkPackage</code> signature has been simplified,
+you do not need to pass a specific configuration of the package, since
+we do not flatten <code>GenericPackageDescription</code> any more.</li>
+<li><code>checkPackageFileNames</code> has been removed,
+use <code>checkPackageFiles</code> instead.</li>
+<li><code>checkPackageFilesGPD</code> has been introduced,
+a function similar to <code>checkPackageFiles</code> that works on
+<code>GenericPackageDescription</code>. You do not need to use
+<code>flattenPackageDescription</code> anymore.</li>
+</ul></li>
+<li><p>Installation of extra-compilation-artifacts directory <a href="https://github.com/haskell/cabal/pull/8662">#8662</a></p>
+<p>GHC plugins now can store custom data in the ‘extra-compilation-artifacts’ directory which gets installed with the package.</p></li>
+<li><p>Add option to <code>./Setup repl</code> to write repl arguments to file <a href="https://github.com/haskell/cabal/pull/8726">#8726</a></p>
+<p>The <code>./Setup repl</code> command is modified to allow a user to defer starting
+the repl and instead instruct the command to write the necessary build
+flags to a directiory. The option is called <code>--repl-multi-file &lt;DIR&gt;</code>.</p>
+<p>This is useful when starting multi-component sessions, as we want to query
+Setup.hs for the arguments which are needed to build each component but
+not for ./Setup to start the repl itself.</p></li>
+<li><p>Add Haiku as a known platform <a href="https://github.com/haskell/cabal/pull/9006">#9006</a></p>
+<p>Cabal: Distribution now recognises Haiku as a valid platform, and also
+implements Haiku’s unique directory layout.</p></li>
+<li><p>Installation of <code>.hie</code> files <a href="https://github.com/haskell/cabal/issues/8685">#8685</a> <a href="https://github.com/haskell/cabal/pull/9019">#9019</a></p>
+<p>Hie files generated by GHC are now stored in the
+<code>extra-compilation-artifacts</code> directory which gets installed with the
+package.</p></li>
+<li><p>Include the GHC “Project Unit Id” in the cabal store path <a href="https://github.com/haskell/cabal/issues/8114">#8114</a> <a href="https://github.com/haskell/cabal/pull/9326">#9326</a></p>
+<p>This allows the use of several <strong>API incompatible builds of the same
+version of GHC</strong> without corrupting the cabal store.</p>
+<p>This relies on the “Project Unit Id” which is available since GHC 9.8.1,
+older versions of GHC do not benefit from this change.</p></li>
+<li><p>Fix the platform string for GNU/Hurd <a href="https://github.com/haskell/cabal/pull/9434">#9434</a></p>
+<p>Depending whom you ask, GNU/Hurd will be labelled “gnu” or “hurd”. The
+autotools use “gnu”, so ghc follows this for installed files, even if the
+ghc source code uses OSHurd. We thus need to add the translation between
+the two.</p></li>
+<li><p>Use linker capability detection to improve linker use <a href="https://github.com/haskell/cabal/pull/9443">#9443</a></p>
+<p>Previously the GHC version number and platform were used as a proxy for
+whether the linker can generate relocatable objects.</p>
+<p>Now, the ability of the linker to create relocatable objects is detected.</p></li>
+<li><p>Merge globbing implementations <a href="https://github.com/haskell/cabal/issues/5349">#5349</a> <a href="https://github.com/haskell/cabal/pull/9673">#9673</a></p>
+<p>The common aspects of the globbing functionality between <code>Cabal</code> and
+<code>cabal-install</code> have been factored out. The only change in the user-facing
+API is that we now record when a glob does not match exactly, but matches
+a directory with that same name, with the new constructor
+<code>GlobMatchesDirectory</code> of <code>GlobResult</code>.</p>
+<p>To illustrate, this change means that when <code>foo/dir</code> is a directory, the
+glob <code>*/dir/</code> matches exactly <code>foo/dir</code> (as before), but now <code>*/dir</code>
+produces <code>GlobMatchesDirectory</code> instead of failing. This allows callers
+to decide whether to allow or discard such inexact matches.</p></li>
+<li><p>Document <code>remote-repo-cache</code> as implemented. <a href="https://github.com/haskell/cabal/issues/8737">#8737</a> <a href="https://github.com/haskell/cabal/pull/8738">#8738</a></p></li>
+<li><p>Deduplicate <code>LD_LIBRARY_PATH</code> when running tests <a href="https://github.com/haskell/cabal/pull/8728">#8728</a></p></li>
+<li><p>Add support for a number of architectures:</p>
+<ul>
+<li>RISC-V <a href="https://github.com/haskell/cabal/pull/9062">#9062</a></li>
+<li>64-bit LoongArch <a href="https://github.com/haskell/cabal/pull/9215">#9215</a></li>
+<li>64-bit SPARC as a separate architecture <a href="https://github.com/haskell/cabal/pull/9445">#9445</a></li>
+</ul></li>
+<li><p>Don’t report <code>index.html</code> file as created, if not created by Haddock <a href="https://github.com/haskell/cabal/issues/5120">#5120</a> <a href="https://github.com/haskell/cabal/pull/9332">#9332</a></p></li>
+<li><p>Enable using <code>$ORIGIN</code> in <code>RPATH</code> on GNU/Hurd <a href="https://github.com/haskell/cabal/pull/9441">#9441</a></p></li>
+<li><p>Make check comply with Hackage requirements <a href="https://github.com/haskell/cabal/pull/8897">#8897</a></p>
+<ul>
+<li><code>cabal check</code> will only return exitcode 1 when the package is not fit
+for Hackage. E.g. it will not error anymore when your <code>synopsis:</code> is
+larger than <code>description:</code>, just emit a warning.</li>
+<li>Cabal: <code>Distribution.Client.Check</code> now exports <code>isHackageDistError</code>, for
+third-party tools to know if a specific error will preclude a package
+from being uploaded to Hacakge.</li>
+</ul></li>
+<li><p>Add language extension <code>ExtendedLiterals</code> (GHC proposal #451) <a href="https://github.com/haskell/cabal/pull/8992">#8992</a></p></li>
+<li><p>Warn about inconsistent indentation <a href="https://github.com/haskell/cabal/pull/8975">#8975</a></p>
+<ul>
+<li>Make Cabal warn about inconsistent indentation in .cabal files. For
+example warn about somewhat common decreasing indentation like in</li>
+</ul>
+<pre class="cabal"><code>library
+default-language: Haskell2010
+build-depends: base
+ghc-options: -Wall</code></pre>
+<p>The change is <code>readFields</code> function.</p>
+<p>This is an effect of using <code>indentOfAtLeast</code> method/approach: any
+indentation greater than current offset is accepted.</p>
+<p>That behavior is desirable to parsing multiline field contents, but it is
+a bit surprising for fields in sections, which we expect to be aligned.</p>
+<p>Such insonsistency seems to be always a mistake, and it’s easy to fix once
+a machine points it out.</p></li>
+<li><p>Add <code>LexBraces</code> lexer warning <a href="https://github.com/haskell/cabal/issues/8577">#8577</a></p>
+<p><code>LexBraces</code> warning is issued when brace delimiting syntax is used. This
+way, using <code>readFields'</code>, a low-lever consumer may decide whether braces
+were used.</p>
+<p>Looking for a brace character in the input is imprecise, as braces can
+occur inside field content.</p>
+<p>This warning is not propagated to parser warnings, so e.g.
+<code>readGenericPackageDescription</code> doesn’t warn about it. This is because all
+parser warnings prevent uploads to Hackage, and using braces (or not) is
+a matter of opinion.</p></li>
+<li><p>Distinguish <code>powerpc64le</code>, by adding <code>PPC64LE</code> constructor to type <code>Arch</code> <a href="https://github.com/haskell/cabal/issues/9534">#9534</a> <a href="https://github.com/haskell/cabal/pull/9535">#9535</a></p>
+<p>Adds constructor <code>PPC64LE</code> to type <code>Arch</code> to distinguish architecture
+powerpc64le from powerpc64. Existing constructor <code>PPC64</code> now exclusively
+represents powerpc64.</p></li>
+<li><p>PkgConfig individual calls <a href="https://github.com/haskell/cabal/pull/9134">#9134</a></p>
+<p><code>cabal</code> invokes <code>pkg-config</code> individually for each lib if querying for all doesn’t return the expected result</p></li>
+<li><p>Add language extension <code>ListTuplePuns</code> (GHC proposal #475) <a href="https://github.com/haskell/cabal/pull/8854">#8854</a></p></li>
+<li><p>Add <code>mkVersionIntervals</code> for creating a <code>VersionIntervals</code> from a list <a href="https://github.com/haskell/cabal/pull/9034">#9034</a></p>
+<p>If external tools want to change the version intervals of dependencies, they
+need to be able to create a <code>VersionRange</code> from a <code>[VersionInterval]</code> list. Adding
+the function <code>mkVersionIntervals</code> makes this possible again.</p></li>
+<li><p>Add language extension <code>TypeAbstractions</code> <a href="https://github.com/haskell/cabal/issues/9496">#9496</a> <a href="https://github.com/haskell/cabal/pull/9502">#9502</a></p></li>
+<li><p>Update SPDX License List to version <code>3.23 2024-02-08</code> <a href="https://github.com/haskell/cabal/pull/9818">#9818</a></p>
+<ul>
+<li>LicenseId and LicenseExceptionId now conform to SPDX License List
+version 3.23 2024-02-08.</li>
+</ul></li>
+</ul>
+    </section>
+</article>
+
+            <hr />
+            <footer>
+                <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+            </footer>
+        </div>
+    </div>
+    <div class="d-none d-lg-block">
+        <div class="fluid-container">
+            <div class="row">
+                <div id="nav-side" class="col-2 card d-print-none">
+                    <div class="card-body">
+    <h1 class="card-title" title="Cabal"><a href="../"><img id="img-logo" src="../images/Cabal-light.png" style="width:80%"></a></h1>
+
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">
+                    <i class="fa fa-book"></i>
+                    docs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/download.html">
+                    <i class="fa fa-download"></i>
+                    download</a></li>
+            <li class="nav-item"><a class="nav-link" href="../releases/">
+                    <i class="fa fa-calendar"></i>
+                    releases</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">
+                    <i class="fa fa-question-circle"></i>
+                    FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="../blog/">
+                    <i class="fa fa-pen-nib"></i>
+                    blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/history.html">
+                    <i class="fa fa-clock-rotate-left"></i>
+                    history</a></li>
+        </ul>
+    </nav>
+    <div class="card">
+        <div class="card-body">
+            <span id="color-switch">set color&nbsp;<a class="link" id="btn-switch-color-mode">light</a></span>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <div id="content" class="d-print-col-12">
+                    <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.12.0.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-and-cabal-syntax-3.12.0.0-changelog-and-release-notes">Cabal and Cabal-syntax 3.12.0.0 changelog and release notes</h2>
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Add support for asm, cmm, and js sources in executable components <a href="https://github.com/haskell/cabal/issues/8639">#8639</a> <a href="https://github.com/haskell/cabal/pull/9061">#9061</a></p>
+<p>Executable components now support the inclusion of asm, cmm, and js source
+files in a cabal file using the same syntax as is used for these sources
+in library components, similar to how c and c++ sources are supported in
+both types of components. This syntax was already parsed in cabal files,
+but was silently ignored in the build step, so no changes to syntax are
+made.</p></li>
+<li><p>Add <code>--haddock-output-dir</code> flag to <code>cabal haddock</code>. <a href="https://github.com/haskell/cabal/issues/8720">#8720</a> <a href="https://github.com/haskell/cabal/pull/8788">#8788</a></p>
+<p>This flag gives the user full control over the directory where the documentation is placed. It allows both relative and absolute paths.</p></li>
+<li><p>Add <code>--semaphore</code> option to <code>./Setup build</code> interface <a href="https://github.com/haskell/cabal/pull/8557">#8557</a></p>
+<p>When <code>./Setup build --semaphore &lt;SEM&gt;</code> is called, <code>ghc</code> will be called
+with the <code>-jsem</code> option. It is the responsibility of the caller of
+<code>./Setup build</code> to manage the semaphore according to the GHC Jobserver
+Protocol.</p>
+<p>This low level interface is intended to be called by a high-level tool
+such as <code>cabal-install</code> which can create and manage the semaphore
+appropriately.</p>
+<p>The protocol is specified by <a href="https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0540-jsem.rst">GHC Proposal #540</a>.</p></li>
+<li><p>Add <code>--promised-dependency</code> flag to <code>./Setup configure</code> interface <a href="https://github.com/haskell/cabal/pull/8726">#8726</a></p>
+<p>There is a new flag <code>--promised-dependency</code>to allow users to configure a
+package <em>without</em> having previously built the dependency. Instead, we
+promise to the configure phase that we will have built it by the time we
+build the package. This allows us to configure all the packages we intend
+to load into the repl without building any dependenices which we will load
+in the same session, because the promise is satisifed due to loading the
+package and its dependency into one multi-session which ensures the
+dependency is built before it is needed.</p>
+<p>A user of ./Setup configure specifies a promised dependency by using the
+“–promised-dependency” flag with a normal dependency specification. For
+example:</p>
+<pre><code>'--promised-dependency=cabal-install-solver=cabal-install-solver-3.9.0.0-inplace'</code></pre></li>
+<li><p>Add <code>--ignore</code> to <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/8587">#8587</a> <a href="https://github.com/haskell/cabal/pull/9442">#9442</a></p>
+<ul>
+<li><code>Distribution.PackageDescription.Check.Warning</code> now exports
+<code>filterPackageChecksById</code>, this can be used by third-party
+tools to filter warnings.</li>
+</ul></li>
+<li><p>Add support for <code>GHC2024</code> <a href="https://github.com/haskell/cabal/issues/9736">#9736</a> <a href="https://github.com/haskell/cabal/pull/9791">#9791</a></p>
+<p>Support for the <code>GHC2024</code> language edition, introduced by GHC 9.10, has been
+added. It can now be used in the <code>default-language</code> and <code>other-languages</code>
+fields, and will be offered as an option by <code>cabal init</code>.</p></li>
+<li><p>Remove <code>initialBuildSteps</code> from <code>Distribution.Simple.Build</code> <a href="https://github.com/haskell/cabal/pull/9474">#9474</a></p>
+<p>Calling <code>initialBuildSteps</code> to prepare source files for a package is error
+prone, as <code>initialBuildSteps</code> only handles things like the paths module
+and nothing else.</p>
+<p>To mimick <code>initialBuildSteps</code> behaviour when there is no custom Setup, you
+can call <code>repl_setupHooks</code>.</p>
+<p>If you are dealing with a custom setup, you have to invoke
+<code>./Setup repl --repl-multi-file</code>.</p></li>
+<li><p>Cabal and Cabal-syntax 3.12 support GHC version 8.4.4 and up.</p>
+<p>Support for all previous GHC versions is deprecated.</p></li>
+<li><p>Label error messages with codes (following GHC, Stack)</p>
+<p>As with GHC and Stack, Cabal and cabal-install now generate warnings and errors prefixed with error codes of the form <code>[Cabal-xxxxx]</code>. These will be documented on https://errors.haskell.org, although very few are as yet.</p></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p><code>cabal init</code> should not suggest Cabal &lt; 2.0 <a href="https://github.com/haskell/cabal/issues/8680">#8680</a> <a href="https://github.com/haskell/cabal/pull/8700">#8700</a></p>
+<p>‘cabal init’ no longer suggests users to set cabal-version to less than
+2.0.</p></li>
+<li><p>Remove <code>Distribution.Utils.TempTestDir</code> module from Cabal library <a href="https://github.com/haskell/cabal/issues/9453">#9453</a> <a href="https://github.com/haskell/cabal/pull/9454">#9454</a></p>
+<p>This library was only used by internal tests, and now lives in the
+<code>Cabal-tests</code> library which is shared across test components.</p></li>
+<li><p>PkgConfig individual calls <a href="https://github.com/haskell/cabal/pull/9134">#9134</a></p>
+<p><code>cabal</code> invokes <code>pkg-config</code> individually for each lib if querying for all
+doesn’t return the expected result.</p></li>
+<li><p>Split up <code>Distribution.Simple.Setup</code> <a href="https://github.com/haskell/cabal/pull/8130">#8130</a></p>
+<p>The external interface of ‘Distribution.Simple.Setup’ has been kept the
+same, but internally it has been broken up into smaller modules. This
+improves build times in two ways:</p>
+<ol type="1">
+<li>GHC is superlinear in the size of files, meaning that splitting up a
+large file can reduce overall compile times.</li>
+<li>Breaking up the module allows dependent modules to refine their imports
+to just the parts they require, allowing them to start buildling quicker
+when GHC is run in parrallel make mode (‘–ghc-options -j’).</li>
+</ol></li>
+<li><p>Reimplementing <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/7423">#7423</a> <a href="https://github.com/haskell/cabal/pull/8427">#8427</a></p>
+<ul>
+<li><code>checkPackage</code> signature has been simplified,
+you do not need to pass a specific configuration of the package, since
+we do not flatten <code>GenericPackageDescription</code> any more.</li>
+<li><code>checkPackageFileNames</code> has been removed,
+use <code>checkPackageFiles</code> instead.</li>
+<li><code>checkPackageFilesGPD</code> has been introduced,
+a function similar to <code>checkPackageFiles</code> that works on
+<code>GenericPackageDescription</code>. You do not need to use
+<code>flattenPackageDescription</code> anymore.</li>
+</ul></li>
+<li><p>Installation of extra-compilation-artifacts directory <a href="https://github.com/haskell/cabal/pull/8662">#8662</a></p>
+<p>GHC plugins now can store custom data in the ‘extra-compilation-artifacts’ directory which gets installed with the package.</p></li>
+<li><p>Add option to <code>./Setup repl</code> to write repl arguments to file <a href="https://github.com/haskell/cabal/pull/8726">#8726</a></p>
+<p>The <code>./Setup repl</code> command is modified to allow a user to defer starting
+the repl and instead instruct the command to write the necessary build
+flags to a directiory. The option is called <code>--repl-multi-file &lt;DIR&gt;</code>.</p>
+<p>This is useful when starting multi-component sessions, as we want to query
+Setup.hs for the arguments which are needed to build each component but
+not for ./Setup to start the repl itself.</p></li>
+<li><p>Add Haiku as a known platform <a href="https://github.com/haskell/cabal/pull/9006">#9006</a></p>
+<p>Cabal: Distribution now recognises Haiku as a valid platform, and also
+implements Haiku’s unique directory layout.</p></li>
+<li><p>Installation of <code>.hie</code> files <a href="https://github.com/haskell/cabal/issues/8685">#8685</a> <a href="https://github.com/haskell/cabal/pull/9019">#9019</a></p>
+<p>Hie files generated by GHC are now stored in the
+<code>extra-compilation-artifacts</code> directory which gets installed with the
+package.</p></li>
+<li><p>Include the GHC “Project Unit Id” in the cabal store path <a href="https://github.com/haskell/cabal/issues/8114">#8114</a> <a href="https://github.com/haskell/cabal/pull/9326">#9326</a></p>
+<p>This allows the use of several <strong>API incompatible builds of the same
+version of GHC</strong> without corrupting the cabal store.</p>
+<p>This relies on the “Project Unit Id” which is available since GHC 9.8.1,
+older versions of GHC do not benefit from this change.</p></li>
+<li><p>Fix the platform string for GNU/Hurd <a href="https://github.com/haskell/cabal/pull/9434">#9434</a></p>
+<p>Depending whom you ask, GNU/Hurd will be labelled “gnu” or “hurd”. The
+autotools use “gnu”, so ghc follows this for installed files, even if the
+ghc source code uses OSHurd. We thus need to add the translation between
+the two.</p></li>
+<li><p>Use linker capability detection to improve linker use <a href="https://github.com/haskell/cabal/pull/9443">#9443</a></p>
+<p>Previously the GHC version number and platform were used as a proxy for
+whether the linker can generate relocatable objects.</p>
+<p>Now, the ability of the linker to create relocatable objects is detected.</p></li>
+<li><p>Merge globbing implementations <a href="https://github.com/haskell/cabal/issues/5349">#5349</a> <a href="https://github.com/haskell/cabal/pull/9673">#9673</a></p>
+<p>The common aspects of the globbing functionality between <code>Cabal</code> and
+<code>cabal-install</code> have been factored out. The only change in the user-facing
+API is that we now record when a glob does not match exactly, but matches
+a directory with that same name, with the new constructor
+<code>GlobMatchesDirectory</code> of <code>GlobResult</code>.</p>
+<p>To illustrate, this change means that when <code>foo/dir</code> is a directory, the
+glob <code>*/dir/</code> matches exactly <code>foo/dir</code> (as before), but now <code>*/dir</code>
+produces <code>GlobMatchesDirectory</code> instead of failing. This allows callers
+to decide whether to allow or discard such inexact matches.</p></li>
+<li><p>Document <code>remote-repo-cache</code> as implemented. <a href="https://github.com/haskell/cabal/issues/8737">#8737</a> <a href="https://github.com/haskell/cabal/pull/8738">#8738</a></p></li>
+<li><p>Deduplicate <code>LD_LIBRARY_PATH</code> when running tests <a href="https://github.com/haskell/cabal/pull/8728">#8728</a></p></li>
+<li><p>Add support for a number of architectures:</p>
+<ul>
+<li>RISC-V <a href="https://github.com/haskell/cabal/pull/9062">#9062</a></li>
+<li>64-bit LoongArch <a href="https://github.com/haskell/cabal/pull/9215">#9215</a></li>
+<li>64-bit SPARC as a separate architecture <a href="https://github.com/haskell/cabal/pull/9445">#9445</a></li>
+</ul></li>
+<li><p>Don’t report <code>index.html</code> file as created, if not created by Haddock <a href="https://github.com/haskell/cabal/issues/5120">#5120</a> <a href="https://github.com/haskell/cabal/pull/9332">#9332</a></p></li>
+<li><p>Enable using <code>$ORIGIN</code> in <code>RPATH</code> on GNU/Hurd <a href="https://github.com/haskell/cabal/pull/9441">#9441</a></p></li>
+<li><p>Make check comply with Hackage requirements <a href="https://github.com/haskell/cabal/pull/8897">#8897</a></p>
+<ul>
+<li><code>cabal check</code> will only return exitcode 1 when the package is not fit
+for Hackage. E.g. it will not error anymore when your <code>synopsis:</code> is
+larger than <code>description:</code>, just emit a warning.</li>
+<li>Cabal: <code>Distribution.Client.Check</code> now exports <code>isHackageDistError</code>, for
+third-party tools to know if a specific error will preclude a package
+from being uploaded to Hacakge.</li>
+</ul></li>
+<li><p>Add language extension <code>ExtendedLiterals</code> (GHC proposal #451) <a href="https://github.com/haskell/cabal/pull/8992">#8992</a></p></li>
+<li><p>Warn about inconsistent indentation <a href="https://github.com/haskell/cabal/pull/8975">#8975</a></p>
+<ul>
+<li>Make Cabal warn about inconsistent indentation in .cabal files. For
+example warn about somewhat common decreasing indentation like in</li>
+</ul>
+<pre class="cabal"><code>library
+default-language: Haskell2010
+build-depends: base
+ghc-options: -Wall</code></pre>
+<p>The change is <code>readFields</code> function.</p>
+<p>This is an effect of using <code>indentOfAtLeast</code> method/approach: any
+indentation greater than current offset is accepted.</p>
+<p>That behavior is desirable to parsing multiline field contents, but it is
+a bit surprising for fields in sections, which we expect to be aligned.</p>
+<p>Such insonsistency seems to be always a mistake, and it’s easy to fix once
+a machine points it out.</p></li>
+<li><p>Add <code>LexBraces</code> lexer warning <a href="https://github.com/haskell/cabal/issues/8577">#8577</a></p>
+<p><code>LexBraces</code> warning is issued when brace delimiting syntax is used. This
+way, using <code>readFields'</code>, a low-lever consumer may decide whether braces
+were used.</p>
+<p>Looking for a brace character in the input is imprecise, as braces can
+occur inside field content.</p>
+<p>This warning is not propagated to parser warnings, so e.g.
+<code>readGenericPackageDescription</code> doesn’t warn about it. This is because all
+parser warnings prevent uploads to Hackage, and using braces (or not) is
+a matter of opinion.</p></li>
+<li><p>Distinguish <code>powerpc64le</code>, by adding <code>PPC64LE</code> constructor to type <code>Arch</code> <a href="https://github.com/haskell/cabal/issues/9534">#9534</a> <a href="https://github.com/haskell/cabal/pull/9535">#9535</a></p>
+<p>Adds constructor <code>PPC64LE</code> to type <code>Arch</code> to distinguish architecture
+powerpc64le from powerpc64. Existing constructor <code>PPC64</code> now exclusively
+represents powerpc64.</p></li>
+<li><p>PkgConfig individual calls <a href="https://github.com/haskell/cabal/pull/9134">#9134</a></p>
+<p><code>cabal</code> invokes <code>pkg-config</code> individually for each lib if querying for all doesn’t return the expected result</p></li>
+<li><p>Add language extension <code>ListTuplePuns</code> (GHC proposal #475) <a href="https://github.com/haskell/cabal/pull/8854">#8854</a></p></li>
+<li><p>Add <code>mkVersionIntervals</code> for creating a <code>VersionIntervals</code> from a list <a href="https://github.com/haskell/cabal/pull/9034">#9034</a></p>
+<p>If external tools want to change the version intervals of dependencies, they
+need to be able to create a <code>VersionRange</code> from a <code>[VersionInterval]</code> list. Adding
+the function <code>mkVersionIntervals</code> makes this possible again.</p></li>
+<li><p>Add language extension <code>TypeAbstractions</code> <a href="https://github.com/haskell/cabal/issues/9496">#9496</a> <a href="https://github.com/haskell/cabal/pull/9502">#9502</a></p></li>
+<li><p>Update SPDX License List to version <code>3.23 2024-02-08</code> <a href="https://github.com/haskell/cabal/pull/9818">#9818</a></p>
+<ul>
+<li>LicenseId and LicenseExceptionId now conform to SPDX License List
+version 3.23 2024-02-08.</li>
+</ul></li>
+</ul>
+    </section>
+</article>
+
+                    <hr />
+                    <footer>
+                        <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var switchColor = () => {
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'light'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
+            }
+            else {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
+            }
+        };
+
+        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.documentElement.setAttribute('data-bs-theme','light')
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme','dark')
+            }
+
+            switchColor();
+        })
+
+        switchColor();
+    </script>
+</body>
+
+</html>

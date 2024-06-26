@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Cabal">
+<meta name="description" content="Build Haskell applications and libraries">
+
+    <title>Cabal-3.8.1.0</title>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../images/Cabal-tiny.png" rel="icon">
+
+</head>
+
+<body>
+    <div class="d-lg-none">
+        <div id="nav-top" class="d-print-none">
+            <nav>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">docs</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/download.html">download</a></li>
+        <li class="nav-item"><a class="nav-link" href="../releases/">releases</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/history.html">history</a></li>
+    </ul>
+</nav>
+
+        </div>
+        <div id="content" class="d-print-col-12">
+            <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.8.1.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-3.8.1.0-changelog">Cabal 3.8.1.0 Changelog</h2>
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Split out package <code>Cabal-syntax</code> for <code>.cabal</code> file syntax and parsing <a href="https://github.com/haskell/cabal/issues/7559">#7559</a> <a href="https://github.com/haskell/cabal/pull/7620">#7620</a></p></li>
+<li><p>Unmarked “visibility: public” and “build-depends: pkg:lib” syntaxes as experimental, allowing Hackage upload of packages exposing or using multiple public libraries <a href="https://github.com/haskell/cabal/issues/6801">#6801</a> <a href="https://github.com/haskell/cabal/issues/7286">#7286</a> <a href="https://github.com/haskell/cabal/pull/8089">#8089</a></p></li>
+<li><p>Add code-generators field to test-suite stanza <a href="https://github.com/haskell/cabal/issues/4500">#4500</a> <a href="https://github.com/haskell/cabal/pull/7688">#7688</a></p>
+<p>Test-suite stanzas now may contain a <code>code-generators:</code> field that can be used to run executables as preprocessors which take existing locations of library code and cabal-generated ghc build flags, and output new modules for use in the test stanza. This can be used to automatically generate drivers for “discover” style tests, including doctests.</p></li>
+<li><p>Windows: redo the fix to breakage caused by new autoconf; the wrong fix made cabal sometimes fail with old autoconf <a href="https://github.com/haskell/cabal/issues/7494">#7494</a> <a href="https://github.com/haskell/cabal/issues/7649">#7649</a></p>
+<ul>
+<li>Reverts #7510 that failed on Windows when used with pre-generated scripts included in packages such as network, time, process.</li>
+<li>Adds a subtler fix/workaround for the deficiencies of new autoconf versions on Windows.</li>
+</ul></li>
+<li><p>Windows: rewrite paths to configure <a href="https://github.com/haskell/cabal/issues/7494">#7494</a> <a href="https://github.com/haskell/cabal/issues/7649">#7649</a></p></li>
+<li><p>Enabled foreign library building on apple silicon <a href="https://github.com/haskell/cabal/issues/7837">#7837</a> <a href="https://github.com/haskell/cabal/issues/8227">#8227</a> <a href="https://github.com/haskell/cabal/pull/8232">#8232</a></p>
+<ul>
+<li>Enabled foreign library building on apple silicon</li>
+<li>Updated error message for foreign library builds on unsupported platforms</li>
+</ul></li>
+<li><p>Allow preprocessors to register a reordering <a href="https://github.com/haskell/cabal/issues/55">#55</a> <a href="https://github.com/haskell/cabal/issues/1906">#1906</a></p>
+<ul>
+<li>Changes the PreProcessor type to include a field ppOrdering so that modules are presented to the preprocessor in the right order (w.r.t. dependencies)</li>
+</ul></li>
+<li><p>Use ghc -flink-rts option when available <a href="https://github.com/haskell/cabal/issues/7763">#7763</a> <a href="https://github.com/haskell/cabal/pull/7764">#7764</a> <a href="https://github.com/haskell/cabal/pull/8111">#8111</a></p>
+<p>Previously Cabal did quite some headstands to link against libHSrts.
+Note only this is complex but it couples very tightly to GHC’s implementation.
+Thankfully, as of GHC 9.0 GHC provides a -flink-rts flag for precisely this purpose.
+Use it when available.</p>
+<p>It fixed a bug which make Cabal unusable to build foreign libraries for windows and ghc 9.0 or 9.2.
+See <a href="https://gitlab.haskell.org/ghc/ghc/-/issues/20520" class="uri">https://gitlab.haskell.org/ghc/ghc/-/issues/20520</a></p></li>
+<li><p>Remove the Generic instance of LicenseId <a href="https://github.com/haskell/cabal/issues/8074">#8074</a> <a href="https://github.com/haskell/cabal/pull/8117">#8117</a></p>
+<ul>
+<li>The <code>Generic</code> instance of LicenseId is removed, due to the extraordinary amount of memory required to compile
+the Generic instances of large sum types in GHC.</li>
+</ul></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Handle option argument parse errors without ‘error’ <a href="https://github.com/haskell/cabal/issues/7573">#7573</a> <a href="https://github.com/haskell/cabal/pull/7579">#7579</a></p>
+<ul>
+<li>Errors parsing arguments such as <code>-v=3</code> no longer result in
+stack traces.</li>
+<li><code>Distribution.ReadE.readEOrFail</code> was removed.</li>
+</ul></li>
+<li><p>Fix bugs in filename validation <a href="https://github.com/haskell/cabal/issues/7426">#7426</a> <a href="https://github.com/haskell/cabal/pull/7429">#7429</a> <a href="https://github.com/haskell/cabal/pull/7479">#7479</a></p>
+<ul>
+<li>Relative paths starting with single-character directories are now properly allowed</li>
+<li><code>cabal check</code> rejects paths which are invalid on Windows or in tarballs</li>
+</ul></li>
+<li><p>Fix test –enable-coverage for multi-package projects <a href="https://github.com/haskell/cabal/issues/5213">#5213</a> <a href="https://github.com/haskell/cabal/issues/5433">#5433</a> <a href="https://github.com/haskell/cabal/issues/7200">#7200</a> <a href="https://github.com/haskell/cabal/pull/7250">#7250</a> <a href="https://github.com/haskell/cabal/pull/7467">#7467</a></p>
+<ul>
+<li>Fix <code>cabal test --enable-coverage</code> for multi-package projects by invoking <code>hpc markup --include=</code> and listing only modules of libraries of the single tested package.</li>
+</ul></li>
+<li><p>Make cabal respect setgid permission bit when creating directories <a href="https://github.com/haskell/cabal/issues/7560">#7560</a> <a href="https://github.com/haskell/cabal/pull/7572">#7572</a></p>
+<ul>
+<li>Previously cabal would override an admin’s choice to use setgid on the
+.cabal directory by using hardcoded file and directory modes upon
+creation. Instead we now take what the system decides and only add to
+that set of permissions.</li>
+</ul></li>
+<li><p>Handle conditionals in duplicate module checks <a href="https://github.com/haskell/cabal/issues/4629">#4629</a> <a href="https://github.com/haskell/cabal/issues/7525">#7525</a> <a href="https://github.com/haskell/cabal/pull/7616">#7616</a></p>
+<p>Improves <code>cabal check</code> logic for duplicate modules to take into account conditional branches. If a module appears on both sides of an <code>if/else</code> clause in a cabal file, it is now correctly not reported as a duplicate.</p></li>
+<li><p>Allow glob-star matches with literal filenames (no extensions) <a href="https://github.com/haskell/cabal/issues/5883">#5883</a> <a href="https://github.com/haskell/cabal/pull/8005">#8005</a></p>
+<ul>
+<li>Cabal file glob syntax extended to allow matches of the form dir/**/FileNoExtension</li>
+</ul></li>
+<li><p>Flatten duplicate warnings about experimental features <a href="https://github.com/haskell/cabal/pull/8023">#8023</a></p>
+<ul>
+<li>Make builds that use experimental Cabal language features less noisy. At -v1
+(normal) we show just first instance of use of experimental cabal language
+features, along with count of further occurrences in the same file.</li>
+</ul></li>
+<li><p>Fix Cabal not finding public sublibraries of installed packages <a href="https://github.com/haskell/cabal/issues/7270">#7270</a> <a href="https://github.com/haskell/cabal/pull/8089">#8089</a></p>
+<p>Fix bug in lookup of installed sublibraries with nonexact dependencies (ie. when
+not using –exact-configuration). That is the mode of operation of distribution
+packages, so this should allow distros to package Cabal packages with multiple
+libraries.</p></li>
+<li><p>Make type field optional for tests and benchmarks <a href="https://github.com/haskell/cabal/issues/7459">#7459</a> <a href="https://github.com/haskell/cabal/pull/8115">#8115</a></p>
+<p>Allow the omission of the <code>type</code> field in <code>test-suite</code> and <code>benchmark</code> stanzas
+when the type can be inferred by the presence of <code>main-is</code> or <code>test-module</code>.</p></li>
+<li><p>Improve error message for empty –allow-newer= <a href="https://github.com/haskell/cabal/issues/7740">#7740</a> <a href="https://github.com/haskell/cabal/pull/8140">#8140</a></p>
+<p>Instead of internal error, the message now explains that empty argument for</p>
+<p>argument) means.</p></li>
+<li><p>Fix haddock command via Setup.hs for internal libraries <a href="https://github.com/haskell/cabal/issues/1919">#1919</a> <a href="https://github.com/haskell/cabal/pull/7827">#7827</a></p></li>
+<li><p><code>ghc-options</code> and <code>--with-gcc</code> are now passed to GHC when compiling C and C++ sources <a href="https://github.com/haskell/cabal/issues/4439">#4439</a> <a href="https://github.com/haskell/cabal/pull/5440">#5440</a> <a href="https://github.com/haskell/cabal/pull/7874">#7874</a></p></li>
+<li><p>‘cabal check’ to fail when no upper bounds for base or Cabal are present in setup dependencies <a href="https://github.com/haskell/cabal/issues/4683">#4683</a> <a href="https://github.com/haskell/cabal/pull/5370">#5370</a> <a href="https://github.com/haskell/cabal/pull/7409">#7409</a></p></li>
+<li><p>–repl-options doesn’t split on whitespace <a href="https://github.com/haskell/cabal/issues/6190">#6190</a> <a href="https://github.com/haskell/cabal/pull/7799">#7799</a></p></li>
+<li><p>‘–repl-no-load’ option skips startup modules load in REPL <a href="https://github.com/haskell/cabal/issues/7541">#7541</a> <a href="https://github.com/haskell/cabal/pull/7578">#7578</a></p></li>
+<li><p>Add -c alias for –constraint command line flag <a href="https://github.com/haskell/cabal/issues/7765">#7765</a> <a href="https://github.com/haskell/cabal/pull/7766">#7766</a></p></li>
+<li><p>Add fields extra-libraries-static and extra-lib-dirs-static <a href="https://github.com/haskell/cabal/issues/6688">#6688</a> <a href="https://github.com/haskell/cabal/issues/7399">#7399</a> <a href="https://github.com/haskell/cabal/pull/7536">#7536</a></p></li>
+<li><p>Paths passed to GHC are now relative to the current working directory</p></li>
+<li><p>raise lower bound of process and remove compatibility shims <a href="https://github.com/haskell/cabal/pull/7922">#7922</a></p></li>
+<li><p>changes the cabal check warning about long synopsis, so it warns only synopsis bigger than the set size <a href="https://github.com/haskell/cabal/issues/7932">#7932</a> <a href="https://github.com/haskell/cabal/pull/7933">#7933</a></p></li>
+<li><p>Remove bootstrapping plan files from version control, and simplify bootstrap update Makefile targets. <a href="https://github.com/haskell/cabal/pull/7949">#7949</a></p></li>
+<li><p>Remove deprecated file finding functions <a href="https://github.com/haskell/cabal/pull/7955">#7955</a></p></li>
+<li><p>Support GHC 9.4’s <code>clang</code>-based Windows toolchain <a href="https://github.com/haskell/cabal/pull/8062">#8062</a></p></li>
+<li><p>Add support for the 64-bit S390X architecture <a href="https://github.com/haskell/cabal/pull/8065">#8065</a></p></li>
+<li><p>Add wasm32-wasi to recognized arch/os <a href="https://github.com/haskell/cabal/pull/8096">#8096</a></p></li>
+<li><p><em>Cabal-syntax</em> Derive Eq for DependencyMap <a href="https://github.com/haskell/cabal/issues/7849">#7849</a> <a href="https://github.com/haskell/cabal/pull/8061">#8061</a></p></li>
+<li><p><em>Cabal-syntax</em> Allow trailing whitespace after flags in cabal.project <a href="https://github.com/haskell/cabal/issues/7279">#7279</a> <a href="https://github.com/haskell/cabal/pull/8006">#8006</a></p></li>
+<li><p><em>Cabal-syntax</em> Update the SPDX License List to version 3.16 <a href="https://github.com/haskell/cabal/issues/8126">#8126</a> <a href="https://github.com/haskell/cabal/pull/8127">#8127</a></p>
+<p>The LicenseId and LicenseExceptionId types are updated to reflect the SPDX License List version 3.16 (2022-02-06).</p></li>
+<li><p><em>Cabal-syntax</em> Future compat for liftA2 being exported from Prelude <a href="https://github.com/haskell/cabal/pull/8823">#8823</a></p>
+<ul>
+<li>liftA2 will be exported from Prelude in the future(see https://github.com/haskell/core-libraries-committee/issues/50).
+Cabal-syntax was future-proofed to have no warnings when that happens.</li>
+</ul></li>
+<li><p><em>Cabal-syntax</em> cabal init -n: avoid extra blank lines <a href="https://github.com/haskell/cabal/issues/8236">#8236</a> <a href="https://github.com/haskell/cabal/pull/8292">#8292</a></p></li>
+<li><p>Added fields :pkg-field:<code>extra-libraries-static</code> and
+:pkg-field:<code>extra-lib-dirs-static</code> to allow Haskell libraries to remember
+linker flags needed for fully static linking of system libraries into executables. <a href="https://github.com/haskell/cabal/pull/7536">#7536</a></p></li>
+<li><p>The existing field :pkg-field:<code>pkgconfig-depends</code> can used to append the relevant
+output of <code>pkg-config --libs --static</code> to these new fields automatically.
+When :pkg-field:<code>extra-libraries-static</code> is not given, it defaults to
+:pkg-field:<code>extra-libraries</code>. When :pkg-field:<code>extra-lib-dirs-static</code> is not
+given, it defaults to :pkg-field:<code>extra-lib-dirs</code>. <a href="https://github.com/haskell/cabal/pull/7536">#7536</a></p></li>
+<li><p>Remove the GHC version upper bound when deciding whether to filter GHC arguments</p>
+<ul>
+<li>Previously, for unknown new versions of GHC, it was not filtering GHC arguments at all, while now it filters them in the same way as for the last known GHC version. This seems a better default and it’s one less place to update at release time. Perhaps erroring out or emitting a warning would be safer, but we already emit a general warning elsewhere.</li>
+</ul></li>
+</ul>
+    </section>
+</article>
+
+            <hr />
+            <footer>
+                <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+            </footer>
+        </div>
+    </div>
+    <div class="d-none d-lg-block">
+        <div class="fluid-container">
+            <div class="row">
+                <div id="nav-side" class="col-2 card d-print-none">
+                    <div class="card-body">
+    <h1 class="card-title" title="Cabal"><a href="../"><img id="img-logo" src="../images/Cabal-light.png" style="width:80%"></a></h1>
+
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">
+                    <i class="fa fa-book"></i>
+                    docs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/download.html">
+                    <i class="fa fa-download"></i>
+                    download</a></li>
+            <li class="nav-item"><a class="nav-link" href="../releases/">
+                    <i class="fa fa-calendar"></i>
+                    releases</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">
+                    <i class="fa fa-question-circle"></i>
+                    FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="../blog/">
+                    <i class="fa fa-pen-nib"></i>
+                    blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/history.html">
+                    <i class="fa fa-clock-rotate-left"></i>
+                    history</a></li>
+        </ul>
+    </nav>
+    <div class="card">
+        <div class="card-body">
+            <span id="color-switch">set color&nbsp;<a class="link" id="btn-switch-color-mode">light</a></span>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <div id="content" class="d-print-col-12">
+                    <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.8.1.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-3.8.1.0-changelog">Cabal 3.8.1.0 Changelog</h2>
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Split out package <code>Cabal-syntax</code> for <code>.cabal</code> file syntax and parsing <a href="https://github.com/haskell/cabal/issues/7559">#7559</a> <a href="https://github.com/haskell/cabal/pull/7620">#7620</a></p></li>
+<li><p>Unmarked “visibility: public” and “build-depends: pkg:lib” syntaxes as experimental, allowing Hackage upload of packages exposing or using multiple public libraries <a href="https://github.com/haskell/cabal/issues/6801">#6801</a> <a href="https://github.com/haskell/cabal/issues/7286">#7286</a> <a href="https://github.com/haskell/cabal/pull/8089">#8089</a></p></li>
+<li><p>Add code-generators field to test-suite stanza <a href="https://github.com/haskell/cabal/issues/4500">#4500</a> <a href="https://github.com/haskell/cabal/pull/7688">#7688</a></p>
+<p>Test-suite stanzas now may contain a <code>code-generators:</code> field that can be used to run executables as preprocessors which take existing locations of library code and cabal-generated ghc build flags, and output new modules for use in the test stanza. This can be used to automatically generate drivers for “discover” style tests, including doctests.</p></li>
+<li><p>Windows: redo the fix to breakage caused by new autoconf; the wrong fix made cabal sometimes fail with old autoconf <a href="https://github.com/haskell/cabal/issues/7494">#7494</a> <a href="https://github.com/haskell/cabal/issues/7649">#7649</a></p>
+<ul>
+<li>Reverts #7510 that failed on Windows when used with pre-generated scripts included in packages such as network, time, process.</li>
+<li>Adds a subtler fix/workaround for the deficiencies of new autoconf versions on Windows.</li>
+</ul></li>
+<li><p>Windows: rewrite paths to configure <a href="https://github.com/haskell/cabal/issues/7494">#7494</a> <a href="https://github.com/haskell/cabal/issues/7649">#7649</a></p></li>
+<li><p>Enabled foreign library building on apple silicon <a href="https://github.com/haskell/cabal/issues/7837">#7837</a> <a href="https://github.com/haskell/cabal/issues/8227">#8227</a> <a href="https://github.com/haskell/cabal/pull/8232">#8232</a></p>
+<ul>
+<li>Enabled foreign library building on apple silicon</li>
+<li>Updated error message for foreign library builds on unsupported platforms</li>
+</ul></li>
+<li><p>Allow preprocessors to register a reordering <a href="https://github.com/haskell/cabal/issues/55">#55</a> <a href="https://github.com/haskell/cabal/issues/1906">#1906</a></p>
+<ul>
+<li>Changes the PreProcessor type to include a field ppOrdering so that modules are presented to the preprocessor in the right order (w.r.t. dependencies)</li>
+</ul></li>
+<li><p>Use ghc -flink-rts option when available <a href="https://github.com/haskell/cabal/issues/7763">#7763</a> <a href="https://github.com/haskell/cabal/pull/7764">#7764</a> <a href="https://github.com/haskell/cabal/pull/8111">#8111</a></p>
+<p>Previously Cabal did quite some headstands to link against libHSrts.
+Note only this is complex but it couples very tightly to GHC’s implementation.
+Thankfully, as of GHC 9.0 GHC provides a -flink-rts flag for precisely this purpose.
+Use it when available.</p>
+<p>It fixed a bug which make Cabal unusable to build foreign libraries for windows and ghc 9.0 or 9.2.
+See <a href="https://gitlab.haskell.org/ghc/ghc/-/issues/20520" class="uri">https://gitlab.haskell.org/ghc/ghc/-/issues/20520</a></p></li>
+<li><p>Remove the Generic instance of LicenseId <a href="https://github.com/haskell/cabal/issues/8074">#8074</a> <a href="https://github.com/haskell/cabal/pull/8117">#8117</a></p>
+<ul>
+<li>The <code>Generic</code> instance of LicenseId is removed, due to the extraordinary amount of memory required to compile
+the Generic instances of large sum types in GHC.</li>
+</ul></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Handle option argument parse errors without ‘error’ <a href="https://github.com/haskell/cabal/issues/7573">#7573</a> <a href="https://github.com/haskell/cabal/pull/7579">#7579</a></p>
+<ul>
+<li>Errors parsing arguments such as <code>-v=3</code> no longer result in
+stack traces.</li>
+<li><code>Distribution.ReadE.readEOrFail</code> was removed.</li>
+</ul></li>
+<li><p>Fix bugs in filename validation <a href="https://github.com/haskell/cabal/issues/7426">#7426</a> <a href="https://github.com/haskell/cabal/pull/7429">#7429</a> <a href="https://github.com/haskell/cabal/pull/7479">#7479</a></p>
+<ul>
+<li>Relative paths starting with single-character directories are now properly allowed</li>
+<li><code>cabal check</code> rejects paths which are invalid on Windows or in tarballs</li>
+</ul></li>
+<li><p>Fix test –enable-coverage for multi-package projects <a href="https://github.com/haskell/cabal/issues/5213">#5213</a> <a href="https://github.com/haskell/cabal/issues/5433">#5433</a> <a href="https://github.com/haskell/cabal/issues/7200">#7200</a> <a href="https://github.com/haskell/cabal/pull/7250">#7250</a> <a href="https://github.com/haskell/cabal/pull/7467">#7467</a></p>
+<ul>
+<li>Fix <code>cabal test --enable-coverage</code> for multi-package projects by invoking <code>hpc markup --include=</code> and listing only modules of libraries of the single tested package.</li>
+</ul></li>
+<li><p>Make cabal respect setgid permission bit when creating directories <a href="https://github.com/haskell/cabal/issues/7560">#7560</a> <a href="https://github.com/haskell/cabal/pull/7572">#7572</a></p>
+<ul>
+<li>Previously cabal would override an admin’s choice to use setgid on the
+.cabal directory by using hardcoded file and directory modes upon
+creation. Instead we now take what the system decides and only add to
+that set of permissions.</li>
+</ul></li>
+<li><p>Handle conditionals in duplicate module checks <a href="https://github.com/haskell/cabal/issues/4629">#4629</a> <a href="https://github.com/haskell/cabal/issues/7525">#7525</a> <a href="https://github.com/haskell/cabal/pull/7616">#7616</a></p>
+<p>Improves <code>cabal check</code> logic for duplicate modules to take into account conditional branches. If a module appears on both sides of an <code>if/else</code> clause in a cabal file, it is now correctly not reported as a duplicate.</p></li>
+<li><p>Allow glob-star matches with literal filenames (no extensions) <a href="https://github.com/haskell/cabal/issues/5883">#5883</a> <a href="https://github.com/haskell/cabal/pull/8005">#8005</a></p>
+<ul>
+<li>Cabal file glob syntax extended to allow matches of the form dir/**/FileNoExtension</li>
+</ul></li>
+<li><p>Flatten duplicate warnings about experimental features <a href="https://github.com/haskell/cabal/pull/8023">#8023</a></p>
+<ul>
+<li>Make builds that use experimental Cabal language features less noisy. At -v1
+(normal) we show just first instance of use of experimental cabal language
+features, along with count of further occurrences in the same file.</li>
+</ul></li>
+<li><p>Fix Cabal not finding public sublibraries of installed packages <a href="https://github.com/haskell/cabal/issues/7270">#7270</a> <a href="https://github.com/haskell/cabal/pull/8089">#8089</a></p>
+<p>Fix bug in lookup of installed sublibraries with nonexact dependencies (ie. when
+not using –exact-configuration). That is the mode of operation of distribution
+packages, so this should allow distros to package Cabal packages with multiple
+libraries.</p></li>
+<li><p>Make type field optional for tests and benchmarks <a href="https://github.com/haskell/cabal/issues/7459">#7459</a> <a href="https://github.com/haskell/cabal/pull/8115">#8115</a></p>
+<p>Allow the omission of the <code>type</code> field in <code>test-suite</code> and <code>benchmark</code> stanzas
+when the type can be inferred by the presence of <code>main-is</code> or <code>test-module</code>.</p></li>
+<li><p>Improve error message for empty –allow-newer= <a href="https://github.com/haskell/cabal/issues/7740">#7740</a> <a href="https://github.com/haskell/cabal/pull/8140">#8140</a></p>
+<p>Instead of internal error, the message now explains that empty argument for</p>
+<p>argument) means.</p></li>
+<li><p>Fix haddock command via Setup.hs for internal libraries <a href="https://github.com/haskell/cabal/issues/1919">#1919</a> <a href="https://github.com/haskell/cabal/pull/7827">#7827</a></p></li>
+<li><p><code>ghc-options</code> and <code>--with-gcc</code> are now passed to GHC when compiling C and C++ sources <a href="https://github.com/haskell/cabal/issues/4439">#4439</a> <a href="https://github.com/haskell/cabal/pull/5440">#5440</a> <a href="https://github.com/haskell/cabal/pull/7874">#7874</a></p></li>
+<li><p>‘cabal check’ to fail when no upper bounds for base or Cabal are present in setup dependencies <a href="https://github.com/haskell/cabal/issues/4683">#4683</a> <a href="https://github.com/haskell/cabal/pull/5370">#5370</a> <a href="https://github.com/haskell/cabal/pull/7409">#7409</a></p></li>
+<li><p>–repl-options doesn’t split on whitespace <a href="https://github.com/haskell/cabal/issues/6190">#6190</a> <a href="https://github.com/haskell/cabal/pull/7799">#7799</a></p></li>
+<li><p>‘–repl-no-load’ option skips startup modules load in REPL <a href="https://github.com/haskell/cabal/issues/7541">#7541</a> <a href="https://github.com/haskell/cabal/pull/7578">#7578</a></p></li>
+<li><p>Add -c alias for –constraint command line flag <a href="https://github.com/haskell/cabal/issues/7765">#7765</a> <a href="https://github.com/haskell/cabal/pull/7766">#7766</a></p></li>
+<li><p>Add fields extra-libraries-static and extra-lib-dirs-static <a href="https://github.com/haskell/cabal/issues/6688">#6688</a> <a href="https://github.com/haskell/cabal/issues/7399">#7399</a> <a href="https://github.com/haskell/cabal/pull/7536">#7536</a></p></li>
+<li><p>Paths passed to GHC are now relative to the current working directory</p></li>
+<li><p>raise lower bound of process and remove compatibility shims <a href="https://github.com/haskell/cabal/pull/7922">#7922</a></p></li>
+<li><p>changes the cabal check warning about long synopsis, so it warns only synopsis bigger than the set size <a href="https://github.com/haskell/cabal/issues/7932">#7932</a> <a href="https://github.com/haskell/cabal/pull/7933">#7933</a></p></li>
+<li><p>Remove bootstrapping plan files from version control, and simplify bootstrap update Makefile targets. <a href="https://github.com/haskell/cabal/pull/7949">#7949</a></p></li>
+<li><p>Remove deprecated file finding functions <a href="https://github.com/haskell/cabal/pull/7955">#7955</a></p></li>
+<li><p>Support GHC 9.4’s <code>clang</code>-based Windows toolchain <a href="https://github.com/haskell/cabal/pull/8062">#8062</a></p></li>
+<li><p>Add support for the 64-bit S390X architecture <a href="https://github.com/haskell/cabal/pull/8065">#8065</a></p></li>
+<li><p>Add wasm32-wasi to recognized arch/os <a href="https://github.com/haskell/cabal/pull/8096">#8096</a></p></li>
+<li><p><em>Cabal-syntax</em> Derive Eq for DependencyMap <a href="https://github.com/haskell/cabal/issues/7849">#7849</a> <a href="https://github.com/haskell/cabal/pull/8061">#8061</a></p></li>
+<li><p><em>Cabal-syntax</em> Allow trailing whitespace after flags in cabal.project <a href="https://github.com/haskell/cabal/issues/7279">#7279</a> <a href="https://github.com/haskell/cabal/pull/8006">#8006</a></p></li>
+<li><p><em>Cabal-syntax</em> Update the SPDX License List to version 3.16 <a href="https://github.com/haskell/cabal/issues/8126">#8126</a> <a href="https://github.com/haskell/cabal/pull/8127">#8127</a></p>
+<p>The LicenseId and LicenseExceptionId types are updated to reflect the SPDX License List version 3.16 (2022-02-06).</p></li>
+<li><p><em>Cabal-syntax</em> Future compat for liftA2 being exported from Prelude <a href="https://github.com/haskell/cabal/pull/8823">#8823</a></p>
+<ul>
+<li>liftA2 will be exported from Prelude in the future(see https://github.com/haskell/core-libraries-committee/issues/50).
+Cabal-syntax was future-proofed to have no warnings when that happens.</li>
+</ul></li>
+<li><p><em>Cabal-syntax</em> cabal init -n: avoid extra blank lines <a href="https://github.com/haskell/cabal/issues/8236">#8236</a> <a href="https://github.com/haskell/cabal/pull/8292">#8292</a></p></li>
+<li><p>Added fields :pkg-field:<code>extra-libraries-static</code> and
+:pkg-field:<code>extra-lib-dirs-static</code> to allow Haskell libraries to remember
+linker flags needed for fully static linking of system libraries into executables. <a href="https://github.com/haskell/cabal/pull/7536">#7536</a></p></li>
+<li><p>The existing field :pkg-field:<code>pkgconfig-depends</code> can used to append the relevant
+output of <code>pkg-config --libs --static</code> to these new fields automatically.
+When :pkg-field:<code>extra-libraries-static</code> is not given, it defaults to
+:pkg-field:<code>extra-libraries</code>. When :pkg-field:<code>extra-lib-dirs-static</code> is not
+given, it defaults to :pkg-field:<code>extra-lib-dirs</code>. <a href="https://github.com/haskell/cabal/pull/7536">#7536</a></p></li>
+<li><p>Remove the GHC version upper bound when deciding whether to filter GHC arguments</p>
+<ul>
+<li>Previously, for unknown new versions of GHC, it was not filtering GHC arguments at all, while now it filters them in the same way as for the last known GHC version. This seems a better default and it’s one less place to update at release time. Perhaps erroring out or emitting a warning would be safer, but we already emit a general warning elsewhere.</li>
+</ul></li>
+</ul>
+    </section>
+</article>
+
+                    <hr />
+                    <footer>
+                        <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var switchColor = () => {
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'light'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
+            }
+            else {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
+            }
+        };
+
+        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.documentElement.setAttribute('data-bs-theme','light')
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme','dark')
+            }
+
+            switchColor();
+        })
+
+        switchColor();
+    </script>
+</body>
+
+</html>

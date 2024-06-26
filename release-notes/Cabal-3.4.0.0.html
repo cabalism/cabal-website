@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Cabal">
+<meta name="description" content="Build Haskell applications and libraries">
+
+    <title>Cabal-3.4.0.0</title>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../images/Cabal-tiny.png" rel="icon">
+
+</head>
+
+<body>
+    <div class="d-lg-none">
+        <div id="nav-top" class="d-print-none">
+            <nav>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">docs</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/download.html">download</a></li>
+        <li class="nav-item"><a class="nav-link" href="../releases/">releases</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/history.html">history</a></li>
+    </ul>
+</nav>
+
+        </div>
+        <div id="content" class="d-print-col-12">
+            <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.4.0.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Add cabal-version: 3.4 <a href="https://github.com/haskell/cabal/pull/6663">!6663</a></p>
+<p>See various changes in https://cabal.readthedocs.io/en/latest/file-format-changelog.html#cabal-version-3-4</p></li>
+<li><p>Support GHC-9.0 <a href="https://github.com/haskell/cabal/issues/6903">#6903</a> <a href="https://github.com/haskell/cabal/issues/6904">#6904</a> <a href="https://github.com/haskell/cabal/issues/6905">#6905</a> <a href="https://github.com/haskell/cabal/pull/6545">!6545</a> <a href="https://github.com/haskell/cabal/pull/6552">!6552</a> <a href="https://github.com/haskell/cabal/pull/6553">!6553</a> <a href="https://github.com/haskell/cabal/pull/6563">!6563</a> <a href="https://github.com/haskell/cabal/pull/6735">!6735</a> <a href="https://github.com/haskell/cabal/pull/6844">!6844</a> <a href="https://github.com/haskell/cabal/pull/6848">!6848</a> <a href="https://github.com/haskell/cabal/pull/6865">!6865</a> <a href="https://github.com/haskell/cabal/pull/6908">!6908</a> <a href="https://github.com/haskell/cabal/pull/6947">!6947</a></p>
+<ul>
+<li>Support for <code>-this-package-key</code> deprecation</li>
+<li>Use process <code>createPipe</code></li>
+<li>Add support for WINIO to Cabal</li>
+<li>Adopt to simplified subsumption changes</li>
+</ul>
+<p>There are no magical <code>IO = WithCallStack Prelude.IO</code> alias in Cabal,
+as it is hard to get working with GHC-9.0’s simplified subsumption.</p></li>
+<li><p>Treat <code>pkg:sublib</code> dependency syntax as is in <code>cabal-version: 3.4</code> <a href="https://github.com/haskell/cabal/issues/6083">#6083</a> <a href="https://github.com/haskell/cabal/pull/6893">!6893</a> <a href="https://github.com/haskell/cabal/pull/6907">!6907</a></p>
+<p>In <code>cabal-version: 3.4</code> cabal files the dependency definition</p>
+<pre class="cabal"><code>build-depends: somesublib</code></pre>
+<p>does not use in-package sublibraries. You have to be explicit and write</p>
+<pre class="cabal"><code>build-depends: thispkg:somesublib</code></pre>
+<p>This fixes an issue where it was impossible to refer to an external
+library if you had a sublibrary of the same name.</p></li>
+<li><p>Dependency type refactorings <a href="https://github.com/haskell/cabal/issues/5570">#5570</a> <a href="https://github.com/haskell/cabal/issues/6894">#6894</a> <a href="https://github.com/haskell/cabal/pull/6768">!6768</a> <a href="https://github.com/haskell/cabal/pull/6798">!6798</a> <a href="https://github.com/haskell/cabal/pull/6895">!6895</a> <a href="https://github.com/haskell/cabal/pull/6896">!6896</a> <a href="https://github.com/haskell/cabal/pull/6897">!6897</a> <a href="https://github.com/haskell/cabal/pull/6898">!6898</a></p>
+<p>With additions of (public) sublibraries, <code>Dependency</code> type use for multiple needs become painful.
+Therefore a new type <code>PackageVersionConstraint</code> was added to serve <em>constraint on package</em> use-case.
+<code>Dependency</code> type is <em>dependency on a library component</em>, i.e. representing <code>build-depends</code> entry.</p>
+<ul>
+<li>Use PackageVersionConstraint more</li>
+<li>Add NonEmptySet and use it in Dependency</li>
+</ul></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Tests additions <a href="https://github.com/haskell/cabal/issues/6409">#6409</a> <a href="https://github.com/haskell/cabal/pull/6753">!6753</a> <a href="https://github.com/haskell/cabal/pull/6759">!6759</a> <a href="https://github.com/haskell/cabal/pull/6802">!6802</a> <a href="https://github.com/haskell/cabal/pull/6842">!6842</a> <a href="https://github.com/haskell/cabal/pull/6872">!6872</a></p>
+<ul>
+<li>Add shrinker, so writing big non-generic product shrinkers is easier</li>
+<li>Add <code>hs-source-dirs: NL .</code> test-case</li>
+<li>Add public multilib test(s)</li>
+</ul></li>
+<li><p>Code organization <a href="https://github.com/haskell/cabal/pull/6599">!6599</a> <a href="https://github.com/haskell/cabal/pull/6642">!6642</a> <a href="https://github.com/haskell/cabal/pull/6734">!6734</a> <a href="https://github.com/haskell/cabal/pull/6745">!6745</a> <a href="https://github.com/haskell/cabal/pull/6746">!6746</a> <a href="https://github.com/haskell/cabal/pull/6817">!6817</a> <a href="https://github.com/haskell/cabal/pull/6818">!6818</a> <a href="https://github.com/haskell/cabal/pull/6821">!6821</a> <a href="https://github.com/haskell/cabal/pull/6867">!6867</a></p>
+<ul>
+<li>Split <code>Distribution.Client.Types</code> module</li>
+<li>Move cabal-testsuite code into <code>src/</code></li>
+<li>Add <code>ProjectFlags</code></li>
+<li>Add <code>NixStyleOptions</code></li>
+<li>Internal refactorings to install command.</li>
+<li>Make own modules for <code>InstallMethod</code> and <code>OverwritePolicy</code></li>
+<li>Make cabal-install compilable with <code>NoImplicitPrelude</code></li>
+<li>Refactor shared <code>TargetProblem</code> data types into their own module.</li>
+<li>Template <code>cabal-install.cabal</code> using zinza</li>
+</ul></li>
+<li><p>The grammar of most package description fields is formally documented <a href="https://github.com/haskell/cabal/pull/6591">!6591</a> <a href="https://github.com/haskell/cabal/pull/6593">!6593</a> <a href="https://github.com/haskell/cabal/pull/6704">!6704</a> <a href="https://github.com/haskell/cabal/pull/6766">!6766</a> <a href="https://github.com/haskell/cabal/pull/6778">!6778</a> <a href="https://github.com/haskell/cabal/pull/6780">!6780</a> <a href="https://github.com/haskell/cabal/pull/6781">!6781</a> <a href="https://github.com/haskell/cabal/pull/6791">!6791</a> <a href="https://github.com/haskell/cabal/pull/6800">!6800</a></p>
+<p>See https://cabal.readthedocs.io/en/latest/buildinfo-fields-reference.html</p></li>
+<li><p>Fix ghci being launched before other sources are built. <a href="https://github.com/haskell/cabal/pull/6923">!6923</a></p>
+<p>Related to foreign calls to C-sources.</p></li>
+<li><p>Remove <code>-any</code> and <code>-none</code> syntax for version ranges in cabal-version: 3.4 <a href="https://github.com/haskell/cabal/issues/6589">#6589</a> <a href="https://github.com/haskell/cabal/pull/6786">!6786</a></p>
+<p>Use <code>&gt;=0</code> (or empty in dependencies) and <code>&lt;0</code> respectively.</p></li>
+<li><p>Add pijul to known repository type <a href="https://github.com/haskell/cabal/issues/6610">#6610</a> <a href="https://github.com/haskell/cabal/pull/6684">!6684</a></p>
+<p>Pijul is now explicitly recognized version control system.
+However <code>cabal-install</code> isn’t yet able to use it in
+<code>source-repository-package</code>.</p></li>
+<li><p>Rename Flag to CompilerFlag and PackageFlag <a href="https://github.com/haskell/cabal/issues/6710">#6710</a> <a href="https://github.com/haskell/cabal/pull/6725">!6725</a></p>
+<p>There was three Flag’s. Now they are</p>
+<ul>
+<li><code>Flag</code> (cli parsing)</li>
+<li><code>PackageFlag</code></li>
+<li><code>CompilerFlag</code></li>
+</ul>
+<p>This allows wild-imports without <code>hiding (Flag)</code>.</p></li>
+<li><p>Accept “linux-androideabi” as an alias for Android for determining buildOS <a href="https://github.com/haskell/cabal/pull/6301">!6301</a> <a href="https://github.com/haskell/cabal/pull/6949">!6949</a></p>
+<p><code>Cabal</code> will able to parse <code>linux-androideabi</code> from the value of <code>System.Info.os</code>.</p></li>
+<li><p>Refactor Distribution.PackageDescription module <a href="https://github.com/haskell/cabal/pull/6855">!6855</a></p>
+<p>Now it re-exports a collection of modules, not individual symbols.</p></li>
+<li><p>Use process jobs when spawning subprocesses <a href="https://github.com/haskell/cabal/pull/6529">!6529</a> <a href="https://github.com/haskell/cabal/pull/6536">!6536</a></p>
+<p>Many toolchain tools written for POSIX systems rely on the exec system
+call. Unfortunately, it is not possible to implement exec in a
+POSIX-compliant manner on Windows. In particular, the semantics of the
+exec implementation provided by the widely-used msvcrt C runtime
+will cause process’s waiting on the exec’ing process to incorrectly
+conclude that the process has successfully terminated when in fact it is
+still running in another process.</p>
+<p>For this reason, the process library exposes the use_process_jobs
+flag to use a more strict (although still not POSIX-compliant) mechanism
+for tracking process completion.
+This is explained in <a href="https://github.com/haskell/process/blob/master/System/Process.hs#L399">the Process.hs comment</a></p>
+<p>Unfortunately, job support in the process library is currently quite
+broken and was only recently fixed. Consequently, we only enable job
+object support for process releases &gt;= 1.6.8.</p></li>
+<li><p>Remove <code>AnyVersion</code> and <code>WildcardVersion</code> constructors from <code>Version</code> <a href="https://github.com/haskell/cabal/pull/6742">!6742</a></p>
+<p>This changes makes <code>Version</code> type less “syntactic”,
+i.e. contains less constructors for semantically same version ranges.</p></li>
+<li><p>Cabal-QuickCheck package with <code>Arbitrary</code> instances <a href="https://github.com/haskell/cabal/issues/6882">#6882</a> <a href="https://github.com/haskell/cabal/pull/6557">!6557</a> <a href="https://github.com/haskell/cabal/pull/6891">!6891</a></p></li>
+<li><p>Create Cabal-tree-diff package with <code>ToExpr</code> instances <a href="https://github.com/haskell/cabal/pull/6789">!6789</a></p></li>
+<li><p><code>Cabal.Distribution.Compiler</code>: add <code>Traversable</code> instance for <code>PerCompilerFlavor</code> <a href="https://github.com/haskell/cabal/pull/6763">!6763</a></p></li>
+<li><p>Improvements to cabal-testsuite framework <a href="https://github.com/haskell/cabal/pull/6643">!6643</a></p></li>
+<li><p>Update copyright years to 2020 <a href="https://github.com/haskell/cabal/pull/6644">!6644</a></p></li>
+<li><p>Documentation updates and typo-fixes <a href="https://github.com/haskell/cabal/pull/6504">!6504</a> <a href="https://github.com/haskell/cabal/pull/6550">!6550</a> <a href="https://github.com/haskell/cabal/pull/6560">!6560</a> <a href="https://github.com/haskell/cabal/pull/6613">!6613</a> <a href="https://github.com/haskell/cabal/pull/6660">!6660</a> <a href="https://github.com/haskell/cabal/pull/6668">!6668</a> <a href="https://github.com/haskell/cabal/pull/6669">!6669</a> <a href="https://github.com/haskell/cabal/pull/6686">!6686</a> <a href="https://github.com/haskell/cabal/pull/6697">!6697</a> <a href="https://github.com/haskell/cabal/pull/6761">!6761</a> <a href="https://github.com/haskell/cabal/pull/6928">!6928</a> <a href="https://github.com/haskell/cabal/pull/6940">!6940</a> <a href="https://github.com/haskell/cabal/pull/6951">!6951</a> <a href="https://github.com/haskell/cabal/pull/6953">!6953</a> <a href="https://github.com/haskell/cabal/pull/6954">!6954</a></p></li>
+<li><p>Flag assignment parsing refactorings <a href="https://github.com/haskell/cabal/issues/6853">#6853</a> <a href="https://github.com/haskell/cabal/pull/6854">!6854</a> <a href="https://github.com/haskell/cabal/pull/6858">!6858</a></p></li>
+<li><p>Add foo:bar syntax to mixins <a href="https://github.com/haskell/cabal/issues/6281">#6281</a> <a href="https://github.com/haskell/cabal/pull/6912">!6912</a></p></li>
+<li><p>default-language field is optional in cabal-version: 3.4 <a href="https://github.com/haskell/cabal/issues/6288">#6288</a> <a href="https://github.com/haskell/cabal/pull/6924">!6924</a> <a href="https://github.com/haskell/cabal/pull/6926">!6926</a></p></li>
+<li><p>Split <code>KnownRepoType</code> out of <code>RepoType</code> <a href="https://github.com/haskell/cabal/issues/6432">#6432</a> <a href="https://github.com/haskell/cabal/pull/6612">!6612</a></p></li>
+<li><p>Include component name in unit-id <a href="https://github.com/haskell/cabal/issues/6485">#6485</a> <a href="https://github.com/haskell/cabal/pull/6547">!6547</a></p></li>
+<li><p>Change ‘optional-packages’ default to empty, when cabal.project is missing. <a href="https://github.com/haskell/cabal/issues/4797">#4797</a> <a href="https://github.com/haskell/cabal/issues/6739">#6739</a> <a href="https://github.com/haskell/cabal/pull/6740">!6740</a></p></li>
+<li><p>Fix rpmvercmp (trailing non-digit characters) <a href="https://github.com/haskell/cabal/issues/6805">#6805</a> <a href="https://github.com/haskell/cabal/pull/6808">!6808</a></p></li>
+<li><p>other changes <a href="https://github.com/haskell/cabal/pull/6556">!6556</a> <a href="https://github.com/haskell/cabal/pull/6598">!6598</a> <a href="https://github.com/haskell/cabal/pull/6910">!6910</a></p></li>
+<li><p>Package description parser benchmark <a href="https://github.com/haskell/cabal/pull/6594">!6594</a></p></li>
+<li><p>Add <code>licenceIsFsfLibre</code> <a href="https://github.com/haskell/cabal/pull/6878">!6878</a></p></li>
+<li><p>Add <code>+stderr</code> modifier to <code>Verbosity</code> <a href="https://github.com/haskell/cabal/pull/6929">!6929</a></p></li>
+<li><p>Mark public-libs as experimental feature <a href="https://github.com/haskell/cabal/pull/6605">!6605</a></p></li>
+<li><p>Add rewriteFileLBS and use it to write setup wrapper <a href="https://github.com/haskell/cabal/pull/6574">!6574</a></p></li>
+<li><p>Add SPDX License List 3.9 <a href="https://github.com/haskell/cabal/issues/6879">#6879</a> <a href="https://github.com/haskell/cabal/pull/6662">!6662</a> <a href="https://github.com/haskell/cabal/pull/6944">!6944</a></p></li>
+<li><p>Change specVersion to have CabalSpecVersion type <a href="https://github.com/haskell/cabal/pull/6653">!6653</a></p></li>
+<li><p>Better UTF8 handling, parsed <code>ShortText</code> is now valid. <a href="https://github.com/haskell/cabal/pull/6588">!6588</a></p></li>
+<li><p>More checks in version range parser <a href="https://github.com/haskell/cabal/pull/6586">!6586</a></p></li>
+<li><p>Require cabal-versions <code>&gt;=1.25</code> to be exact <a href="https://github.com/haskell/cabal/pull/6654">!6654</a></p></li>
+<li><p>Add and use weeder <a href="https://github.com/haskell/cabal/pull/6779">!6779</a> <a href="https://github.com/haskell/cabal/pull/6790">!6790</a></p></li>
+</ul>
+    </section>
+</article>
+
+            <hr />
+            <footer>
+                <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+            </footer>
+        </div>
+    </div>
+    <div class="d-none d-lg-block">
+        <div class="fluid-container">
+            <div class="row">
+                <div id="nav-side" class="col-2 card d-print-none">
+                    <div class="card-body">
+    <h1 class="card-title" title="Cabal"><a href="../"><img id="img-logo" src="../images/Cabal-light.png" style="width:80%"></a></h1>
+
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">
+                    <i class="fa fa-book"></i>
+                    docs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/download.html">
+                    <i class="fa fa-download"></i>
+                    download</a></li>
+            <li class="nav-item"><a class="nav-link" href="../releases/">
+                    <i class="fa fa-calendar"></i>
+                    releases</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">
+                    <i class="fa fa-question-circle"></i>
+                    FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="../blog/">
+                    <i class="fa fa-pen-nib"></i>
+                    blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/history.html">
+                    <i class="fa fa-clock-rotate-left"></i>
+                    history</a></li>
+        </ul>
+    </nav>
+    <div class="card">
+        <div class="card-body">
+            <span id="color-switch">set color&nbsp;<a class="link" id="btn-switch-color-mode">light</a></span>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <div id="content" class="d-print-col-12">
+                    <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.4.0.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Add cabal-version: 3.4 <a href="https://github.com/haskell/cabal/pull/6663">!6663</a></p>
+<p>See various changes in https://cabal.readthedocs.io/en/latest/file-format-changelog.html#cabal-version-3-4</p></li>
+<li><p>Support GHC-9.0 <a href="https://github.com/haskell/cabal/issues/6903">#6903</a> <a href="https://github.com/haskell/cabal/issues/6904">#6904</a> <a href="https://github.com/haskell/cabal/issues/6905">#6905</a> <a href="https://github.com/haskell/cabal/pull/6545">!6545</a> <a href="https://github.com/haskell/cabal/pull/6552">!6552</a> <a href="https://github.com/haskell/cabal/pull/6553">!6553</a> <a href="https://github.com/haskell/cabal/pull/6563">!6563</a> <a href="https://github.com/haskell/cabal/pull/6735">!6735</a> <a href="https://github.com/haskell/cabal/pull/6844">!6844</a> <a href="https://github.com/haskell/cabal/pull/6848">!6848</a> <a href="https://github.com/haskell/cabal/pull/6865">!6865</a> <a href="https://github.com/haskell/cabal/pull/6908">!6908</a> <a href="https://github.com/haskell/cabal/pull/6947">!6947</a></p>
+<ul>
+<li>Support for <code>-this-package-key</code> deprecation</li>
+<li>Use process <code>createPipe</code></li>
+<li>Add support for WINIO to Cabal</li>
+<li>Adopt to simplified subsumption changes</li>
+</ul>
+<p>There are no magical <code>IO = WithCallStack Prelude.IO</code> alias in Cabal,
+as it is hard to get working with GHC-9.0’s simplified subsumption.</p></li>
+<li><p>Treat <code>pkg:sublib</code> dependency syntax as is in <code>cabal-version: 3.4</code> <a href="https://github.com/haskell/cabal/issues/6083">#6083</a> <a href="https://github.com/haskell/cabal/pull/6893">!6893</a> <a href="https://github.com/haskell/cabal/pull/6907">!6907</a></p>
+<p>In <code>cabal-version: 3.4</code> cabal files the dependency definition</p>
+<pre class="cabal"><code>build-depends: somesublib</code></pre>
+<p>does not use in-package sublibraries. You have to be explicit and write</p>
+<pre class="cabal"><code>build-depends: thispkg:somesublib</code></pre>
+<p>This fixes an issue where it was impossible to refer to an external
+library if you had a sublibrary of the same name.</p></li>
+<li><p>Dependency type refactorings <a href="https://github.com/haskell/cabal/issues/5570">#5570</a> <a href="https://github.com/haskell/cabal/issues/6894">#6894</a> <a href="https://github.com/haskell/cabal/pull/6768">!6768</a> <a href="https://github.com/haskell/cabal/pull/6798">!6798</a> <a href="https://github.com/haskell/cabal/pull/6895">!6895</a> <a href="https://github.com/haskell/cabal/pull/6896">!6896</a> <a href="https://github.com/haskell/cabal/pull/6897">!6897</a> <a href="https://github.com/haskell/cabal/pull/6898">!6898</a></p>
+<p>With additions of (public) sublibraries, <code>Dependency</code> type use for multiple needs become painful.
+Therefore a new type <code>PackageVersionConstraint</code> was added to serve <em>constraint on package</em> use-case.
+<code>Dependency</code> type is <em>dependency on a library component</em>, i.e. representing <code>build-depends</code> entry.</p>
+<ul>
+<li>Use PackageVersionConstraint more</li>
+<li>Add NonEmptySet and use it in Dependency</li>
+</ul></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Tests additions <a href="https://github.com/haskell/cabal/issues/6409">#6409</a> <a href="https://github.com/haskell/cabal/pull/6753">!6753</a> <a href="https://github.com/haskell/cabal/pull/6759">!6759</a> <a href="https://github.com/haskell/cabal/pull/6802">!6802</a> <a href="https://github.com/haskell/cabal/pull/6842">!6842</a> <a href="https://github.com/haskell/cabal/pull/6872">!6872</a></p>
+<ul>
+<li>Add shrinker, so writing big non-generic product shrinkers is easier</li>
+<li>Add <code>hs-source-dirs: NL .</code> test-case</li>
+<li>Add public multilib test(s)</li>
+</ul></li>
+<li><p>Code organization <a href="https://github.com/haskell/cabal/pull/6599">!6599</a> <a href="https://github.com/haskell/cabal/pull/6642">!6642</a> <a href="https://github.com/haskell/cabal/pull/6734">!6734</a> <a href="https://github.com/haskell/cabal/pull/6745">!6745</a> <a href="https://github.com/haskell/cabal/pull/6746">!6746</a> <a href="https://github.com/haskell/cabal/pull/6817">!6817</a> <a href="https://github.com/haskell/cabal/pull/6818">!6818</a> <a href="https://github.com/haskell/cabal/pull/6821">!6821</a> <a href="https://github.com/haskell/cabal/pull/6867">!6867</a></p>
+<ul>
+<li>Split <code>Distribution.Client.Types</code> module</li>
+<li>Move cabal-testsuite code into <code>src/</code></li>
+<li>Add <code>ProjectFlags</code></li>
+<li>Add <code>NixStyleOptions</code></li>
+<li>Internal refactorings to install command.</li>
+<li>Make own modules for <code>InstallMethod</code> and <code>OverwritePolicy</code></li>
+<li>Make cabal-install compilable with <code>NoImplicitPrelude</code></li>
+<li>Refactor shared <code>TargetProblem</code> data types into their own module.</li>
+<li>Template <code>cabal-install.cabal</code> using zinza</li>
+</ul></li>
+<li><p>The grammar of most package description fields is formally documented <a href="https://github.com/haskell/cabal/pull/6591">!6591</a> <a href="https://github.com/haskell/cabal/pull/6593">!6593</a> <a href="https://github.com/haskell/cabal/pull/6704">!6704</a> <a href="https://github.com/haskell/cabal/pull/6766">!6766</a> <a href="https://github.com/haskell/cabal/pull/6778">!6778</a> <a href="https://github.com/haskell/cabal/pull/6780">!6780</a> <a href="https://github.com/haskell/cabal/pull/6781">!6781</a> <a href="https://github.com/haskell/cabal/pull/6791">!6791</a> <a href="https://github.com/haskell/cabal/pull/6800">!6800</a></p>
+<p>See https://cabal.readthedocs.io/en/latest/buildinfo-fields-reference.html</p></li>
+<li><p>Fix ghci being launched before other sources are built. <a href="https://github.com/haskell/cabal/pull/6923">!6923</a></p>
+<p>Related to foreign calls to C-sources.</p></li>
+<li><p>Remove <code>-any</code> and <code>-none</code> syntax for version ranges in cabal-version: 3.4 <a href="https://github.com/haskell/cabal/issues/6589">#6589</a> <a href="https://github.com/haskell/cabal/pull/6786">!6786</a></p>
+<p>Use <code>&gt;=0</code> (or empty in dependencies) and <code>&lt;0</code> respectively.</p></li>
+<li><p>Add pijul to known repository type <a href="https://github.com/haskell/cabal/issues/6610">#6610</a> <a href="https://github.com/haskell/cabal/pull/6684">!6684</a></p>
+<p>Pijul is now explicitly recognized version control system.
+However <code>cabal-install</code> isn’t yet able to use it in
+<code>source-repository-package</code>.</p></li>
+<li><p>Rename Flag to CompilerFlag and PackageFlag <a href="https://github.com/haskell/cabal/issues/6710">#6710</a> <a href="https://github.com/haskell/cabal/pull/6725">!6725</a></p>
+<p>There was three Flag’s. Now they are</p>
+<ul>
+<li><code>Flag</code> (cli parsing)</li>
+<li><code>PackageFlag</code></li>
+<li><code>CompilerFlag</code></li>
+</ul>
+<p>This allows wild-imports without <code>hiding (Flag)</code>.</p></li>
+<li><p>Accept “linux-androideabi” as an alias for Android for determining buildOS <a href="https://github.com/haskell/cabal/pull/6301">!6301</a> <a href="https://github.com/haskell/cabal/pull/6949">!6949</a></p>
+<p><code>Cabal</code> will able to parse <code>linux-androideabi</code> from the value of <code>System.Info.os</code>.</p></li>
+<li><p>Refactor Distribution.PackageDescription module <a href="https://github.com/haskell/cabal/pull/6855">!6855</a></p>
+<p>Now it re-exports a collection of modules, not individual symbols.</p></li>
+<li><p>Use process jobs when spawning subprocesses <a href="https://github.com/haskell/cabal/pull/6529">!6529</a> <a href="https://github.com/haskell/cabal/pull/6536">!6536</a></p>
+<p>Many toolchain tools written for POSIX systems rely on the exec system
+call. Unfortunately, it is not possible to implement exec in a
+POSIX-compliant manner on Windows. In particular, the semantics of the
+exec implementation provided by the widely-used msvcrt C runtime
+will cause process’s waiting on the exec’ing process to incorrectly
+conclude that the process has successfully terminated when in fact it is
+still running in another process.</p>
+<p>For this reason, the process library exposes the use_process_jobs
+flag to use a more strict (although still not POSIX-compliant) mechanism
+for tracking process completion.
+This is explained in <a href="https://github.com/haskell/process/blob/master/System/Process.hs#L399">the Process.hs comment</a></p>
+<p>Unfortunately, job support in the process library is currently quite
+broken and was only recently fixed. Consequently, we only enable job
+object support for process releases &gt;= 1.6.8.</p></li>
+<li><p>Remove <code>AnyVersion</code> and <code>WildcardVersion</code> constructors from <code>Version</code> <a href="https://github.com/haskell/cabal/pull/6742">!6742</a></p>
+<p>This changes makes <code>Version</code> type less “syntactic”,
+i.e. contains less constructors for semantically same version ranges.</p></li>
+<li><p>Cabal-QuickCheck package with <code>Arbitrary</code> instances <a href="https://github.com/haskell/cabal/issues/6882">#6882</a> <a href="https://github.com/haskell/cabal/pull/6557">!6557</a> <a href="https://github.com/haskell/cabal/pull/6891">!6891</a></p></li>
+<li><p>Create Cabal-tree-diff package with <code>ToExpr</code> instances <a href="https://github.com/haskell/cabal/pull/6789">!6789</a></p></li>
+<li><p><code>Cabal.Distribution.Compiler</code>: add <code>Traversable</code> instance for <code>PerCompilerFlavor</code> <a href="https://github.com/haskell/cabal/pull/6763">!6763</a></p></li>
+<li><p>Improvements to cabal-testsuite framework <a href="https://github.com/haskell/cabal/pull/6643">!6643</a></p></li>
+<li><p>Update copyright years to 2020 <a href="https://github.com/haskell/cabal/pull/6644">!6644</a></p></li>
+<li><p>Documentation updates and typo-fixes <a href="https://github.com/haskell/cabal/pull/6504">!6504</a> <a href="https://github.com/haskell/cabal/pull/6550">!6550</a> <a href="https://github.com/haskell/cabal/pull/6560">!6560</a> <a href="https://github.com/haskell/cabal/pull/6613">!6613</a> <a href="https://github.com/haskell/cabal/pull/6660">!6660</a> <a href="https://github.com/haskell/cabal/pull/6668">!6668</a> <a href="https://github.com/haskell/cabal/pull/6669">!6669</a> <a href="https://github.com/haskell/cabal/pull/6686">!6686</a> <a href="https://github.com/haskell/cabal/pull/6697">!6697</a> <a href="https://github.com/haskell/cabal/pull/6761">!6761</a> <a href="https://github.com/haskell/cabal/pull/6928">!6928</a> <a href="https://github.com/haskell/cabal/pull/6940">!6940</a> <a href="https://github.com/haskell/cabal/pull/6951">!6951</a> <a href="https://github.com/haskell/cabal/pull/6953">!6953</a> <a href="https://github.com/haskell/cabal/pull/6954">!6954</a></p></li>
+<li><p>Flag assignment parsing refactorings <a href="https://github.com/haskell/cabal/issues/6853">#6853</a> <a href="https://github.com/haskell/cabal/pull/6854">!6854</a> <a href="https://github.com/haskell/cabal/pull/6858">!6858</a></p></li>
+<li><p>Add foo:bar syntax to mixins <a href="https://github.com/haskell/cabal/issues/6281">#6281</a> <a href="https://github.com/haskell/cabal/pull/6912">!6912</a></p></li>
+<li><p>default-language field is optional in cabal-version: 3.4 <a href="https://github.com/haskell/cabal/issues/6288">#6288</a> <a href="https://github.com/haskell/cabal/pull/6924">!6924</a> <a href="https://github.com/haskell/cabal/pull/6926">!6926</a></p></li>
+<li><p>Split <code>KnownRepoType</code> out of <code>RepoType</code> <a href="https://github.com/haskell/cabal/issues/6432">#6432</a> <a href="https://github.com/haskell/cabal/pull/6612">!6612</a></p></li>
+<li><p>Include component name in unit-id <a href="https://github.com/haskell/cabal/issues/6485">#6485</a> <a href="https://github.com/haskell/cabal/pull/6547">!6547</a></p></li>
+<li><p>Change ‘optional-packages’ default to empty, when cabal.project is missing. <a href="https://github.com/haskell/cabal/issues/4797">#4797</a> <a href="https://github.com/haskell/cabal/issues/6739">#6739</a> <a href="https://github.com/haskell/cabal/pull/6740">!6740</a></p></li>
+<li><p>Fix rpmvercmp (trailing non-digit characters) <a href="https://github.com/haskell/cabal/issues/6805">#6805</a> <a href="https://github.com/haskell/cabal/pull/6808">!6808</a></p></li>
+<li><p>other changes <a href="https://github.com/haskell/cabal/pull/6556">!6556</a> <a href="https://github.com/haskell/cabal/pull/6598">!6598</a> <a href="https://github.com/haskell/cabal/pull/6910">!6910</a></p></li>
+<li><p>Package description parser benchmark <a href="https://github.com/haskell/cabal/pull/6594">!6594</a></p></li>
+<li><p>Add <code>licenceIsFsfLibre</code> <a href="https://github.com/haskell/cabal/pull/6878">!6878</a></p></li>
+<li><p>Add <code>+stderr</code> modifier to <code>Verbosity</code> <a href="https://github.com/haskell/cabal/pull/6929">!6929</a></p></li>
+<li><p>Mark public-libs as experimental feature <a href="https://github.com/haskell/cabal/pull/6605">!6605</a></p></li>
+<li><p>Add rewriteFileLBS and use it to write setup wrapper <a href="https://github.com/haskell/cabal/pull/6574">!6574</a></p></li>
+<li><p>Add SPDX License List 3.9 <a href="https://github.com/haskell/cabal/issues/6879">#6879</a> <a href="https://github.com/haskell/cabal/pull/6662">!6662</a> <a href="https://github.com/haskell/cabal/pull/6944">!6944</a></p></li>
+<li><p>Change specVersion to have CabalSpecVersion type <a href="https://github.com/haskell/cabal/pull/6653">!6653</a></p></li>
+<li><p>Better UTF8 handling, parsed <code>ShortText</code> is now valid. <a href="https://github.com/haskell/cabal/pull/6588">!6588</a></p></li>
+<li><p>More checks in version range parser <a href="https://github.com/haskell/cabal/pull/6586">!6586</a></p></li>
+<li><p>Require cabal-versions <code>&gt;=1.25</code> to be exact <a href="https://github.com/haskell/cabal/pull/6654">!6654</a></p></li>
+<li><p>Add and use weeder <a href="https://github.com/haskell/cabal/pull/6779">!6779</a> <a href="https://github.com/haskell/cabal/pull/6790">!6790</a></p></li>
+</ul>
+    </section>
+</article>
+
+                    <hr />
+                    <footer>
+                        <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var switchColor = () => {
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'light'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
+            }
+            else {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
+            }
+        };
+
+        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.documentElement.setAttribute('data-bs-theme','light')
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme','dark')
+            }
+
+            switchColor();
+        })
+
+        switchColor();
+    </script>
+</body>
+
+</html>

@@ -7,7 +7,7 @@
     <meta name="title" content="Cabal">
 <meta name="description" content="Build Haskell applications and libraries">
 
-    <title>index</title>
+    <title>Cabal-3.6.2.0</title>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/app.css" />
@@ -32,17 +32,37 @@
 
         </div>
         <div id="content" class="d-print-col-12">
-            <h2 class="display-4">Blog</h1>
-<ul>
+            <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.6.2.0</h1>
     
-        <li>
-            
-            2017-09-11 <a href="../posts/2017-09-11-Cabal-2-0.html">v2 brings improved new-build, Backpack, foreign libraries</a>
-            
-        </li>
     
-</ul>
+    
+</section>
 
+    <hr>
+    <section>
+        <h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Make Paths_ modules work with non-standard preludes again <a href="https://github.com/haskell/cabal/issues/5962">#5962</a></p>
+<ul>
+<li>Generate Paths_ module with qualified Data.List.last import so that compatibility with non-standard preludes is not regressed compared to cabal 3.4.</li>
+</ul></li>
+<li><p>Windows: redo the fix to breakage caused by new autoconf; the wrong fix made cabal sometimes fail with old autoconf <a href="https://github.com/haskell/cabal/issues/7494">#7494</a> <a href="https://github.com/haskell/cabal/issues/7649">#7649</a></p>
+<ul>
+<li>Reverts #7510 that failed on Windows when used with pre-generated scripts included in packages such as network, time, process.</li>
+<li>Adds a subtler fix/workaround for the deficiencies of new autoconf versions on Windows.</li>
+</ul></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Regenerate bootstrap/ with GHC updated from 8.10.4 to 8.10.7</p>
+<ul>
+<li>This regenerates bootstrap plans using new package versions and also updating GHC from 8.10.4 to 8.10.7, as requested by GHC HQ.</li>
+</ul></li>
+</ul>
+    </section>
+</article>
 
             <hr />
             <footer>
@@ -98,17 +118,37 @@
 
                 </div>
                 <div id="content" class="d-print-col-12">
-                    <h2 class="display-4">Blog</h1>
-<ul>
+                    <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.6.2.0</h1>
     
-        <li>
-            
-            2017-09-11 <a href="../posts/2017-09-11-Cabal-2-0.html">v2 brings improved new-build, Backpack, foreign libraries</a>
-            
-        </li>
     
-</ul>
+    
+</section>
 
+    <hr>
+    <section>
+        <h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Make Paths_ modules work with non-standard preludes again <a href="https://github.com/haskell/cabal/issues/5962">#5962</a></p>
+<ul>
+<li>Generate Paths_ module with qualified Data.List.last import so that compatibility with non-standard preludes is not regressed compared to cabal 3.4.</li>
+</ul></li>
+<li><p>Windows: redo the fix to breakage caused by new autoconf; the wrong fix made cabal sometimes fail with old autoconf <a href="https://github.com/haskell/cabal/issues/7494">#7494</a> <a href="https://github.com/haskell/cabal/issues/7649">#7649</a></p>
+<ul>
+<li>Reverts #7510 that failed on Windows when used with pre-generated scripts included in packages such as network, time, process.</li>
+<li>Adds a subtler fix/workaround for the deficiencies of new autoconf versions on Windows.</li>
+</ul></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Regenerate bootstrap/ with GHC updated from 8.10.4 to 8.10.7</p>
+<ul>
+<li>This regenerates bootstrap plans using new package versions and also updating GHC from 8.10.4 to 8.10.7, as requested by GHC HQ.</li>
+</ul></li>
+</ul>
+    </section>
+</article>
 
                     <hr />
                     <footer>

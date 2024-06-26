@@ -119,8 +119,24 @@ readers do not read off random characters that represent icons */
   content: "\f059";
 }
 
+.fa-download::before {
+  content: "\f019";
+}
+
+.fa-clock-rotate-left::before {
+  content: "\f1da";
+}
+
+.fa-pen-nib::before {
+  content: "\f5ad";
+}
+
 .fa-calendar::before {
   content: "\f133";
+}
+
+.fa-book::before {
+  content: "\f02d";
 }
 
 /*!
@@ -202,7 +218,12 @@ readers do not read off random characters that represent icons */
   color: #DC322F;
   font-weight: normal;
   font-style: normal;
-} /* SpecialString */ /* Import */ /* Variable */ /* ControlFlow */ /* Operator */ /* BuiltIn */ /* Extension */ /* Preprocessor */
+} /* SpecialString */ /* Import */
+.sourceCode span.va {
+  color: #268BD2;
+  font-weight: normal;
+  font-style: normal;
+} /* Variable */ /* ControlFlow */ /* Operator */ /* BuiltIn */ /* Extension */ /* Preprocessor */
 .sourceCode span.at {
   color: #657B83;
   font-weight: normal;
@@ -233,17 +254,14 @@ readers do not read off random characters that represent icons */
   --bs-success-text-emphasis: rgba(0, 24, 0, 0.92);
   --bs-info-text-emphasis: #2a2b56;
   --bs-warning-text-emphasis: rgba(63, 63, 0, 0.92);
-  --bs-danger-text-emphasis: rgba(63, 0, 0, 0.92);
   --bs-light-text-emphasis: #495057;
   --bs-success-bg-subtle: rgba(219, 230, 219, 0.96);
   --bs-info-bg-subtle: #e1e1f7;
   --bs-warning-bg-subtle: rgba(248, 248, 219, 0.96);
-  --bs-danger-bg-subtle: rgba(248, 219, 219, 0.96);
   --bs-light-bg-subtle: #fcfcfd;
   --bs-success-border-subtle: rgba(177, 200, 177, 0.92);
   --bs-info-border-subtle: #c3c4ef;
   --bs-warning-border-subtle: rgba(239, 239, 177, 0.92);
-  --bs-danger-border-subtle: rgba(239, 177, 177, 0.92);
   --bs-light-border-subtle: #e9ecef;
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -261,10 +279,10 @@ readers do not read off random characters that represent icons */
   --bs-tertiary-color: rgba(33, 37, 41, 0.5);
   --bs-tertiary-bg: #f8f9fa;
   --bs-heading-color: #4a4bcd;
-  --bs-link-color: #4a4bcd;
-  --bs-link-color-rgb: 74, 75, 205;
-  --bs-link-hover-color: #3b3ca4;
-  --bs-link-hover-color-rgb: 59, 60, 164;
+  --bs-link-color: #2e5bc1;
+  --bs-link-color-rgb: 46, 91, 193;
+  --bs-link-hover-color: #25499a;
+  --bs-link-hover-color-rgb: 37, 73, 154;
   --bs-code-color: rgba(204, 0, 0, 0.8);
   --bs-highlight-color: #212529;
   --bs-highlight-bg: #fff3cd;
@@ -291,23 +309,20 @@ readers do not read off random characters that represent icons */
   --bs-success-text-emphasis: rgba(128, 166, 128, 0.88);
   --bs-info-text-emphasis: #a6a6e7;
   --bs-warning-text-emphasis: rgba(230, 230, 128, 0.88);
-  --bs-danger-text-emphasis: rgba(230, 128, 128, 0.88);
   --bs-light-text-emphasis: #f8f9fa;
   --bs-success-bg-subtle: rgba(0, 11, 0, 0.96);
   --bs-info-bg-subtle: #15152b;
   --bs-warning-bg-subtle: rgba(29, 29, 0, 0.96);
-  --bs-danger-bg-subtle: rgba(29, 0, 0, 0.96);
   --bs-light-bg-subtle: #343a40;
   --bs-success-border-subtle: rgba(0, 39, 0, 0.88);
   --bs-info-border-subtle: #404081;
   --bs-warning-border-subtle: rgba(102, 102, 0, 0.88);
-  --bs-danger-border-subtle: rgba(102, 0, 0, 0.88);
   --bs-light-border-subtle: #495057;
   --bs-heading-color: #6bc9dd;
-  --bs-link-color: #6bc9dd;
-  --bs-link-hover-color: #89d4e4;
-  --bs-link-color-rgb: 107, 201, 221;
-  --bs-link-hover-color-rgb: 137, 212, 228;
+  --bs-link-color: #6a6bd7;
+  --bs-link-hover-color: #8889df;
+  --bs-link-color-rgb: 106, 107, 215;
+  --bs-link-hover-color-rgb: 136, 137, 223;
   --bs-code-color: rgba(230, 128, 128, 0.88);
   --bs-highlight-color: #dee2e6;
   --bs-highlight-bg: #664d03;
@@ -433,10 +448,6 @@ dd {
   margin-left: 0;
 }
 
-blockquote {
-  margin: 0 0 1rem;
-}
-
 b,
 strong {
   font-weight: bolder;
@@ -482,7 +493,8 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
 }
 
 pre,
-code {
+code,
+samp {
   font-family: var(--bs-font-monospace);
   font-size: 1em;
 }
@@ -507,6 +519,10 @@ code {
 }
 a > code {
   color: inherit;
+}
+
+figure {
+  margin: 0 0 1rem;
 }
 
 img {
@@ -653,12 +669,19 @@ summary {
   font-weight: 300;
 }
 
-.blockquote {
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
+.display-4 {
+  font-size: calc(1.475rem + 2.7vw);
+  font-weight: 300;
+  line-height: 1.2;
 }
-.blockquote > :last-child {
-  margin-bottom: 0;
+@media (min-width: 1200px) {
+  .display-4 {
+    font-size: 3.5rem;
+  }
+}
+
+.figure {
+  display: inline-block;
 }
 
 .container {
@@ -1092,8 +1115,7 @@ summary {
   color: var(--bs-card-title-color);
 }
 
-.alert, div.info, div.tip, div.warning, div.note, div.danger, div.success, div.sourceCode, pre.shell,
-pre.cabal {
+.alert, div.info, div.warning, div.note, div.tip, div.sourceCode, pre {
   --bs-alert-bg: transparent;
   --bs-alert-padding-x: 1rem;
   --bs-alert-padding-y: 1rem;
@@ -1111,13 +1133,13 @@ pre.cabal {
   border-radius: var(--bs-alert-border-radius);
 }
 
- div.success {
+ div.tip {
   --bs-alert-color: var(--bs-success-text-emphasis);
   --bs-alert-bg: var(--bs-success-bg-subtle);
   --bs-alert-border-color: var(--bs-success-border-subtle);
 }
 
- div.info, div.tip {
+ div.info {
   --bs-alert-color: var(--bs-info-text-emphasis);
   --bs-alert-bg: var(--bs-info-bg-subtle);
   --bs-alert-border-color: var(--bs-info-border-subtle);
@@ -1129,14 +1151,7 @@ pre.cabal {
   --bs-alert-border-color: var(--bs-warning-border-subtle);
 }
 
- div.danger {
-  --bs-alert-color: var(--bs-danger-text-emphasis);
-  --bs-alert-bg: var(--bs-danger-bg-subtle);
-  --bs-alert-border-color: var(--bs-danger-border-subtle);
-}
-
- div.sourceCode, pre.shell,
-pre.cabal {
+ div.sourceCode, pre {
   --bs-alert-color: var(--bs-light-text-emphasis);
   --bs-alert-bg: var(--bs-light-bg-subtle);
   --bs-alert-border-color: var(--bs-light-border-subtle);
@@ -1672,30 +1687,15 @@ pre.cabal {
 [data-bs-theme=dark] #nav-side {
   background-image: linear-gradient(#303030, var(--bs-body-bg));
 }
+[data-bs-theme=dark] #nav-side a {
+  color: #6bc9dd;
+}
 
 [data-bs-theme=light] #nav-side {
   background-image: linear-gradient(#f1f1f1, var(--bs-body-bg));
 }
-[data-bs-theme=light] #nav-side a.nav-link {
+[data-bs-theme=light] #nav-side a {
   color: #4a4bcd;
-}
-
-#nav-side {
-  border: inherit;
-}
-
-#nav-side {
-  border-radius: 0;
-  border: inherit;
-}
-
-#nav-side {
-  border-radius: 0;
-}
-
-#nav-side a.nav-link {
-  font-size: 1.4rem;
-  font-weight: 500;
 }
 
 #content,
@@ -1703,8 +1703,19 @@ pre.cabal {
   padding-top: 0.5rem;
 }
 
-pre.shell,
-pre.cabal {
+#nav-side {
+  border: inherit;
+  border-radius: 0;
+}
+#nav-side a.nav-link {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+#nav-side a.nav-link:hover {
+  text-decoration: underline;
+}
+
+pre {
   font-size: 0.6rem;
 }
 
@@ -1714,6 +1725,7 @@ a.footnote-back {
 
 #color-switch {
   font-family: "monospace";
+  cursor: pointer;
 }
 
 div.sourceCode {
@@ -1724,22 +1736,13 @@ div.sourceCode {
   font-size: 0.6rem;
 }
 
-div.success:before {
+ div.tip:before {
   content: "✓";
   background-color: var(--bs-success-bg-subtle);
   border-color: var(--bs-success-border-subtle);
 }
-div.success:hover:before {
+ div.tip:hover:before {
   content: "Success";
-}
-
-div.danger:before {
-  content: "✗";
-  background-color: var(--bs-danger-bg-subtle);
-  border-color: var(--bs-danger-border-subtle);
-}
-div.danger:hover:before {
-  content: "Danger";
 }
 
 div.warning:before, div.note:before {
@@ -1751,12 +1754,12 @@ div.warning:hover:before, div.note:hover:before {
   content: "Warning";
 }
 
-div.info:before, div.tip:before {
+div.info:before {
   content: "i";
   background-color: var(--bs-info-bg-subtle);
   border-color: var(--bs-info-border-subtle);
 }
-div.info:hover:before, div.tip:hover:before {
+div.info:hover:before {
   content: "Info";
 }
 
@@ -1771,23 +1774,29 @@ div.note:hover:before {
 
 div.tip:before {
   content: "🟓";
-  background-color: var(--bs-info-bg-subtle);
-  border-color: var(--bs-info-border-subtle);
+  background-color: var(--bs-success-bg-subtle);
+  border-color: var(--bs-success-border-subtle);
 }
 div.tip:hover:before {
   content: "Tip";
 }
 
-div.success,
-div.danger,
+
+div.warning div.title > p,
+div.note div.title > p,
+div.tip div.title > p {
+  position: absolute;
+  visibility: hidden;
+}
+
+
 div.warning,
 div.info,
 div.note,
 div.tip {
   padding-bottom: 0;
 }
-div.success:before,
-div.danger:before,
+
 div.warning:before,
 div.info:before,
 div.note:before,

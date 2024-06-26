@@ -7,7 +7,7 @@
     <meta name="title" content="Cabal">
 <meta name="description" content="Build Haskell applications and libraries">
 
-    <title>Getting The Haskell Cabal</title>
+    <title>Downloading Cabal</title>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/app.css" />
@@ -21,141 +21,105 @@
             <nav>
     <ul class="nav">
         <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">docs</a></li>
         <li class="nav-item"><a class="nav-link" href="../pages/download.html">download</a></li>
+        <li class="nav-item"><a class="nav-link" href="../releases/">releases</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
         <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
-        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/">documentation</a></li>
         <li class="nav-item"><a class="nav-link" href="../pages/history.html">history</a></li>
     </ul>
 </nav>
 
         </div>
         <div id="content" class="d-print-col-12">
-            <p><strong>Note:</strong> Most people already have Cabal because it is included in the <a href="http://www.haskell.org/platform/">Haskell Platform</a></p>
-<p>If you want to upgrade to the latest stable version, just run:</p>
+            <article>
+    <section class="header">
+    <h2 class="display-4">Downloading Cabal</h1>
+    
+        <p class="lead">
+            Ways to download and install Cabal's executable tool <samp>cabal</samp>.
+        </p>
+    
+    
+        <p class="lead">
+            The tool's explicit target form is <samp>cabal-install:exe:cabal</samp>, the executable named <samp>cabal</samp> from the <samp>cabal-install</samp> package.
+        </p>
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="installupgrade">Install/Upgrade</h2>
+<div class="tip">
+<p>Most people with <code>GHC</code> will already have <code>cabal</code> because it is included with
+<a href="https://www.haskell.org/ghcup">GHCup</a>, the recommended way to install <code>GHC</code> and <code>cabal</code>.</p>
+</div>
+<p>If you want to upgrade to the latest stable version, use GHCup again or use <code>cabal</code> itself:</p>
 <pre><code>$ cabal install cabal cabal-install</code></pre>
-<p>Sometimes the older installed version is still on the program search $PATH, you can check you’re running the latest version with:</p>
+<p>Sometimes the older installed version is still on the program search $PATH, you
+can check you’re running the latest version with:</p>
 <pre><code>$ cabal --version</code></pre>
-<h2 id="cabal-library-version-2.0.0.2">Cabal library (version 2.0.0.2)</h2>
-<p>August 2017: Release 2.0.0.2</p>
-<p>Source download: <a href="release/cabal-2.0.0.2/Cabal-2.0.0.2.tar.gz">Cabal-2.0.0.2.tar.gz</a></p>
-<p>Please see the <a href="release/cabal-2.0.0.2/doc/users-guide/">User’s guide</a>, the <a href="release/cabal-2.0.0.2/doc/API/Cabal/">API documentation</a>, and the <a href="release/cabal-2.0.0.2/changelog">change log</a>.</p>
-<h2 id="cabal-install-tool-version-2.0.0.0">cabal-install tool (version 2.0.0.0)</h2>
-<p>cabal-install is the command line interface to Cabal and hackage.
-This is the package that provides the ‘cabal’ command line program.</p>
-<p>Source download: <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0.tar.gz">cabal-install-2.0.0.0.tar.gz</a></p>
-<h3 id="binary-downloads">Binary downloads</h3>
-<ul>
-<li>Windows (x86): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-i386-unknown-mingw32.zip">cabal-install-2.0.0.0-i386-unknown-mingw32.zip</a></li>
-<li>Windows (x86-64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-unknown-mingw32.zip">cabal-install-2.0.0.0-x86_64-unknown-mingw32.zip</a></li>
-<li>macOS Sierra (x86_64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-apple-darwin-sierra.tar.xz">cabal-install-2.0.0.0-x86_64-apple-darwin-sierra.tar.xz</a></li>
-<li>Linux (x86): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-i386-unknown-linux.tar.gz">cabal-install-2.0.0.0-i386-unknown-linux.tar.gz</a></li>
-<li>Linux (x86-64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-unknown-linux.tar.gz">cabal-install-2.0.0.0-x86_64-unknown-linux.tar.gz</a></li>
-<li>AIX (PowerPC): <a href="release/cabal-install-1.24.0.0/cabal-1.24.0.0-powerpc-ibm-aix7.1.0.0.xz">cabal-1.24.0.0-powerpc-ibm-aix7.1.0.0.xz</a></li>
-</ul>
-<p>Binaries for cabal-install for many platforms are available on <a href="https://halcyon.sh/">Halcyon</a>.</p>
-<p>Packages for Ubuntu Linux (multiple versions) are available on <a href="https://launchpad.net/~hvr/+archive/ubuntu/ghc">hvr’s PPA</a>.</p>
-<p>The source package requires the Cabal package above and also further packages,
-which can be found on Hackage. To make the process easier the cabal-install
-tarball contains a bootstrap.sh script which downloads and installs all the
-dependencies.</p>
+<div class="warning">
+<p>If mixing installation methods, be careful about PATH precedence.</p>
+</div>
+<h2 id="alternative-sources">Alternative Sources</h2>
+<p>Packages for Debian (multiple versions) are available on the
+<a href="http://downloads.haskell.org/debian/">Haskell.org APT repository</a>.</p>
+<p>Packages for Windows are available via
+<a href="https://chocolatey.org/packages/cabal">Chocolatey</a>.</p>
+<h2 id="documentation">Documentation</h2>
+<p>For Cabal and cabal-install documentation, please see the <a href="https://cabal.readthedocs.io">User’s
+guide</a>, the <a href="http://hackage.haskell.org/package/Cabal">API documentation</a>, and the <a href="http://hackage.haskell.org/package/Cabal/changelog">Cabal change
+log</a>.</p>
 <h2 id="bugs">Bugs</h2>
-<p>Report bugs <a href="https://github.com/haskell/cabal/issues">here</a> or to the <a href="mailto:cabal-devel@haskell.org">cabal-devel</a> mailing list.</p>
+<p>Report bugs <a href="https://github.com/haskell/cabal/issues">here</a> or to the
+<a href="mailto:cabal-devel@haskell.org">cabal-devel</a> mailing list.</p>
 <h2 id="code">Code</h2>
-<p>You can get the development version of the code <a href="code.html">here</a>.</p>
+<p>You can get the development version of the code at <a href="https://github.com/haskell/cabal">github/haskell/cabal</a>.</p>
 <h2 id="version-numbers">Version Numbers</h2>
-<p>Stable Releases are numbered a.b.c.d, where b is even. Unstable snapshots between releases are numbered a.b.c.d, where b is odd. Changes for c and d are minor.</p>
-<p>For example, 2.1.x.x is the development version leading up to the stable release 2.2.x.x.</p>
-<h2 id="older-releases">Older Releases</h2>
+<p>Stable Releases are numbered <code>a.b.c.d</code>, where <code>b</code> is even. Unstable snapshots
+between releases are numbered <code>a.b.c.d</code>, where <code>b</code> is odd. Changes for <code>c</code> and
+<code>d</code> are minor.</p>
+<p>For example, <code>2.1.x.x</code> is the development version leading up to the stable
+release <code>2.2.x.x</code>.</p>
+<h2 id="included-with-ghc">Included with GHC</h2>
+<p>The <code>Cabal</code> library versions bundled with the latest in each <code>ghc-x.y.*</code> series
+are:</p>
 <ul>
-<li>The previous stable release series for Cabal was 1.24.x.</li>
-<li>The previous stable release series for cabal-install was 1.24.x.</li>
+<li><code>ghc-9.10.1</code> includes <code>Cabal-3.12.0.0</code></li>
+<li><code>ghc-9.8.2</code> includes <code>Cabal-3.10.2.0</code></li>
+<li><code>ghc-9.6.5</code> includes <code>Cabal-3.10.3.0</code></li>
+<li><code>ghc-9.4.8</code> includes <code>Cabal-3.8.1.0</code></li>
+<li><code>ghc-9.2.8</code> includes <code>Cabal-3.6.3.0</code></li>
+<li><code>ghc-9.0.2</code> includes <code>Cabal-3.4.1.0</code></li>
+<li><code>ghc-8.10.7</code> includes <code>Cabal-3.2.1.0</code></li>
+<li><code>ghc-8.8.4</code> includes <code>Cabal-3.0.1.0</code></li>
+<li><code>ghc-8.6.5</code> includes <code>Cabal-2.4.0.1</code></li>
+<li><code>ghc-8.4.4</code> includes <code>Cabal-2.2.0.1</code></li>
+<li><code>ghc-8.2.2</code> includes <code>Cabal-2.0.1.0</code></li>
+<li><code>ghc-8.0.2</code> includes <code>Cabal-1.24.2.0</code></li>
+<li><code>ghc-7.10.3</code> includes <code>Cabal-1.22.5.0</code></li>
 </ul>
-<p>The versions bundled with recent Haskell implementation releases include:</p>
-<ul>
-<li>GHC 8.2.1 includes Cabal 2.0.0.2.</li>
-<li>GHC 8.0.2 includes Cabal 1.24.2.0.</li>
-<li>GHC 8.0.1 includes Cabal 1.24.0.0.</li>
-<li>GHC 7.10.3 includes Cabal 1.22.5.0.</li>
-</ul>
-<!-- GHC 7.8.4 includes Cabal 1.18.1.5. -->
-<!-- GHC 7.8.1 includes Cabal 1.18.1.3. -->
-<!-- GHC 7.4.1 includes Cabal 1.14.0. -->
-<!-- GHC 7.2.2 includes Cabal 1.12.0. -->
-<!-- GHC 7.0.4 includes Cabal 1.10.2.0. -->
-<!-- GHC 6.12.3 includes Cabal 1.8.0.6. -->
-<!-- GHC 6.10.4 includes Cabal 1.6.0.3. -->
-<!-- GHC 6.8.3 includes Cabal 1.2.4.0. -->
-<!-- GHC 6.6.1 includes Cabal 1.1.6.2. -->
-<!-- Hugs98 September 2006 includes Cabal 1.1.5.9.2 (the 2nd release candidate for 1.1.6). -->
-<!-- nhc98 1.20 includes Cabal-1.2.2.0. -->
-<ul>
-<li><a href="release/cabal-2.0.0.2/Cabal-2.0.0.2.tar.gz">2.0.0.2</a> August 2017</li>
-<li><a href="release/cabal-1.24.2.0/Cabal-1.24.2.0.tar.gz">1.24.2.0</a> December 2016</li>
-<li><a href="release/cabal-1.24.1.0/Cabal-1.24.1.0.tar.gz">1.24.1.0</a> October 2016</li>
-<li><a href="release/cabal-1.24.0.0/Cabal-1.24.0.0.tar.gz">1.24.0.0</a> May 2016</li>
-<li><a href="release/cabal-1.22.8.0/Cabal-1.22.8.0.tar.gz">1.22.8.0</a> March 2016</li>
-<li><a href="release/cabal-1.22.7.0/Cabal-1.22.7.0.tar.gz">1.22.7.0</a> January 2016</li>
-<li><a href="release/cabal-1.20.0.4/Cabal-1.20.0.4.tar.gz">1.20.0.4</a> January 2016</li>
-<li><a href="release/cabal-1.18.1.7/Cabal-1.18.1.7.tar.gz">1.18.1.7</a> January 2016</li>
-<li><a href="release/cabal-1.22.6.0/Cabal-1.22.6.0.tar.gz">1.22.6.0</a> December 2015</li>
-<li><a href="release/cabal-1.22.4.0/Cabal-1.22.4.0.tar.gz">1.22.4.0</a> June 2015</li>
-<li><a href="release/cabal-1.22.3.0/Cabal-1.22.3.0.tar.gz">1.22.3.0</a> April 2015</li>
-<li><a href="release/cabal-1.22.2.0/Cabal-1.22.2.0.tar.gz">1.22.2.0</a> March 2015</li>
-<li><a href="release/cabal-1.22.0.0/Cabal-1.22.0.0.tar.gz">1.22.0.0</a> January 2015</li>
-<li><a href="release/cabal-1.18.1.6/Cabal-1.18.1.6.tar.gz">1.18.1.6</a> January 2015</li>
-<li><a href="release/cabal-1.20.0.3/Cabal-1.20.0.3.tar.gz">1.20.0.3</a> December 2014</li>
-<li><a href="release/cabal-1.18.1.5/Cabal-1.18.1.5.tar.gz">1.18.1.5</a> December 2014</li>
-<li><a href="release/cabal-1.20.0.2/Cabal-1.20.0.2.tar.gz">1.20.0.2</a> July 2014</li>
-<li><a href="release/cabal-1.18.1.4/Cabal-1.18.1.4.tar.gz">1.18.1.4</a> July 2014</li>
-<li><a href="release/cabal-1.20.0.1/Cabal-1.20.0.1.tar.gz">1.20.0.1</a> May 2014</li>
-<li><a href="release/cabal-1.20.0.0/Cabal-1.20.0.0.tar.gz">1.20.0.0</a> April 2014</li>
-<li><a href="release/cabal-1.18.1.3/Cabal-1.18.1.3.tar.gz">1.18.1.3</a> March 2014</li>
-<li><a href="release/cabal-1.18.1.2/Cabal-1.18.1.2.tar.gz">1.18.1.2</a> October 2013</li>
-<li><a href="release/cabal-1.18.1.1/Cabal-1.18.1.1.tar.gz">1.18.1.1</a> October 2013</li>
-<li><a href="release/cabal-1.18.1/Cabal-1.18.1.tar.gz">1.18.1</a> September 2013</li>
-<li><a href="release/cabal-1.18.0/Cabal-1.18.0.tar.gz">1.18.0</a> September 2013</li>
-<li><a href="release/cabal-1.14.0/Cabal-1.14.0.tar.gz">1.14.0</a> February 2012</li>
-<li><a href="release/cabal-1.12.0/Cabal-1.12.0.tar.gz">1.12.0</a> January 2012</li>
-<li><a href="release/cabal-1.10.2.0/Cabal-1.10.2.0.tar.gz">1.10.2.0</a> June 2010</li>
-<li><a href="release/cabal-1.10.1.0/Cabal-1.10.1.0.tar.gz">1.10.1.0</a> February 2010</li>
-<li><a href="release/cabal-1.10.0.0/Cabal-1.10.0.0.tar.gz">1.10.0.0</a> November 2010</li>
-<li><a href="release/cabal-1.8.0.6/Cabal-1.8.0.6.tar.gz">1.8.0.6</a> June 2010</li>
-<li><a href="release/cabal-1.8.0.4/Cabal-1.8.0.4.tar.gz">1.8.0.4</a> March 2010</li>
-<li><a href="release/cabal-1.8.0.2/Cabal-1.8.0.2.tar.gz">1.8.0.2</a> December 2009</li>
-<li><a href="release/cabal-1.6.0.2/Cabal-1.6.0.2.tar.gz">1.6.0.2</a> February 2009</li>
-<li><a href="release/cabal-1.6.0.2/Cabal-1.6.0.2.tar.gz">1.6.0.2</a> February 2009</li>
-<li><a href="release/cabal-1.6.0.1/Cabal-1.6.0.1.tar.gz">1.6.0.1</a> October 2008</li>
-<li><a href="release/cabal-1.4.0.2/Cabal-1.4.0.2.tar.gz">1.4.0.2</a> August 2008</li>
-<li><a href="release/cabal-1.4.0.1/Cabal-1.4.0.1.tar.gz">1.4.0.1</a> June 2008</li>
-<li><a href="release/cabal-1.2.3.0/cabal-1.2.3.0.tar.gz">1.2.3.0</a> December 2007</li>
-<li><a href="release/cabal-1.2.2.0/cabal-1.2.2.0.tar.gz">1.2.2.0</a> October 2007</li>
-<li><a href="release/cabal-1.2.1.0/cabal-1.2.1.0.tar.gz">1.2.1.0</a> October 2007</li>
-<li><a href="release/cabal-1.1.6.2/cabal-1.1.6.2.tar.gz">1.2.0</a> September 2007</li>
-<li><a href="release/cabal-1.1.6.2/cabal-1.1.6.2.tar.gz">1.1.6.2</a> May 2007</li>
-<li><a href="release/cabal-1.1.6.1/cabal-1.1.6.1.tar.gz">1.1.6.1</a> October 2006</li>
-<li><a href="release/cabal-1.1.6/cabal-1.1.6.tar.gz">1.1.6</a> October 2006</li>
-<li><a href="release/cabal-1.1.4/cabal-1.1.4.tar.gz">1.1.4</a> May 2006</li>
-<li><a href="release/cabal-1.1.3/cabal-1.1.3.tar.gz">1.1.3</a> September 2005</li>
-<li><a href="release/old/cabal-1.1.1/cabal-1.1.1.tar.gz">1.1.1</a> July 2005</li>
-<li><a href="release/old/cabal-0.5.tgz">0.5</a> February 2005</li>
-<li><a href="release/old/cabal-0.4.tgz">0.4</a> January 2005</li>
-<li><a href="release/old/cabal-0.2.tgz">0.2</a> November 2004</li>
-<li><a href="release/old/cabal-0.1.tgz">0.1</a> August 2004</li>
-</ul>
+<div class="tip">
+<p>Libraries, such as <code>Cabal</code> (and more recently, <code>Cabal-syntax</code>) included with
+each <code>ghc-x.y.z</code> version can be found by substituting for <code>x.y.z</code> in:</p>
+<p><code>https://downloads.haskell.org/~ghc/x.y.z/docs/users_guide/x.y.z-notes.html#included-libraries</code></p>
+</div>
+<p>You can browse older releases at <a href="https://downloads.haskell.org/~cabal">downloads.haskell.org/~cabal</a>.</p>
+    </section>
+</article>
+
             <hr />
             <footer>
                 <div class="row">
     <div class="col-6">
         <i class="fab fa-github"></i>
-        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a><br />
-        <i class="fa fa-calendar"></i>
-        <a href="https://github.com/haskell/cabal/tree/master/release-notes" target="_blank" rel="noopener">release notes</a>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
     </div>
     <div class="col-6">
         <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
         <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
-        <i class="fa fa-question-circle"></i>
-        <a href="../pages/faq.html">frequently asked questions (FAQ)</a>
     </div>
 </div>
 
@@ -171,10 +135,24 @@ dependencies.</p>
 
     <nav>
         <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
-            <li class="nav-item"><a class="nav-link" href="../pages/download.html">download</a></li>
-            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/">documentation</a></li>
-            <li class="nav-item"><a class="nav-link" href="../pages/history.html">history</a></li>
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">
+                    <i class="fa fa-book"></i>
+                    docs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/download.html">
+                    <i class="fa fa-download"></i>
+                    download</a></li>
+            <li class="nav-item"><a class="nav-link" href="../releases/">
+                    <i class="fa fa-calendar"></i>
+                    releases</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">
+                    <i class="fa fa-question-circle"></i>
+                    FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="../blog/">
+                    <i class="fa fa-pen-nib"></i>
+                    blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/history.html">
+                    <i class="fa fa-clock-rotate-left"></i>
+                    history</a></li>
         </ul>
     </nav>
     <div class="card">
@@ -186,132 +164,94 @@ dependencies.</p>
 
                 </div>
                 <div id="content" class="d-print-col-12">
-                    <p><strong>Note:</strong> Most people already have Cabal because it is included in the <a href="http://www.haskell.org/platform/">Haskell Platform</a></p>
-<p>If you want to upgrade to the latest stable version, just run:</p>
+                    <article>
+    <section class="header">
+    <h2 class="display-4">Downloading Cabal</h1>
+    
+        <p class="lead">
+            Ways to download and install Cabal's executable tool <samp>cabal</samp>.
+        </p>
+    
+    
+        <p class="lead">
+            The tool's explicit target form is <samp>cabal-install:exe:cabal</samp>, the executable named <samp>cabal</samp> from the <samp>cabal-install</samp> package.
+        </p>
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="installupgrade">Install/Upgrade</h2>
+<div class="tip">
+<p>Most people with <code>GHC</code> will already have <code>cabal</code> because it is included with
+<a href="https://www.haskell.org/ghcup">GHCup</a>, the recommended way to install <code>GHC</code> and <code>cabal</code>.</p>
+</div>
+<p>If you want to upgrade to the latest stable version, use GHCup again or use <code>cabal</code> itself:</p>
 <pre><code>$ cabal install cabal cabal-install</code></pre>
-<p>Sometimes the older installed version is still on the program search $PATH, you can check you’re running the latest version with:</p>
+<p>Sometimes the older installed version is still on the program search $PATH, you
+can check you’re running the latest version with:</p>
 <pre><code>$ cabal --version</code></pre>
-<h2 id="cabal-library-version-2.0.0.2">Cabal library (version 2.0.0.2)</h2>
-<p>August 2017: Release 2.0.0.2</p>
-<p>Source download: <a href="release/cabal-2.0.0.2/Cabal-2.0.0.2.tar.gz">Cabal-2.0.0.2.tar.gz</a></p>
-<p>Please see the <a href="release/cabal-2.0.0.2/doc/users-guide/">User’s guide</a>, the <a href="release/cabal-2.0.0.2/doc/API/Cabal/">API documentation</a>, and the <a href="release/cabal-2.0.0.2/changelog">change log</a>.</p>
-<h2 id="cabal-install-tool-version-2.0.0.0">cabal-install tool (version 2.0.0.0)</h2>
-<p>cabal-install is the command line interface to Cabal and hackage.
-This is the package that provides the ‘cabal’ command line program.</p>
-<p>Source download: <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0.tar.gz">cabal-install-2.0.0.0.tar.gz</a></p>
-<h3 id="binary-downloads">Binary downloads</h3>
-<ul>
-<li>Windows (x86): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-i386-unknown-mingw32.zip">cabal-install-2.0.0.0-i386-unknown-mingw32.zip</a></li>
-<li>Windows (x86-64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-unknown-mingw32.zip">cabal-install-2.0.0.0-x86_64-unknown-mingw32.zip</a></li>
-<li>macOS Sierra (x86_64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-apple-darwin-sierra.tar.xz">cabal-install-2.0.0.0-x86_64-apple-darwin-sierra.tar.xz</a></li>
-<li>Linux (x86): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-i386-unknown-linux.tar.gz">cabal-install-2.0.0.0-i386-unknown-linux.tar.gz</a></li>
-<li>Linux (x86-64): <a href="release/cabal-install-2.0.0.0/cabal-install-2.0.0.0-x86_64-unknown-linux.tar.gz">cabal-install-2.0.0.0-x86_64-unknown-linux.tar.gz</a></li>
-<li>AIX (PowerPC): <a href="release/cabal-install-1.24.0.0/cabal-1.24.0.0-powerpc-ibm-aix7.1.0.0.xz">cabal-1.24.0.0-powerpc-ibm-aix7.1.0.0.xz</a></li>
-</ul>
-<p>Binaries for cabal-install for many platforms are available on <a href="https://halcyon.sh/">Halcyon</a>.</p>
-<p>Packages for Ubuntu Linux (multiple versions) are available on <a href="https://launchpad.net/~hvr/+archive/ubuntu/ghc">hvr’s PPA</a>.</p>
-<p>The source package requires the Cabal package above and also further packages,
-which can be found on Hackage. To make the process easier the cabal-install
-tarball contains a bootstrap.sh script which downloads and installs all the
-dependencies.</p>
+<div class="warning">
+<p>If mixing installation methods, be careful about PATH precedence.</p>
+</div>
+<h2 id="alternative-sources">Alternative Sources</h2>
+<p>Packages for Debian (multiple versions) are available on the
+<a href="http://downloads.haskell.org/debian/">Haskell.org APT repository</a>.</p>
+<p>Packages for Windows are available via
+<a href="https://chocolatey.org/packages/cabal">Chocolatey</a>.</p>
+<h2 id="documentation">Documentation</h2>
+<p>For Cabal and cabal-install documentation, please see the <a href="https://cabal.readthedocs.io">User’s
+guide</a>, the <a href="http://hackage.haskell.org/package/Cabal">API documentation</a>, and the <a href="http://hackage.haskell.org/package/Cabal/changelog">Cabal change
+log</a>.</p>
 <h2 id="bugs">Bugs</h2>
-<p>Report bugs <a href="https://github.com/haskell/cabal/issues">here</a> or to the <a href="mailto:cabal-devel@haskell.org">cabal-devel</a> mailing list.</p>
+<p>Report bugs <a href="https://github.com/haskell/cabal/issues">here</a> or to the
+<a href="mailto:cabal-devel@haskell.org">cabal-devel</a> mailing list.</p>
 <h2 id="code">Code</h2>
-<p>You can get the development version of the code <a href="code.html">here</a>.</p>
+<p>You can get the development version of the code at <a href="https://github.com/haskell/cabal">github/haskell/cabal</a>.</p>
 <h2 id="version-numbers">Version Numbers</h2>
-<p>Stable Releases are numbered a.b.c.d, where b is even. Unstable snapshots between releases are numbered a.b.c.d, where b is odd. Changes for c and d are minor.</p>
-<p>For example, 2.1.x.x is the development version leading up to the stable release 2.2.x.x.</p>
-<h2 id="older-releases">Older Releases</h2>
+<p>Stable Releases are numbered <code>a.b.c.d</code>, where <code>b</code> is even. Unstable snapshots
+between releases are numbered <code>a.b.c.d</code>, where <code>b</code> is odd. Changes for <code>c</code> and
+<code>d</code> are minor.</p>
+<p>For example, <code>2.1.x.x</code> is the development version leading up to the stable
+release <code>2.2.x.x</code>.</p>
+<h2 id="included-with-ghc">Included with GHC</h2>
+<p>The <code>Cabal</code> library versions bundled with the latest in each <code>ghc-x.y.*</code> series
+are:</p>
 <ul>
-<li>The previous stable release series for Cabal was 1.24.x.</li>
-<li>The previous stable release series for cabal-install was 1.24.x.</li>
+<li><code>ghc-9.10.1</code> includes <code>Cabal-3.12.0.0</code></li>
+<li><code>ghc-9.8.2</code> includes <code>Cabal-3.10.2.0</code></li>
+<li><code>ghc-9.6.5</code> includes <code>Cabal-3.10.3.0</code></li>
+<li><code>ghc-9.4.8</code> includes <code>Cabal-3.8.1.0</code></li>
+<li><code>ghc-9.2.8</code> includes <code>Cabal-3.6.3.0</code></li>
+<li><code>ghc-9.0.2</code> includes <code>Cabal-3.4.1.0</code></li>
+<li><code>ghc-8.10.7</code> includes <code>Cabal-3.2.1.0</code></li>
+<li><code>ghc-8.8.4</code> includes <code>Cabal-3.0.1.0</code></li>
+<li><code>ghc-8.6.5</code> includes <code>Cabal-2.4.0.1</code></li>
+<li><code>ghc-8.4.4</code> includes <code>Cabal-2.2.0.1</code></li>
+<li><code>ghc-8.2.2</code> includes <code>Cabal-2.0.1.0</code></li>
+<li><code>ghc-8.0.2</code> includes <code>Cabal-1.24.2.0</code></li>
+<li><code>ghc-7.10.3</code> includes <code>Cabal-1.22.5.0</code></li>
 </ul>
-<p>The versions bundled with recent Haskell implementation releases include:</p>
-<ul>
-<li>GHC 8.2.1 includes Cabal 2.0.0.2.</li>
-<li>GHC 8.0.2 includes Cabal 1.24.2.0.</li>
-<li>GHC 8.0.1 includes Cabal 1.24.0.0.</li>
-<li>GHC 7.10.3 includes Cabal 1.22.5.0.</li>
-</ul>
-<!-- GHC 7.8.4 includes Cabal 1.18.1.5. -->
-<!-- GHC 7.8.1 includes Cabal 1.18.1.3. -->
-<!-- GHC 7.4.1 includes Cabal 1.14.0. -->
-<!-- GHC 7.2.2 includes Cabal 1.12.0. -->
-<!-- GHC 7.0.4 includes Cabal 1.10.2.0. -->
-<!-- GHC 6.12.3 includes Cabal 1.8.0.6. -->
-<!-- GHC 6.10.4 includes Cabal 1.6.0.3. -->
-<!-- GHC 6.8.3 includes Cabal 1.2.4.0. -->
-<!-- GHC 6.6.1 includes Cabal 1.1.6.2. -->
-<!-- Hugs98 September 2006 includes Cabal 1.1.5.9.2 (the 2nd release candidate for 1.1.6). -->
-<!-- nhc98 1.20 includes Cabal-1.2.2.0. -->
-<ul>
-<li><a href="release/cabal-2.0.0.2/Cabal-2.0.0.2.tar.gz">2.0.0.2</a> August 2017</li>
-<li><a href="release/cabal-1.24.2.0/Cabal-1.24.2.0.tar.gz">1.24.2.0</a> December 2016</li>
-<li><a href="release/cabal-1.24.1.0/Cabal-1.24.1.0.tar.gz">1.24.1.0</a> October 2016</li>
-<li><a href="release/cabal-1.24.0.0/Cabal-1.24.0.0.tar.gz">1.24.0.0</a> May 2016</li>
-<li><a href="release/cabal-1.22.8.0/Cabal-1.22.8.0.tar.gz">1.22.8.0</a> March 2016</li>
-<li><a href="release/cabal-1.22.7.0/Cabal-1.22.7.0.tar.gz">1.22.7.0</a> January 2016</li>
-<li><a href="release/cabal-1.20.0.4/Cabal-1.20.0.4.tar.gz">1.20.0.4</a> January 2016</li>
-<li><a href="release/cabal-1.18.1.7/Cabal-1.18.1.7.tar.gz">1.18.1.7</a> January 2016</li>
-<li><a href="release/cabal-1.22.6.0/Cabal-1.22.6.0.tar.gz">1.22.6.0</a> December 2015</li>
-<li><a href="release/cabal-1.22.4.0/Cabal-1.22.4.0.tar.gz">1.22.4.0</a> June 2015</li>
-<li><a href="release/cabal-1.22.3.0/Cabal-1.22.3.0.tar.gz">1.22.3.0</a> April 2015</li>
-<li><a href="release/cabal-1.22.2.0/Cabal-1.22.2.0.tar.gz">1.22.2.0</a> March 2015</li>
-<li><a href="release/cabal-1.22.0.0/Cabal-1.22.0.0.tar.gz">1.22.0.0</a> January 2015</li>
-<li><a href="release/cabal-1.18.1.6/Cabal-1.18.1.6.tar.gz">1.18.1.6</a> January 2015</li>
-<li><a href="release/cabal-1.20.0.3/Cabal-1.20.0.3.tar.gz">1.20.0.3</a> December 2014</li>
-<li><a href="release/cabal-1.18.1.5/Cabal-1.18.1.5.tar.gz">1.18.1.5</a> December 2014</li>
-<li><a href="release/cabal-1.20.0.2/Cabal-1.20.0.2.tar.gz">1.20.0.2</a> July 2014</li>
-<li><a href="release/cabal-1.18.1.4/Cabal-1.18.1.4.tar.gz">1.18.1.4</a> July 2014</li>
-<li><a href="release/cabal-1.20.0.1/Cabal-1.20.0.1.tar.gz">1.20.0.1</a> May 2014</li>
-<li><a href="release/cabal-1.20.0.0/Cabal-1.20.0.0.tar.gz">1.20.0.0</a> April 2014</li>
-<li><a href="release/cabal-1.18.1.3/Cabal-1.18.1.3.tar.gz">1.18.1.3</a> March 2014</li>
-<li><a href="release/cabal-1.18.1.2/Cabal-1.18.1.2.tar.gz">1.18.1.2</a> October 2013</li>
-<li><a href="release/cabal-1.18.1.1/Cabal-1.18.1.1.tar.gz">1.18.1.1</a> October 2013</li>
-<li><a href="release/cabal-1.18.1/Cabal-1.18.1.tar.gz">1.18.1</a> September 2013</li>
-<li><a href="release/cabal-1.18.0/Cabal-1.18.0.tar.gz">1.18.0</a> September 2013</li>
-<li><a href="release/cabal-1.14.0/Cabal-1.14.0.tar.gz">1.14.0</a> February 2012</li>
-<li><a href="release/cabal-1.12.0/Cabal-1.12.0.tar.gz">1.12.0</a> January 2012</li>
-<li><a href="release/cabal-1.10.2.0/Cabal-1.10.2.0.tar.gz">1.10.2.0</a> June 2010</li>
-<li><a href="release/cabal-1.10.1.0/Cabal-1.10.1.0.tar.gz">1.10.1.0</a> February 2010</li>
-<li><a href="release/cabal-1.10.0.0/Cabal-1.10.0.0.tar.gz">1.10.0.0</a> November 2010</li>
-<li><a href="release/cabal-1.8.0.6/Cabal-1.8.0.6.tar.gz">1.8.0.6</a> June 2010</li>
-<li><a href="release/cabal-1.8.0.4/Cabal-1.8.0.4.tar.gz">1.8.0.4</a> March 2010</li>
-<li><a href="release/cabal-1.8.0.2/Cabal-1.8.0.2.tar.gz">1.8.0.2</a> December 2009</li>
-<li><a href="release/cabal-1.6.0.2/Cabal-1.6.0.2.tar.gz">1.6.0.2</a> February 2009</li>
-<li><a href="release/cabal-1.6.0.2/Cabal-1.6.0.2.tar.gz">1.6.0.2</a> February 2009</li>
-<li><a href="release/cabal-1.6.0.1/Cabal-1.6.0.1.tar.gz">1.6.0.1</a> October 2008</li>
-<li><a href="release/cabal-1.4.0.2/Cabal-1.4.0.2.tar.gz">1.4.0.2</a> August 2008</li>
-<li><a href="release/cabal-1.4.0.1/Cabal-1.4.0.1.tar.gz">1.4.0.1</a> June 2008</li>
-<li><a href="release/cabal-1.2.3.0/cabal-1.2.3.0.tar.gz">1.2.3.0</a> December 2007</li>
-<li><a href="release/cabal-1.2.2.0/cabal-1.2.2.0.tar.gz">1.2.2.0</a> October 2007</li>
-<li><a href="release/cabal-1.2.1.0/cabal-1.2.1.0.tar.gz">1.2.1.0</a> October 2007</li>
-<li><a href="release/cabal-1.1.6.2/cabal-1.1.6.2.tar.gz">1.2.0</a> September 2007</li>
-<li><a href="release/cabal-1.1.6.2/cabal-1.1.6.2.tar.gz">1.1.6.2</a> May 2007</li>
-<li><a href="release/cabal-1.1.6.1/cabal-1.1.6.1.tar.gz">1.1.6.1</a> October 2006</li>
-<li><a href="release/cabal-1.1.6/cabal-1.1.6.tar.gz">1.1.6</a> October 2006</li>
-<li><a href="release/cabal-1.1.4/cabal-1.1.4.tar.gz">1.1.4</a> May 2006</li>
-<li><a href="release/cabal-1.1.3/cabal-1.1.3.tar.gz">1.1.3</a> September 2005</li>
-<li><a href="release/old/cabal-1.1.1/cabal-1.1.1.tar.gz">1.1.1</a> July 2005</li>
-<li><a href="release/old/cabal-0.5.tgz">0.5</a> February 2005</li>
-<li><a href="release/old/cabal-0.4.tgz">0.4</a> January 2005</li>
-<li><a href="release/old/cabal-0.2.tgz">0.2</a> November 2004</li>
-<li><a href="release/old/cabal-0.1.tgz">0.1</a> August 2004</li>
-</ul>
+<div class="tip">
+<p>Libraries, such as <code>Cabal</code> (and more recently, <code>Cabal-syntax</code>) included with
+each <code>ghc-x.y.z</code> version can be found by substituting for <code>x.y.z</code> in:</p>
+<p><code>https://downloads.haskell.org/~ghc/x.y.z/docs/users_guide/x.y.z-notes.html#included-libraries</code></p>
+</div>
+<p>You can browse older releases at <a href="https://downloads.haskell.org/~cabal">downloads.haskell.org/~cabal</a>.</p>
+    </section>
+</article>
+
                     <hr />
                     <footer>
                         <div class="row">
     <div class="col-6">
         <i class="fab fa-github"></i>
-        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a><br />
-        <i class="fa fa-calendar"></i>
-        <a href="https://github.com/haskell/cabal/tree/master/release-notes" target="_blank" rel="noopener">release notes</a>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
     </div>
     <div class="col-6">
         <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
         <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
-        <i class="fa fa-question-circle"></i>
-        <a href="../pages/faq.html">frequently asked questions (FAQ)</a>
     </div>
 </div>
 

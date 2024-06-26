@@ -7,7 +7,7 @@
     <meta name="title" content="Cabal">
 <meta name="description" content="Build Haskell applications and libraries">
 
-    <title>index</title>
+    <title>WIP-Cabal-3.12.x.0</title>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/app.css" />
@@ -32,17 +32,35 @@
 
         </div>
         <div id="content" class="d-print-col-12">
-            <h2 class="display-4">Blog</h1>
-<ul>
+            <article>
+    <section class="header">
+    <h2 class="display-4">WIP-Cabal-3.12.x.0</h1>
     
-        <li>
-            
-            2017-09-11 <a href="../posts/2017-09-11-Cabal-2-0.html">v2 brings improved new-build, Backpack, foreign libraries</a>
-            
-        </li>
     
-</ul>
+    
+</section>
 
+    <hr>
+    <section>
+        <p>Cabal 3.12.1.0 changelog and release notes.</p>
+<p>This file will be edited and the changes incorprated into the official
+3.12.1.0 Cabal and Cabal-syntax release notes.</p>
+<hr />
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li>Deprecation of the <code>__HADDOCK_VERSION__</code> macro:
+In the next major version of Cabal, we no longer define the
+<code>__HADDOCK_VERSION__</code> macro when invoking GHC through Haddock, since doing
+so essentially guarantees recompilation during documentation generation. We
+audited all uses of <code>__HADDOCK_VERSION__</code> in hackage, ensuring there was a
+reasonable path forward to migrate away from using <code>__HADDOCK_VERSION__</code> for
+each, while generating the same documentation as it did before. If you are
+a user of <code>__HADDOCK_VERSION__</code>, please take a look at the discussion in
+https://github.com/haskell/cabal/pull/9177 and reach out to us if your use
+case is not covered.</li>
+</ul>
+    </section>
+</article>
 
             <hr />
             <footer>
@@ -98,17 +116,35 @@
 
                 </div>
                 <div id="content" class="d-print-col-12">
-                    <h2 class="display-4">Blog</h1>
-<ul>
+                    <article>
+    <section class="header">
+    <h2 class="display-4">WIP-Cabal-3.12.x.0</h1>
     
-        <li>
-            
-            2017-09-11 <a href="../posts/2017-09-11-Cabal-2-0.html">v2 brings improved new-build, Backpack, foreign libraries</a>
-            
-        </li>
     
-</ul>
+    
+</section>
 
+    <hr>
+    <section>
+        <p>Cabal 3.12.1.0 changelog and release notes.</p>
+<p>This file will be edited and the changes incorprated into the official
+3.12.1.0 Cabal and Cabal-syntax release notes.</p>
+<hr />
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li>Deprecation of the <code>__HADDOCK_VERSION__</code> macro:
+In the next major version of Cabal, we no longer define the
+<code>__HADDOCK_VERSION__</code> macro when invoking GHC through Haddock, since doing
+so essentially guarantees recompilation during documentation generation. We
+audited all uses of <code>__HADDOCK_VERSION__</code> in hackage, ensuring there was a
+reasonable path forward to migrate away from using <code>__HADDOCK_VERSION__</code> for
+each, while generating the same documentation as it did before. If you are
+a user of <code>__HADDOCK_VERSION__</code>, please take a look at the discussion in
+https://github.com/haskell/cabal/pull/9177 and reach out to us if your use
+case is not covered.</li>
+</ul>
+    </section>
+</article>
 
                     <hr />
                     <footer>

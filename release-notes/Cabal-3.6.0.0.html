@@ -7,7 +7,7 @@
     <meta name="title" content="Cabal">
 <meta name="description" content="Build Haskell applications and libraries">
 
-    <title>index</title>
+    <title>Cabal-3.6.0.0</title>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/app.css" />
@@ -32,17 +32,44 @@
 
         </div>
         <div id="content" class="d-print-col-12">
-            <h2 class="display-4">Blog</h1>
-<ul>
+            <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.6.0.0</h1>
     
-        <li>
-            
-            2017-09-11 <a href="../posts/2017-09-11-Cabal-2-0.html">v2 brings improved new-build, Backpack, foreign libraries</a>
-            
-        </li>
     
-</ul>
+    
+</section>
 
+    <hr>
+    <section>
+        <h2 id="cabal-3.6.0.0-changelog">Cabal 3.6.0.0 Changelog</h2>
+<ul>
+<li><p>Backported to 3.4 <a href="https://github.com/haskell/cabal/pull/6964">#6964</a> <a href="https://github.com/haskell/cabal/pull/6968">#6968</a></p></li>
+<li><p>CI setup <a href="https://github.com/haskell/cabal/pull/6959">#6959</a></p>
+<ul>
+<li>Remove travis scripts</li>
+</ul></li>
+<li><p>Code organization <a href="https://github.com/haskell/cabal/pull/6960">#6960</a> <a href="https://github.com/haskell/cabal/pull/6963">#6963</a> <a href="https://github.com/haskell/cabal/pull/6970">#6970</a> <a href="https://github.com/haskell/cabal/pull/6974">#6974</a> <a href="https://github.com/haskell/cabal/pull/6975">#6975</a></p>
+<ul>
+<li>Move Cabal sources into Cabal/src</li>
+<li>Move cabal-install sources to cabal-install/src/</li>
+<li>Move doc/ to the top-level of the repository</li>
+<li>Add stylish-haskell config.</li>
+</ul></li>
+<li><p>Documentation improvements <a href="https://github.com/haskell/cabal/issues/6813">#6813</a> <a href="https://github.com/haskell/cabal/pull/6971">#6971</a> <a href="https://github.com/haskell/cabal/pull/7047">#7047</a></p>
+<p>Write highlights</p></li>
+<li><p>Add post-checkout-command to source-package-repository <a href="https://github.com/haskell/cabal/issues/6664">#6664</a> <a href="https://github.com/haskell/cabal/pull/7047">#7047</a></p></li>
+<li><p>Add <code>hsc2hs-options</code>, for specifying additional options to pass to <code>hsc2hs</code> <a href="https://github.com/haskell/cabal/pull/6295">#6295</a></p></li>
+<li><p>Include cmm-sources when linking shared objects <a href="https://github.com/haskell/cabal/issues/7182">#7182</a> <a href="https://github.com/haskell/cabal/pull/7252">#7252</a></p>
+<ul>
+<li>Previously <code>cmm-sources</code> were not included in the final link when building a library as a shared object. Fix this.</li>
+</ul></li>
+<li><p>Add language extensions for GHC 9.2 <a href="https://github.com/haskell/cabal/issues/7312">#7312</a></p></li>
+<li><p>–dry-run and –only-download effect v2-configure, v2-freeze, v2-run, and v2-exec <a href="https://github.com/haskell/cabal/issues/7379">#7379</a></p></li>
+<li><p>Alert user and suggest command on spelling mistakes</p></li>
+</ul>
+    </section>
+</article>
 
             <hr />
             <footer>
@@ -98,17 +125,44 @@
 
                 </div>
                 <div id="content" class="d-print-col-12">
-                    <h2 class="display-4">Blog</h1>
-<ul>
+                    <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.6.0.0</h1>
     
-        <li>
-            
-            2017-09-11 <a href="../posts/2017-09-11-Cabal-2-0.html">v2 brings improved new-build, Backpack, foreign libraries</a>
-            
-        </li>
     
-</ul>
+    
+</section>
 
+    <hr>
+    <section>
+        <h2 id="cabal-3.6.0.0-changelog">Cabal 3.6.0.0 Changelog</h2>
+<ul>
+<li><p>Backported to 3.4 <a href="https://github.com/haskell/cabal/pull/6964">#6964</a> <a href="https://github.com/haskell/cabal/pull/6968">#6968</a></p></li>
+<li><p>CI setup <a href="https://github.com/haskell/cabal/pull/6959">#6959</a></p>
+<ul>
+<li>Remove travis scripts</li>
+</ul></li>
+<li><p>Code organization <a href="https://github.com/haskell/cabal/pull/6960">#6960</a> <a href="https://github.com/haskell/cabal/pull/6963">#6963</a> <a href="https://github.com/haskell/cabal/pull/6970">#6970</a> <a href="https://github.com/haskell/cabal/pull/6974">#6974</a> <a href="https://github.com/haskell/cabal/pull/6975">#6975</a></p>
+<ul>
+<li>Move Cabal sources into Cabal/src</li>
+<li>Move cabal-install sources to cabal-install/src/</li>
+<li>Move doc/ to the top-level of the repository</li>
+<li>Add stylish-haskell config.</li>
+</ul></li>
+<li><p>Documentation improvements <a href="https://github.com/haskell/cabal/issues/6813">#6813</a> <a href="https://github.com/haskell/cabal/pull/6971">#6971</a> <a href="https://github.com/haskell/cabal/pull/7047">#7047</a></p>
+<p>Write highlights</p></li>
+<li><p>Add post-checkout-command to source-package-repository <a href="https://github.com/haskell/cabal/issues/6664">#6664</a> <a href="https://github.com/haskell/cabal/pull/7047">#7047</a></p></li>
+<li><p>Add <code>hsc2hs-options</code>, for specifying additional options to pass to <code>hsc2hs</code> <a href="https://github.com/haskell/cabal/pull/6295">#6295</a></p></li>
+<li><p>Include cmm-sources when linking shared objects <a href="https://github.com/haskell/cabal/issues/7182">#7182</a> <a href="https://github.com/haskell/cabal/pull/7252">#7252</a></p>
+<ul>
+<li>Previously <code>cmm-sources</code> were not included in the final link when building a library as a shared object. Fix this.</li>
+</ul></li>
+<li><p>Add language extensions for GHC 9.2 <a href="https://github.com/haskell/cabal/issues/7312">#7312</a></p></li>
+<li><p>–dry-run and –only-download effect v2-configure, v2-freeze, v2-run, and v2-exec <a href="https://github.com/haskell/cabal/issues/7379">#7379</a></p></li>
+<li><p>Alert user and suggest command on spelling mistakes</p></li>
+</ul>
+    </section>
+</article>
 
                     <hr />
                     <footer>

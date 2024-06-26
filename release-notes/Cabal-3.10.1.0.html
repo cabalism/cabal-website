@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Cabal">
+<meta name="description" content="Build Haskell applications and libraries">
+
+    <title>Cabal-3.10.1.0</title>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../images/Cabal-tiny.png" rel="icon">
+
+</head>
+
+<body>
+    <div class="d-lg-none">
+        <div id="nav-top" class="d-print-none">
+            <nav>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">docs</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/download.html">download</a></li>
+        <li class="nav-item"><a class="nav-link" href="../releases/">releases</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/history.html">history</a></li>
+    </ul>
+</nav>
+
+        </div>
+        <div id="content" class="d-print-col-12">
+            <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.10.1.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-and-cabal-syntax-3.10.1.0-changelog-and-release-notes">Cabal and Cabal-syntax 3.10.1.0 changelog and release notes</h2>
+<p>Release 3.10.1.0 of cabal now sets the <code>--enable-documentation</code> option by default
+when running <code>cabal haddock</code> (https://github.com/haskell/cabal/issues/7462).
+If the new default does not fit your workflow, pass an explicit <code>--disable-documentation</code>
+option or consider (helping to implement) the other workarounds proposed
+in https://github.com/haskell/cabal/issues/8725.</p>
+<p>This version of cabal introduces support for JS cross-compilation (https://github.com/haskell/cabal/pull/8636).
+We’ve seen related Windows segfaults on CI, so please kindly report if you can reproduce either
+cabal or GHC segfaults when cross-compiling for JS or compiling normally but with any files
+listed in the <code>js-sources</code> field of a .cabal file.</p>
+<p>This release of cabal also fixes a lot of bugs in cabal 3.8.1.0 and not all of the fixes
+are listed here.</p>
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Add support for the XDG Base Directory Specification <a href="https://github.com/haskell/cabal/issues/680">#680</a> <a href="https://github.com/haskell/cabal/pull/7386">#7386</a></p>
+<p>Cabal/cabal-install now uses the XDG Base Directory Specification to
+store configuration, caches, and the store. Specifically,
+<code>$XDG_CONFIG_HOME/cabal</code> stores the configuration file,
+<code>$XDG_CACHE_HOME/cabal</code> stores downloaded packages and similar, and
+<code>$XDG_STATE_HOME/cabal</code> mainly contains the store of compiled
+packages. Further, <code>cabal install</code> will put executables in
+<code>~/.local/bin</code> by default.</p>
+<p>The <code>dist</code>/<code>dist-newstyle</code> directories are not affected.</p>
+<p>On Windows, these XDG paths are mapped to other (hopefully)
+appropriate locations. See the Cabal User Guide for information.</p>
+<p>If the <code>CABAL_DIR</code> environment variable is set, the indicated
+directory will be used to store all Cabal-related files, as in
+previous versions.</p>
+<p><strong>Backwards compatibility</strong>: If <code>~/.cabal</code> already exists, this will be
+interpreted as <code>CABAL_DIR=~/.cabal</code>. This means that upgrading on an
+existing system already using cabal-install should not cause any
+change in behaviour. An existing system can be migrated by deleting
+<code>~/.cabal</code> (possibly copying <code>~/.cabal/config</code> to
+<code>~/.config/cabal/config</code> first).</p></li>
+<li><p>Add <code>PackageInfo_</code> module <a href="https://github.com/haskell/cabal/pull/8534">#8534</a></p>
+<ul>
+<li>Add <code>PackageInfo_</code> module to embed portable package-related informations (issue #3909)</li>
+</ul></li>
+<li><p><em>Cabal-syntax</em> Add language extensions <code>DeepSubsumption</code> and <code>TypeData</code> <a href="https://github.com/haskell/cabal/pull/8493">#8493</a></p>
+<ul>
+<li>adds support for the <code>DeepSubsumption</code> language extension (<a href="https://github.com/ghc-proposals/ghc-proposals/pull/511">GHC proposal #511</a>)</li>
+<li>adds support for the <code>TypeData</code> language extension (<a href="https://github.com/ghc-proposals/ghc-proposals/pull/106">GHC proposal #106</a>)</li>
+</ul></li>
+<li><p>Add support for GHC 9.4+ <code>-fprof-late</code> flag. <a href="https://github.com/haskell/cabal/pull/8528">#8528</a></p></li>
+<li><p>This adds the new <code>late-toplevel</code> (and its alias <code>late</code>) profiling-detail option which enables <code>-fprof-late</code>-based automatic cost centre annotations for GHCs that support it (<a href="https://downloads.haskell.org/ghc/9.4.1/docs/users_guide/profiling.html#ghc-flag--fprof-late">earliest is GHC 9.4.1</a>).</p></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Remove “‘-main-is’ is not portable” check <a href="https://github.com/haskell/cabal/issues/8646">#8646</a> <a href="https://github.com/haskell/cabal/pull/8651">#8651</a></p>
+<p><code>cabal check</code> no longer complains about <code>-main-is</code> flag in <code>ghc-options</code></p></li>
+<li><p>Fix generation of Path_ modules with relocatable <a href="https://github.com/haskell/cabal/issues/8219">#8219</a> <a href="https://github.com/haskell/cabal/pull/8220">#8220</a></p>
+<p>The generation of the functions <code>minusFileName</code> and <code>splitFileName</code>
+are now in the same conditional block as their call,
+preventing generation of inconsistent Paths_ files
+where those functions are used but not defined.</p></li>
+<li><p>Remove warning on option -threaded when building libraries <a href="https://github.com/haskell/cabal/issues/774">#774</a> <a href="https://github.com/haskell/cabal/issues/8431">#8431</a> <a href="https://github.com/haskell/cabal/pull/8432">#8432</a></p>
+<ul>
+<li>Accompanied by option <code>-flink-rts</code>, option <code>-threaded</code> defines the flavour of
+the ghc RTS library the built library will be linked against. Note that bare
+ghc does not warn when option <code>-threaded</code> is used for building a library
+either.</li>
+<li>Note that the changes require modification of the regression check for issue
+#774 which can be regarded as a proper test for this PR.</li>
+</ul></li>
+<li><p>Add warning about expensive globs <a href="https://github.com/haskell/cabal/issues/5311">#5311</a> <a href="https://github.com/haskell/cabal/pull/8441">#8441</a></p>
+<ul>
+<li>Now cabal check will emit a warning when package uses
+recursive globs starting at root of the project</li>
+</ul></li>
+<li><p>Order <code>extra*</code> stanzas <a href="https://github.com/haskell/cabal/issues/8458">#8458</a> <a href="https://github.com/haskell/cabal/pull/8499">#8499</a></p>
+<p>Ensure that <code>extra-src-dirs</code>, extra sources, and extra other modules all are added using <code>ordNub</code> rather than incidentally alphabetized.</p></li>
+<li><p>Prepend rather than append <code>extra-prog-path</code> <a href="https://github.com/haskell/cabal/issues/6304">#6304</a> <a href="https://github.com/haskell/cabal/pull/8506">#8506</a></p>
+<p>Prepends the <code>extra-prog-path</code> to the system path rather than appending, to allow binaries in the extra path to override defaults.</p></li>
+<li><p>don’t send non-extant <code>extra-lib-dirs</code> to GHC <a href="https://github.com/haskell/cabal/issues/6492">#6492</a> <a href="https://github.com/haskell/cabal/pull/8510">#8510</a></p>
+<p>If an extra-libs-dir does not exist, it does not get sent to ghc, which can error on windows.</p></li>
+<li><p>Improve mutually recursive unit identifier error message <a href="https://github.com/haskell/cabal/pull/8582">#8582</a></p>
+<p>Improves the error message in case of mutually recursive unit identifiers
+by specifying the name of the identifier, the name of the signature, and a suggestion
+to check the ‘build-depends:’ section.</p></li>
+<li><p>Specify default exe extension on wasm32 to be .wasm <a href="https://github.com/haskell/cabal/pull/8633">#8633</a></p>
+<p>Specify default exe extension on wasm32 to be .wasm, following the convention in other WebAssembly toolchains.</p></li>
+<li><p>Support <code>js-sources</code> with GHC, not only with GHCJS <a href="https://github.com/haskell/cabal/pull/8636">#8636</a></p>
+<ul>
+<li>Take into account js-sources when building library components with GHC</li>
+<li>Missing support for js-sources in executable components is tracked in #8639</li>
+</ul></li>
+<li><p>Tiny refactor of how Cabal handles configure scripts <a href="https://github.com/haskell/cabal/pull/8648">#8648</a></p>
+<p>None of this is visible downstream</p>
+<ul>
+<li><p>Remove needless parameter on one private function.</p></li>
+<li><p>Move another internal function (and ones that only it uses from the same module) to new private module.</p></li>
+</ul></li>
+<li><p>Warn if expected files are omitted from extra-doc-files <a href="https://github.com/haskell/cabal/issues/3964">#3964</a> <a href="https://github.com/haskell/cabal/pull/8657">#8657</a></p>
+<ul>
+<li>Emit a warning if there exist a “changelog” file at the root of the
+package which is not included in any field.</li>
+<li>Emit a warning if a “changelog” file at the root of the package is included
+in a field different from “extra-doc-files” (Cabal spec &gt;= 1.18) or
+“extra-source-files” (spec &lt; 1.18).</li>
+</ul></li>
+<li><p>Disallow GHC &lt;8.0 for <a href="https://github.com/haskell/cabal/issues/7531">#7531</a> <a href="https://github.com/haskell/cabal/issues/8715">#8715</a> <a href="https://github.com/haskell/cabal/pull/8794">#8794</a></p>
+<p>Disallow GHC &lt;8.0 by restricting the version of base that can be used to at least 4.9</p></li>
+<li><p>Avoid spurious warnings from -with-rtsopts <a href="https://github.com/haskell/cabal/issues/4255">#4255</a> <a href="https://github.com/haskell/cabal/pull/8183">#8183</a></p></li>
+<li><p>Do not print “up to date” for commands unless running “cabal build” <a href="https://github.com/haskell/cabal/issues/4994">#4994</a> <a href="https://github.com/haskell/cabal/pull/8569">#8569</a></p></li>
+<li><p>The <code>configure</code> script of <code>build-type: configure</code> packages now has access to the flag assignment of the package being built via the <code>CABAL_FLAGS</code> and <code>CABAL_FLAG_&lt;flag&gt;</code> environment variables <a href="https://github.com/haskell/cabal/issues/8564">#8564</a> <a href="https://github.com/haskell/cabal/pull/8565">#8565</a></p></li>
+<li><p>Export pretty printer <code>ppPackageCheck</code> from <a href="https://github.com/haskell/cabal/pull/8311">#8311</a></p></li>
+<li><p>Add check for upper bound on any dependency in <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/8291">#8291</a> <a href="https://github.com/haskell/cabal/pull/8339">#8339</a></p></li>
+<li><p><em>Cabal-syntax</em> Relax language selection parsing in <code>cabal init</code> <a href="https://github.com/haskell/cabal/issues/8278">#8278</a> <a href="https://github.com/haskell/cabal/pull/8281">#8281</a></p></li>
+</ul>
+    </section>
+</article>
+
+            <hr />
+            <footer>
+                <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+            </footer>
+        </div>
+    </div>
+    <div class="d-none d-lg-block">
+        <div class="fluid-container">
+            <div class="row">
+                <div id="nav-side" class="col-2 card d-print-none">
+                    <div class="card-body">
+    <h1 class="card-title" title="Cabal"><a href="../"><img id="img-logo" src="../images/Cabal-light.png" style="width:80%"></a></h1>
+
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">
+                    <i class="fa fa-book"></i>
+                    docs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/download.html">
+                    <i class="fa fa-download"></i>
+                    download</a></li>
+            <li class="nav-item"><a class="nav-link" href="../releases/">
+                    <i class="fa fa-calendar"></i>
+                    releases</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">
+                    <i class="fa fa-question-circle"></i>
+                    FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="../blog/">
+                    <i class="fa fa-pen-nib"></i>
+                    blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/history.html">
+                    <i class="fa fa-clock-rotate-left"></i>
+                    history</a></li>
+        </ul>
+    </nav>
+    <div class="card">
+        <div class="card-body">
+            <span id="color-switch">set color&nbsp;<a class="link" id="btn-switch-color-mode">light</a></span>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <div id="content" class="d-print-col-12">
+                    <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.10.1.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-and-cabal-syntax-3.10.1.0-changelog-and-release-notes">Cabal and Cabal-syntax 3.10.1.0 changelog and release notes</h2>
+<p>Release 3.10.1.0 of cabal now sets the <code>--enable-documentation</code> option by default
+when running <code>cabal haddock</code> (https://github.com/haskell/cabal/issues/7462).
+If the new default does not fit your workflow, pass an explicit <code>--disable-documentation</code>
+option or consider (helping to implement) the other workarounds proposed
+in https://github.com/haskell/cabal/issues/8725.</p>
+<p>This version of cabal introduces support for JS cross-compilation (https://github.com/haskell/cabal/pull/8636).
+We’ve seen related Windows segfaults on CI, so please kindly report if you can reproduce either
+cabal or GHC segfaults when cross-compiling for JS or compiling normally but with any files
+listed in the <code>js-sources</code> field of a .cabal file.</p>
+<p>This release of cabal also fixes a lot of bugs in cabal 3.8.1.0 and not all of the fixes
+are listed here.</p>
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Add support for the XDG Base Directory Specification <a href="https://github.com/haskell/cabal/issues/680">#680</a> <a href="https://github.com/haskell/cabal/pull/7386">#7386</a></p>
+<p>Cabal/cabal-install now uses the XDG Base Directory Specification to
+store configuration, caches, and the store. Specifically,
+<code>$XDG_CONFIG_HOME/cabal</code> stores the configuration file,
+<code>$XDG_CACHE_HOME/cabal</code> stores downloaded packages and similar, and
+<code>$XDG_STATE_HOME/cabal</code> mainly contains the store of compiled
+packages. Further, <code>cabal install</code> will put executables in
+<code>~/.local/bin</code> by default.</p>
+<p>The <code>dist</code>/<code>dist-newstyle</code> directories are not affected.</p>
+<p>On Windows, these XDG paths are mapped to other (hopefully)
+appropriate locations. See the Cabal User Guide for information.</p>
+<p>If the <code>CABAL_DIR</code> environment variable is set, the indicated
+directory will be used to store all Cabal-related files, as in
+previous versions.</p>
+<p><strong>Backwards compatibility</strong>: If <code>~/.cabal</code> already exists, this will be
+interpreted as <code>CABAL_DIR=~/.cabal</code>. This means that upgrading on an
+existing system already using cabal-install should not cause any
+change in behaviour. An existing system can be migrated by deleting
+<code>~/.cabal</code> (possibly copying <code>~/.cabal/config</code> to
+<code>~/.config/cabal/config</code> first).</p></li>
+<li><p>Add <code>PackageInfo_</code> module <a href="https://github.com/haskell/cabal/pull/8534">#8534</a></p>
+<ul>
+<li>Add <code>PackageInfo_</code> module to embed portable package-related informations (issue #3909)</li>
+</ul></li>
+<li><p><em>Cabal-syntax</em> Add language extensions <code>DeepSubsumption</code> and <code>TypeData</code> <a href="https://github.com/haskell/cabal/pull/8493">#8493</a></p>
+<ul>
+<li>adds support for the <code>DeepSubsumption</code> language extension (<a href="https://github.com/ghc-proposals/ghc-proposals/pull/511">GHC proposal #511</a>)</li>
+<li>adds support for the <code>TypeData</code> language extension (<a href="https://github.com/ghc-proposals/ghc-proposals/pull/106">GHC proposal #106</a>)</li>
+</ul></li>
+<li><p>Add support for GHC 9.4+ <code>-fprof-late</code> flag. <a href="https://github.com/haskell/cabal/pull/8528">#8528</a></p></li>
+<li><p>This adds the new <code>late-toplevel</code> (and its alias <code>late</code>) profiling-detail option which enables <code>-fprof-late</code>-based automatic cost centre annotations for GHCs that support it (<a href="https://downloads.haskell.org/ghc/9.4.1/docs/users_guide/profiling.html#ghc-flag--fprof-late">earliest is GHC 9.4.1</a>).</p></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Remove “‘-main-is’ is not portable” check <a href="https://github.com/haskell/cabal/issues/8646">#8646</a> <a href="https://github.com/haskell/cabal/pull/8651">#8651</a></p>
+<p><code>cabal check</code> no longer complains about <code>-main-is</code> flag in <code>ghc-options</code></p></li>
+<li><p>Fix generation of Path_ modules with relocatable <a href="https://github.com/haskell/cabal/issues/8219">#8219</a> <a href="https://github.com/haskell/cabal/pull/8220">#8220</a></p>
+<p>The generation of the functions <code>minusFileName</code> and <code>splitFileName</code>
+are now in the same conditional block as their call,
+preventing generation of inconsistent Paths_ files
+where those functions are used but not defined.</p></li>
+<li><p>Remove warning on option -threaded when building libraries <a href="https://github.com/haskell/cabal/issues/774">#774</a> <a href="https://github.com/haskell/cabal/issues/8431">#8431</a> <a href="https://github.com/haskell/cabal/pull/8432">#8432</a></p>
+<ul>
+<li>Accompanied by option <code>-flink-rts</code>, option <code>-threaded</code> defines the flavour of
+the ghc RTS library the built library will be linked against. Note that bare
+ghc does not warn when option <code>-threaded</code> is used for building a library
+either.</li>
+<li>Note that the changes require modification of the regression check for issue
+#774 which can be regarded as a proper test for this PR.</li>
+</ul></li>
+<li><p>Add warning about expensive globs <a href="https://github.com/haskell/cabal/issues/5311">#5311</a> <a href="https://github.com/haskell/cabal/pull/8441">#8441</a></p>
+<ul>
+<li>Now cabal check will emit a warning when package uses
+recursive globs starting at root of the project</li>
+</ul></li>
+<li><p>Order <code>extra*</code> stanzas <a href="https://github.com/haskell/cabal/issues/8458">#8458</a> <a href="https://github.com/haskell/cabal/pull/8499">#8499</a></p>
+<p>Ensure that <code>extra-src-dirs</code>, extra sources, and extra other modules all are added using <code>ordNub</code> rather than incidentally alphabetized.</p></li>
+<li><p>Prepend rather than append <code>extra-prog-path</code> <a href="https://github.com/haskell/cabal/issues/6304">#6304</a> <a href="https://github.com/haskell/cabal/pull/8506">#8506</a></p>
+<p>Prepends the <code>extra-prog-path</code> to the system path rather than appending, to allow binaries in the extra path to override defaults.</p></li>
+<li><p>don’t send non-extant <code>extra-lib-dirs</code> to GHC <a href="https://github.com/haskell/cabal/issues/6492">#6492</a> <a href="https://github.com/haskell/cabal/pull/8510">#8510</a></p>
+<p>If an extra-libs-dir does not exist, it does not get sent to ghc, which can error on windows.</p></li>
+<li><p>Improve mutually recursive unit identifier error message <a href="https://github.com/haskell/cabal/pull/8582">#8582</a></p>
+<p>Improves the error message in case of mutually recursive unit identifiers
+by specifying the name of the identifier, the name of the signature, and a suggestion
+to check the ‘build-depends:’ section.</p></li>
+<li><p>Specify default exe extension on wasm32 to be .wasm <a href="https://github.com/haskell/cabal/pull/8633">#8633</a></p>
+<p>Specify default exe extension on wasm32 to be .wasm, following the convention in other WebAssembly toolchains.</p></li>
+<li><p>Support <code>js-sources</code> with GHC, not only with GHCJS <a href="https://github.com/haskell/cabal/pull/8636">#8636</a></p>
+<ul>
+<li>Take into account js-sources when building library components with GHC</li>
+<li>Missing support for js-sources in executable components is tracked in #8639</li>
+</ul></li>
+<li><p>Tiny refactor of how Cabal handles configure scripts <a href="https://github.com/haskell/cabal/pull/8648">#8648</a></p>
+<p>None of this is visible downstream</p>
+<ul>
+<li><p>Remove needless parameter on one private function.</p></li>
+<li><p>Move another internal function (and ones that only it uses from the same module) to new private module.</p></li>
+</ul></li>
+<li><p>Warn if expected files are omitted from extra-doc-files <a href="https://github.com/haskell/cabal/issues/3964">#3964</a> <a href="https://github.com/haskell/cabal/pull/8657">#8657</a></p>
+<ul>
+<li>Emit a warning if there exist a “changelog” file at the root of the
+package which is not included in any field.</li>
+<li>Emit a warning if a “changelog” file at the root of the package is included
+in a field different from “extra-doc-files” (Cabal spec &gt;= 1.18) or
+“extra-source-files” (spec &lt; 1.18).</li>
+</ul></li>
+<li><p>Disallow GHC &lt;8.0 for <a href="https://github.com/haskell/cabal/issues/7531">#7531</a> <a href="https://github.com/haskell/cabal/issues/8715">#8715</a> <a href="https://github.com/haskell/cabal/pull/8794">#8794</a></p>
+<p>Disallow GHC &lt;8.0 by restricting the version of base that can be used to at least 4.9</p></li>
+<li><p>Avoid spurious warnings from -with-rtsopts <a href="https://github.com/haskell/cabal/issues/4255">#4255</a> <a href="https://github.com/haskell/cabal/pull/8183">#8183</a></p></li>
+<li><p>Do not print “up to date” for commands unless running “cabal build” <a href="https://github.com/haskell/cabal/issues/4994">#4994</a> <a href="https://github.com/haskell/cabal/pull/8569">#8569</a></p></li>
+<li><p>The <code>configure</code> script of <code>build-type: configure</code> packages now has access to the flag assignment of the package being built via the <code>CABAL_FLAGS</code> and <code>CABAL_FLAG_&lt;flag&gt;</code> environment variables <a href="https://github.com/haskell/cabal/issues/8564">#8564</a> <a href="https://github.com/haskell/cabal/pull/8565">#8565</a></p></li>
+<li><p>Export pretty printer <code>ppPackageCheck</code> from <a href="https://github.com/haskell/cabal/pull/8311">#8311</a></p></li>
+<li><p>Add check for upper bound on any dependency in <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/8291">#8291</a> <a href="https://github.com/haskell/cabal/pull/8339">#8339</a></p></li>
+<li><p><em>Cabal-syntax</em> Relax language selection parsing in <code>cabal init</code> <a href="https://github.com/haskell/cabal/issues/8278">#8278</a> <a href="https://github.com/haskell/cabal/pull/8281">#8281</a></p></li>
+</ul>
+    </section>
+</article>
+
+                    <hr />
+                    <footer>
+                        <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var switchColor = () => {
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'light'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
+            }
+            else {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
+            }
+        };
+
+        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.documentElement.setAttribute('data-bs-theme','light')
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme','dark')
+            }
+
+            switchColor();
+        })
+
+        switchColor();
+    </script>
+</body>
+
+</html>

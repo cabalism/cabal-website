@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Cabal">
+<meta name="description" content="Build Haskell applications and libraries">
+
+    <title>Cabal-3.12.1.0</title>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../images/Cabal-tiny.png" rel="icon">
+
+</head>
+
+<body>
+    <div class="d-lg-none">
+        <div id="nav-top" class="d-print-none">
+            <nav>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="../">~/</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">docs</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/download.html">download</a></li>
+        <li class="nav-item"><a class="nav-link" href="../releases/">releases</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog/">blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages/history.html">history</a></li>
+    </ul>
+</nav>
+
+        </div>
+        <div id="content" class="d-print-col-12">
+            <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.12.1.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-and-cabal-syntax-3.12.1.0-changelog-and-release-notes">Cabal and Cabal-syntax 3.12.1.0 changelog and release notes</h2>
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Update GHC arguments normalization and GHC options rendering <a href="https://github.com/haskell/cabal/issues/9729">#9729</a> <a href="https://github.com/haskell/cabal/pull/10014">#10014</a></p>
+<p>The flags <code>-fdiagnostics-as-json</code>, <code>-fprint-error-index-lists</code>, <code>-fbreak-points</code>, <code>-dipe-stats</code>, <code>-ffamily-application-cache</code>, <code>-fprint-redundant-promotion-ticks</code>, <code>-fshow-error-context</code> and <code>-funoptimized-core-for-interpreter</code> have been added to the flags that do not cause recompilation.</p></li>
+<li><p>Warn on missing <code>default-language</code> <a href="https://github.com/haskell/cabal/issues/9620">#9620</a> <a href="https://github.com/haskell/cabal/pull/9766">#9766</a></p>
+<ul>
+<li>To help the adoption of GHC language editions, <code>cabal check</code> will now
+warn about missing <code>default-language</code>.</li>
+</ul></li>
+<li><p>Add MHS (<a href="https://github.com/augustss/MicroHs">MicroHS</a>) as a known Haskell compiler <a href="https://github.com/haskell/cabal/pull/9878">#9878</a></p></li>
+<li><p>Re-instate <code>initialBuildSteps</code> <a href="https://github.com/haskell/cabal/issues/9856">#9856</a> <a href="https://github.com/haskell/cabal/pull/9950">#9950</a></p>
+<p>The <code>initialBuildSteps</code> function from <code>Distribution.Simple.Build</code>, which had
+been hastily removed, has been reinstated.</p>
+<p>It now comes with a deprecation warning: calling that function does not suffice
+to prepare the sources for a package, as there are other steps that one might
+also need to perform:</p>
+<ul>
+<li>running pre-processors (such as alex/happy);</li>
+<li>running pre-build hooks or custom logic
+(in build-type: Hooks or build-type: Custom or Configure).</li>
+</ul>
+<p>Consumers wanting to prepare the sources of a package, e.g. in order to launch a
+REPL session, are advised to run <code>setup repl --repl-multi-file=&lt;fn&gt;</code> instead.</p></li>
+<li><p>Label error messages with codes (following GHC, Stack)</p>
+<p>As with GHC and Stack, Cabal and cabal-install now generate warnings and errors prefixed with error codes of the form <code>[Cabal-xxxxx]</code>. These will be documented on https://errors.haskell.org, although very few are as yet.</p>
+<p>This change was actually present in Cabal-3.12.0.0, but was inadvertently omitted from the changelog.</p></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Don’t recommend deprecated/removed <code>extensions</code> field <a href="https://github.com/haskell/cabal/issues/10042">#10042</a> <a href="https://github.com/haskell/cabal/pull/10044">#10044</a></p>
+<p>When applicable, field <code>default-extensions</code> is recommended (rather than
+deprecated/removed <code>extensions:</code>).</p></li>
+<li><p>Make <code>Setup copy</code> and <code>Setup install</code> succeed when there’s no executable or library <a href="https://github.com/haskell/cabal/issues/6750">#6750</a> <a href="https://github.com/haskell/cabal/pull/9926">#9926</a></p>
+<p>Historically the Setup copy and install steps would fail if the package didn’t
+contain an executable or library component. In this case there’s nothing to do.</p>
+<p>This required workarounds for downstream users of Cabal to handle this edge case.
+Now that this error has been downgraded to a warning, Cabal will succeed if
+there’s nothing to do.</p></li>
+</ul>
+    </section>
+</article>
+
+            <hr />
+            <footer>
+                <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+            </footer>
+        </div>
+    </div>
+    <div class="d-none d-lg-block">
+        <div class="fluid-container">
+            <div class="row">
+                <div id="nav-side" class="col-2 card d-print-none">
+                    <div class="card-body">
+    <h1 class="card-title" title="Cabal"><a href="../"><img id="img-logo" src="../images/Cabal-light.png" style="width:80%"></a></h1>
+
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="http://cabal.readthedocs.io/en/latest/" target="_blank">
+                    <i class="fa fa-book"></i>
+                    docs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/download.html">
+                    <i class="fa fa-download"></i>
+                    download</a></li>
+            <li class="nav-item"><a class="nav-link" href="../releases/">
+                    <i class="fa fa-calendar"></i>
+                    releases</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/faq.html">
+                    <i class="fa fa-question-circle"></i>
+                    FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="../blog/">
+                    <i class="fa fa-pen-nib"></i>
+                    blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="../pages/history.html">
+                    <i class="fa fa-clock-rotate-left"></i>
+                    history</a></li>
+        </ul>
+    </nav>
+    <div class="card">
+        <div class="card-body">
+            <span id="color-switch">set color&nbsp;<a class="link" id="btn-switch-color-mode">light</a></span>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <div id="content" class="d-print-col-12">
+                    <article>
+    <section class="header">
+    <h2 class="display-4">Cabal-3.12.1.0</h1>
+    
+    
+    
+</section>
+
+    <hr>
+    <section>
+        <h2 id="cabal-and-cabal-syntax-3.12.1.0-changelog-and-release-notes">Cabal and Cabal-syntax 3.12.1.0 changelog and release notes</h2>
+<h3 id="significant-changes">Significant changes</h3>
+<ul>
+<li><p>Update GHC arguments normalization and GHC options rendering <a href="https://github.com/haskell/cabal/issues/9729">#9729</a> <a href="https://github.com/haskell/cabal/pull/10014">#10014</a></p>
+<p>The flags <code>-fdiagnostics-as-json</code>, <code>-fprint-error-index-lists</code>, <code>-fbreak-points</code>, <code>-dipe-stats</code>, <code>-ffamily-application-cache</code>, <code>-fprint-redundant-promotion-ticks</code>, <code>-fshow-error-context</code> and <code>-funoptimized-core-for-interpreter</code> have been added to the flags that do not cause recompilation.</p></li>
+<li><p>Warn on missing <code>default-language</code> <a href="https://github.com/haskell/cabal/issues/9620">#9620</a> <a href="https://github.com/haskell/cabal/pull/9766">#9766</a></p>
+<ul>
+<li>To help the adoption of GHC language editions, <code>cabal check</code> will now
+warn about missing <code>default-language</code>.</li>
+</ul></li>
+<li><p>Add MHS (<a href="https://github.com/augustss/MicroHs">MicroHS</a>) as a known Haskell compiler <a href="https://github.com/haskell/cabal/pull/9878">#9878</a></p></li>
+<li><p>Re-instate <code>initialBuildSteps</code> <a href="https://github.com/haskell/cabal/issues/9856">#9856</a> <a href="https://github.com/haskell/cabal/pull/9950">#9950</a></p>
+<p>The <code>initialBuildSteps</code> function from <code>Distribution.Simple.Build</code>, which had
+been hastily removed, has been reinstated.</p>
+<p>It now comes with a deprecation warning: calling that function does not suffice
+to prepare the sources for a package, as there are other steps that one might
+also need to perform:</p>
+<ul>
+<li>running pre-processors (such as alex/happy);</li>
+<li>running pre-build hooks or custom logic
+(in build-type: Hooks or build-type: Custom or Configure).</li>
+</ul>
+<p>Consumers wanting to prepare the sources of a package, e.g. in order to launch a
+REPL session, are advised to run <code>setup repl --repl-multi-file=&lt;fn&gt;</code> instead.</p></li>
+<li><p>Label error messages with codes (following GHC, Stack)</p>
+<p>As with GHC and Stack, Cabal and cabal-install now generate warnings and errors prefixed with error codes of the form <code>[Cabal-xxxxx]</code>. These will be documented on https://errors.haskell.org, although very few are as yet.</p>
+<p>This change was actually present in Cabal-3.12.0.0, but was inadvertently omitted from the changelog.</p></li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<ul>
+<li><p>Don’t recommend deprecated/removed <code>extensions</code> field <a href="https://github.com/haskell/cabal/issues/10042">#10042</a> <a href="https://github.com/haskell/cabal/pull/10044">#10044</a></p>
+<p>When applicable, field <code>default-extensions</code> is recommended (rather than
+deprecated/removed <code>extensions:</code>).</p></li>
+<li><p>Make <code>Setup copy</code> and <code>Setup install</code> succeed when there’s no executable or library <a href="https://github.com/haskell/cabal/issues/6750">#6750</a> <a href="https://github.com/haskell/cabal/pull/9926">#9926</a></p>
+<p>Historically the Setup copy and install steps would fail if the package didn’t
+contain an executable or library component. In this case there’s nothing to do.</p>
+<p>This required workarounds for downstream users of Cabal to handle this edge case.
+Now that this error has been downgraded to a warning, Cabal will succeed if
+there’s nothing to do.</p></li>
+</ul>
+    </section>
+</article>
+
+                    <hr />
+                    <footer>
+                        <div class="row">
+    <div class="col-6">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/haskell/cabal" target="_blank" rel="noopener">github/haskell/cabal</a>
+    </div>
+    <div class="col-6">
+        <img style="position:relative;top:-2px" src="https://hackage.haskell.org/static/favicon.png" width="14px" height="14px" />
+        <a href="https://hackage.haskell.org/" target="_blank" rel="noopener">hackage</a><br />
+    </div>
+</div>
+
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var switchColor = () => {
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'light'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
+            }
+            else {
+                document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
+                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
+            }
+        };
+
+        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.documentElement.setAttribute('data-bs-theme','light')
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme','dark')
+            }
+
+            switchColor();
+        })
+
+        switchColor();
+    </script>
+</body>
+
+</html>

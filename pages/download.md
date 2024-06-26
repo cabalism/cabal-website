@@ -70,7 +70,7 @@ Report bugs [here](https://github.com/haskell/cabal/issues) or to the
 
 ## Code
 
-You can get the development version of the code [here](https://github.com/haskell/cabal).
+You can get the development version of the code at [github/haskell/cabal](https://github.com/haskell/cabal).
 
 ## Version Numbers
 

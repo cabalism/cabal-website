@@ -6,3 +6,5 @@ node_modules
 css
 js
 .css-working
+.cabal-archive
+release-notes

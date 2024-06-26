@@ -7,7 +7,8 @@ description: The tool's explicit target form is <samp>cabal-install:exe:cabal</s
 ## Install/Upgrade
 
 ::: tip
-Most people already have <samp>cabal</samp> because it is included with GHCup.
+Most people with `GHC` will already have `cabal` because it is included with
+[GHCup][ghcup], the recommended way to install `GHC` and `cabal`.
 :::
 
 If you want to upgrade to the latest stable version, use GHCup again or use `cabal` itself:
@@ -23,31 +24,7 @@ can check you're running the latest version with:
 If mixing installation methods, be careful about PATH precedence.
 :::
 
-## Cabal library (version 3.10.1.0)
-
-[Released:]{style="font-weight: bolder"} March 2023\
-
-[Source download:]{style="font-weight: bolder"}
-[Cabal-3.10.1.0.tar.gz](https://downloads.haskell.org/~cabal/Cabal-3.10.1.0/Cabal-3.10.1.0.tar.gz)
-(with a checksum in file SHA256SUMS in
-[Cabal-3.10.1.0/](https://downloads.haskell.org/~cabal/Cabal-3.10.1.0/))
-
-Please see the [User\'s guide](https://cabal.readthedocs.io), the [API
-documentation](http://hackage.haskell.org/package/Cabal), and the
-[change log](http://hackage.haskell.org/package/Cabal/changelog).
-
-## cabal-install tool (version 3.10.1.0)
-
-[cabal-install]{.inline-code} is the command line interface to Cabal and
-hackage. This is the package that provides the [cabal]{.inline-code}
-command line program. See the [change
-log](http://hackage.haskell.org/package/cabal-install/changelog) for
-information about what\'s new in this version.
-
-[Released:]{style="font-weight: bolder"} March 2023\
-
-[Source and binary downloads:]{style="font-weight: bolder"}
-[cabal-install-3.10.1.0/](https://downloads.haskell.org/~cabal/cabal-install-3.10.1.0/)
+## Alternative Sources
 
 Packages for Debian (multiple versions) are available on the
 [Haskell.org APT repository](http://downloads.haskell.org/debian/).
@@ -55,13 +32,11 @@ Packages for Debian (multiple versions) are available on the
 Packages for Windows are available via
 [Chocolatey](https://chocolatey.org/packages/cabal).
 
-HEAD binaries for macOS are available on
-[haskell.futurice.com](https://haskell.futurice.com/)
+## Documentation
 
-You also can use [ghcup](https://www.haskell.org/ghcup)
-
-To build any of the source packages, you also need further packages,
-which can be found on Hackage.
+For Cabal and cabal-install documentation, please see the [User's
+guide][users-guide], the [API documentation][api-guide], and the [Cabal change
+log][changelog].
 
 ## Bugs
 
@@ -99,3 +74,8 @@ The versions bundled with recent Haskell implementation releases include:
 -   GHC 7.10.3 includes Cabal 1.22.5.0
 
 You can browse older releases at [downloads.haskell.org/~cabal](https://downloads.haskell.org/~cabal).
+
+[ghcup]: https://www.haskell.org/ghcup
+[users-guide]: https://cabal.readthedocs.io
+[api-guide]: http://hackage.haskell.org/package/Cabal
+[changelog]: http://hackage.haskell.org/package/Cabal/changelog

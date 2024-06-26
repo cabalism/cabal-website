@@ -1,9 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Data.Foldable
-import Data.List (stripPrefix)
+import Data.List (stripPrefix, isPrefixOf)
 import Hakyll
-import System.FilePath ((</>))
+import Hakyll.Core.Item (Item (..))
+import System.FilePath ((</>), takeBaseName)
 
 main :: IO ()
 main = hakyll $ do
@@ -56,9 +57,17 @@ main = hakyll $ do
         compile $ do
             versions <- loadAll "release-notes/*"
             let
+                filterOn s = filter ((s `isPrefixOf`) . takeBaseName . toFilePath . itemIdentifier) versions
+
+                libs = filterOn "Cabal-"
+                exes = filterOn "cabal-install-"
+                wips = filterOn "WIP-"
+
                 ctx =
                     fold
-                        [ listField "versions" defaultContext (return versions)
+                        [ listField "libs" defaultContext (return libs)
+                        , listField "exes" defaultContext (return exes)
+                        , listField "wips" defaultContext (return wips)
                         , defaultContext
                         ]
 

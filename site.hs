@@ -6,10 +6,20 @@ import Data.Function (on)
 import Data.List (isPrefixOf, sortBy, stripPrefix)
 import Data.Ord (Down (..))
 import Data.Version (Version (..), parseVersion)
-import Hakyll
+import Hakyll hiding (pandocCompiler)
 import Hakyll.Core.Item (Item (..))
 import System.FilePath (takeBaseName, (</>))
+import Text.Pandoc.Options
 import Text.ParserCombinators.ReadP (ReadP, readP_to_S)
+
+pandocCompiler :: Compiler (Item String)
+pandocCompiler =
+    pandocCompilerWith
+        defaultHakyllReaderOptions
+            { readerExtensions =
+                disableExtension Ext_smart $ readerExtensions defaultHakyllReaderOptions
+            }
+        defaultHakyllWriterOptions
 
 main :: IO ()
 main = hakyll $ do

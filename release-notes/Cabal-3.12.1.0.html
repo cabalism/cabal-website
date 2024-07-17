@@ -64,7 +64,7 @@ also need to perform:</p>
 <li>running pre-build hooks or custom logic
 (in build-type: Hooks or build-type: Custom or Configure).</li>
 </ul>
-<p>Consumers wanting to prepare the sources of a package, e.g. in order to launch a
+<p>Consumers wanting to prepare the sources of a package, e.g. in order to launch a
 REPL session, are advised to run <code>setup repl --repl-multi-file=&lt;fn&gt;</code> instead.</p></li>
 <li><p>Label error messages with codes (following GHC, Stack)</p>
 <p>As with GHC and Stack, Cabal and cabal-install now generate warnings and errors prefixed with error codes of the form <code>[Cabal-xxxxx]</code>. These will be documented on https://errors.haskell.org, although very few are as yet.</p>
@@ -72,15 +72,15 @@ REPL session, are advised to run <code>setup repl --repl-multi-file=&lt;fn&gt;</
 </ul>
 <h3 id="other-changes">Other changes</h3>
 <ul>
-<li><p>Don’t recommend deprecated/removed <code>extensions</code> field <a href="https://github.com/haskell/cabal/issues/10042">#10042</a> <a href="https://github.com/haskell/cabal/pull/10044">#10044</a></p>
+<li><p>Don't recommend deprecated/removed <code>extensions</code> field <a href="https://github.com/haskell/cabal/issues/10042">#10042</a> <a href="https://github.com/haskell/cabal/pull/10044">#10044</a></p>
 <p>When applicable, field <code>default-extensions</code> is recommended (rather than
 deprecated/removed <code>extensions:</code>).</p></li>
-<li><p>Make <code>Setup copy</code> and <code>Setup install</code> succeed when there’s no executable or library <a href="https://github.com/haskell/cabal/issues/6750">#6750</a> <a href="https://github.com/haskell/cabal/pull/9926">#9926</a></p>
-<p>Historically the Setup copy and install steps would fail if the package didn’t
-contain an executable or library component. In this case there’s nothing to do.</p>
+<li><p>Make <code>Setup copy</code> and <code>Setup install</code> succeed when there's no executable or library <a href="https://github.com/haskell/cabal/issues/6750">#6750</a> <a href="https://github.com/haskell/cabal/pull/9926">#9926</a></p>
+<p>Historically the Setup copy and install steps would fail if the package didn't
+contain an executable or library component. In this case there's nothing to do.</p>
 <p>This required workarounds for downstream users of Cabal to handle this edge case.
 Now that this error has been downgraded to a warning, Cabal will succeed if
-there’s nothing to do.</p></li>
+there's nothing to do.</p></li>
 </ul>
     </section>
 </article>
@@ -171,7 +171,7 @@ also need to perform:</p>
 <li>running pre-build hooks or custom logic
 (in build-type: Hooks or build-type: Custom or Configure).</li>
 </ul>
-<p>Consumers wanting to prepare the sources of a package, e.g. in order to launch a
+<p>Consumers wanting to prepare the sources of a package, e.g. in order to launch a
 REPL session, are advised to run <code>setup repl --repl-multi-file=&lt;fn&gt;</code> instead.</p></li>
 <li><p>Label error messages with codes (following GHC, Stack)</p>
 <p>As with GHC and Stack, Cabal and cabal-install now generate warnings and errors prefixed with error codes of the form <code>[Cabal-xxxxx]</code>. These will be documented on https://errors.haskell.org, although very few are as yet.</p>
@@ -179,15 +179,15 @@ REPL session, are advised to run <code>setup repl --repl-multi-file=&lt;fn&gt;</
 </ul>
 <h3 id="other-changes">Other changes</h3>
 <ul>
-<li><p>Don’t recommend deprecated/removed <code>extensions</code> field <a href="https://github.com/haskell/cabal/issues/10042">#10042</a> <a href="https://github.com/haskell/cabal/pull/10044">#10044</a></p>
+<li><p>Don't recommend deprecated/removed <code>extensions</code> field <a href="https://github.com/haskell/cabal/issues/10042">#10042</a> <a href="https://github.com/haskell/cabal/pull/10044">#10044</a></p>
 <p>When applicable, field <code>default-extensions</code> is recommended (rather than
 deprecated/removed <code>extensions:</code>).</p></li>
-<li><p>Make <code>Setup copy</code> and <code>Setup install</code> succeed when there’s no executable or library <a href="https://github.com/haskell/cabal/issues/6750">#6750</a> <a href="https://github.com/haskell/cabal/pull/9926">#9926</a></p>
-<p>Historically the Setup copy and install steps would fail if the package didn’t
-contain an executable or library component. In this case there’s nothing to do.</p>
+<li><p>Make <code>Setup copy</code> and <code>Setup install</code> succeed when there's no executable or library <a href="https://github.com/haskell/cabal/issues/6750">#6750</a> <a href="https://github.com/haskell/cabal/pull/9926">#9926</a></p>
+<p>Historically the Setup copy and install steps would fail if the package didn't
+contain an executable or library component. In this case there's nothing to do.</p>
 <p>This required workarounds for downstream users of Cabal to handle this edge case.
 Now that this error has been downgraded to a warning, Cabal will succeed if
-there’s nothing to do.</p></li>
+there's nothing to do.</p></li>
 </ul>
     </section>
 </article>

@@ -49,7 +49,7 @@ If the new default does not fit your workflow, pass an explicit <code>--disable-
 option or consider (helping to implement) the other workarounds proposed
 in https://github.com/haskell/cabal/issues/8725.</p>
 <p>This version of cabal introduces support for JS cross-compilation (https://github.com/haskell/cabal/pull/8636).
-We’ve seen related Windows segfaults on CI, so please kindly report if you can reproduce either
+We've seen related Windows segfaults on CI, so please kindly report if you can reproduce either
 cabal or GHC segfaults when cross-compiling for JS or compiling normally but with any files
 listed in the <code>js-sources</code> field of a .cabal file.</p>
 <p>This release of cabal also fixes a lot of bugs in cabal 3.8.1.0 and not all of the fixes
@@ -114,24 +114,24 @@ by passing <code>--hackage</code> links to dependencies will link to <code>hacka
 This PR fix it for BuildFlags and ClientHaddockFlags.</p></li>
 <li><p><code>cabal man</code> handles <code>$PAGER</code> containing arguments now <a href="https://github.com/haskell/cabal/issues/8405">#8405</a> <a href="https://github.com/haskell/cabal/pull/8353">#8353</a></p>
 <p>Things like <code>PAGER="less -FX" cabal man</code> work now.</p>
-<p>There’s a slight change in the default behavior. We still use <code>less -R</code> as the default,
-but if the user passes <code>PAGER=less</code>, we won’t add -R to that, unlike before. This is
+<p>There's a slight change in the default behavior. We still use <code>less -R</code> as the default,
+but if the user passes <code>PAGER=less</code>, we won't add -R to that, unlike before. This is
 reasonable, as the user should be able to set the variable as they see fit.</p></li>
-<li><p>Fix issue with “nix” config option <a href="https://github.com/haskell/cabal/issues/8452">#8452</a> <a href="https://github.com/haskell/cabal/pull/8522">#8522</a></p>
+<li><p>Fix issue with "nix" config option <a href="https://github.com/haskell/cabal/issues/8452">#8452</a> <a href="https://github.com/haskell/cabal/pull/8522">#8522</a></p>
 <p>Nix option in config file was broken with <a href="https://github.com/haskell/cabal/pull/8054">#8054</a>, this should fix it.</p></li>
-<li><p>“Build profile” message now reflects optimization level set in global config <a href="https://github.com/haskell/cabal/issues/8487">#8487</a> <a href="https://github.com/haskell/cabal/pull/8488">#8488</a></p>
+<li><p>"Build profile" message now reflects optimization level set in global config <a href="https://github.com/haskell/cabal/issues/8487">#8487</a> <a href="https://github.com/haskell/cabal/pull/8488">#8488</a></p>
 <p>Imagine you have <code>optimization: 2</code> in your <code>~/.cabal/config</code>, and you call <code>cabal build</code>
-in a project that doesn’t have optimization level explicitly set in its project file.
-You will still see ‘Build profile: -w ghc-<VER> -O1’. This is incorrect and was fixed
-in this patch: now you’ll see ‘-O2’.</p></li>
+in a project that doesn't have optimization level explicitly set in its project file.
+You will still see 'Build profile: -w ghc-<VER> -O1'. This is incorrect and was fixed
+in this patch: now you'll see '-O2'.</p></li>
 <li><p><code>ghc</code>, <code>ghc-boot</code>, <code>ghci</code> packages should be non-upgradable <a href="https://github.com/haskell/cabal/issues/8489">#8489</a> <a href="https://github.com/haskell/cabal/pull/8501">#8501</a></p>
 <ul>
-<li>Changed both <code>Distribution.Client.Dependency</code>’s <code>dontUpgradeNonUpgradeablePackages</code>
-and <code>Distribution.Solver.Modular.Solver</code>’s <code>nonInstallable</code> to be in sync.</li>
+<li>Changed both <code>Distribution.Client.Dependency</code>'s <code>dontUpgradeNonUpgradeablePackages</code>
+and <code>Distribution.Solver.Modular.Solver</code>'s <code>nonInstallable</code> to be in sync.</li>
 </ul></li>
 <li><p>Apply command line flags to install packages <a href="https://github.com/haskell/cabal/issues/8637">#8637</a> <a href="https://github.com/haskell/cabal/pull/8779">#8779</a></p>
 <ul>
-<li>Command line flags usually only apply to “local” packages (packages specified
+<li>Command line flags usually only apply to "local" packages (packages specified
 in the cabal.project). This change causes the v2-install command to ignore
 that distinction to better match the expected behavior for packages specified
 directly in the command.</li>
@@ -169,7 +169,7 @@ to all the dependencies if they are specified as command line args</li>
 </ul></li>
 <li><p>Redownload packages when source hash verification fails <a href="https://github.com/haskell/cabal/issues/7541">#7541</a> <a href="https://github.com/haskell/cabal/pull/8500">#8500</a></p>
 <ul>
-<li>Cabal-install will verify source hashes on cached downloads against the current index, and redownload on mismatch. (Which can occur with e.g. head.hackage)</li>
+<li>Cabal-install will verify source hashes on cached downloads against the current index, and redownload on mismatch. (Which can occur with e.g. head.hackage)</li>
 </ul></li>
 <li><p><code>cabal init -i</code> should sanitize package name guessed from the directory name <a href="https://github.com/haskell/cabal/issues/8404">#8404</a> <a href="https://github.com/haskell/cabal/pull/8561">#8561</a></p>
 <p>If the current directory name has any non-alphanumeric symbols in its name, the symbols will be replaced with a dash. Also, will make sure that the resulting package name starts with a letter.</p>
@@ -181,7 +181,7 @@ to all the dependencies if they are specified as command line args</li>
 </ul></li>
 <li><p>Fix <code>extra-source-file</code> rebuild tracking when run in a multi-package project <a href="https://github.com/haskell/cabal/issues/8632">#8632</a> <a href="https://github.com/haskell/cabal/issues/8634">#8634</a> <a href="https://github.com/haskell/cabal/pull/8640">#8640</a></p>
 <ul>
-<li>Fixes an issue where glob expansion of <code>extra-source-files</code> for rebuild tracking purposes was not occurring correctly when run in a multi-package setting (i.e. when the globs needed to be expanded relative to something other than “.”).</li>
+<li>Fixes an issue where glob expansion of <code>extra-source-files</code> for rebuild tracking purposes was not occurring correctly when run in a multi-package setting (i.e. when the globs needed to be expanded relative to something other than ".").</li>
 </ul></li>
 <li><p>No up-front warning that assertions are on for special commands (help, version, numeric-version) <a href="https://github.com/haskell/cabal/issues/8645">#8645</a> <a href="https://github.com/haskell/cabal/pull/8647">#8647</a></p>
 <ul>
@@ -191,14 +191,14 @@ and also not if <code>cabal</code> could not parse its command line.
 Further, the warning now goes to <code>stderr</code> rather than <code>stdout</code>.</li>
 </ul></li>
 <li><p>Fix and improve list parser for <code>cabal init</code> arguments <a href="https://github.com/haskell/cabal/issues/8659">#8659</a> <a href="https://github.com/haskell/cabal/pull/8663">#8663</a></p>
-<p>Occurrences of ‘Flag [a]’ seem to behave in an unexpected way. The monoid
-instance of ‘Flag’ is right associative and discard the value on the
-left, but we want to merge the contents of ‘Flag’.</p>
+<p>Occurrences of 'Flag [a]' seem to behave in an unexpected way. The monoid
+instance of 'Flag' is right associative and discard the value on the
+left, but we want to merge the contents of 'Flag'.</p>
 <p>Permits:</p>
 <ul>
 <li><code>cabal init -d base -d vector -d containers</code></li>
 </ul>
-<p>Fixes for all Flag ‘[a]’ the cli parser in cabal init. Adds cli parser tests.</p>
+<p>Fixes for all Flag '[a]' the cli parser in cabal init. Adds cli parser tests.</p>
 <p>Adds the feature to specify a comma-separated list of dependencies:</p>
 <ul>
 <li><code>cabal init -d base,vector,containers</code></li>
@@ -293,7 +293,7 @@ If the new default does not fit your workflow, pass an explicit <code>--disable-
 option or consider (helping to implement) the other workarounds proposed
 in https://github.com/haskell/cabal/issues/8725.</p>
 <p>This version of cabal introduces support for JS cross-compilation (https://github.com/haskell/cabal/pull/8636).
-We’ve seen related Windows segfaults on CI, so please kindly report if you can reproduce either
+We've seen related Windows segfaults on CI, so please kindly report if you can reproduce either
 cabal or GHC segfaults when cross-compiling for JS or compiling normally but with any files
 listed in the <code>js-sources</code> field of a .cabal file.</p>
 <p>This release of cabal also fixes a lot of bugs in cabal 3.8.1.0 and not all of the fixes
@@ -358,24 +358,24 @@ by passing <code>--hackage</code> links to dependencies will link to <code>hacka
 This PR fix it for BuildFlags and ClientHaddockFlags.</p></li>
 <li><p><code>cabal man</code> handles <code>$PAGER</code> containing arguments now <a href="https://github.com/haskell/cabal/issues/8405">#8405</a> <a href="https://github.com/haskell/cabal/pull/8353">#8353</a></p>
 <p>Things like <code>PAGER="less -FX" cabal man</code> work now.</p>
-<p>There’s a slight change in the default behavior. We still use <code>less -R</code> as the default,
-but if the user passes <code>PAGER=less</code>, we won’t add -R to that, unlike before. This is
+<p>There's a slight change in the default behavior. We still use <code>less -R</code> as the default,
+but if the user passes <code>PAGER=less</code>, we won't add -R to that, unlike before. This is
 reasonable, as the user should be able to set the variable as they see fit.</p></li>
-<li><p>Fix issue with “nix” config option <a href="https://github.com/haskell/cabal/issues/8452">#8452</a> <a href="https://github.com/haskell/cabal/pull/8522">#8522</a></p>
+<li><p>Fix issue with "nix" config option <a href="https://github.com/haskell/cabal/issues/8452">#8452</a> <a href="https://github.com/haskell/cabal/pull/8522">#8522</a></p>
 <p>Nix option in config file was broken with <a href="https://github.com/haskell/cabal/pull/8054">#8054</a>, this should fix it.</p></li>
-<li><p>“Build profile” message now reflects optimization level set in global config <a href="https://github.com/haskell/cabal/issues/8487">#8487</a> <a href="https://github.com/haskell/cabal/pull/8488">#8488</a></p>
+<li><p>"Build profile" message now reflects optimization level set in global config <a href="https://github.com/haskell/cabal/issues/8487">#8487</a> <a href="https://github.com/haskell/cabal/pull/8488">#8488</a></p>
 <p>Imagine you have <code>optimization: 2</code> in your <code>~/.cabal/config</code>, and you call <code>cabal build</code>
-in a project that doesn’t have optimization level explicitly set in its project file.
-You will still see ‘Build profile: -w ghc-<VER> -O1’. This is incorrect and was fixed
-in this patch: now you’ll see ‘-O2’.</p></li>
+in a project that doesn't have optimization level explicitly set in its project file.
+You will still see 'Build profile: -w ghc-<VER> -O1'. This is incorrect and was fixed
+in this patch: now you'll see '-O2'.</p></li>
 <li><p><code>ghc</code>, <code>ghc-boot</code>, <code>ghci</code> packages should be non-upgradable <a href="https://github.com/haskell/cabal/issues/8489">#8489</a> <a href="https://github.com/haskell/cabal/pull/8501">#8501</a></p>
 <ul>
-<li>Changed both <code>Distribution.Client.Dependency</code>’s <code>dontUpgradeNonUpgradeablePackages</code>
-and <code>Distribution.Solver.Modular.Solver</code>’s <code>nonInstallable</code> to be in sync.</li>
+<li>Changed both <code>Distribution.Client.Dependency</code>'s <code>dontUpgradeNonUpgradeablePackages</code>
+and <code>Distribution.Solver.Modular.Solver</code>'s <code>nonInstallable</code> to be in sync.</li>
 </ul></li>
 <li><p>Apply command line flags to install packages <a href="https://github.com/haskell/cabal/issues/8637">#8637</a> <a href="https://github.com/haskell/cabal/pull/8779">#8779</a></p>
 <ul>
-<li>Command line flags usually only apply to “local” packages (packages specified
+<li>Command line flags usually only apply to "local" packages (packages specified
 in the cabal.project). This change causes the v2-install command to ignore
 that distinction to better match the expected behavior for packages specified
 directly in the command.</li>
@@ -413,7 +413,7 @@ to all the dependencies if they are specified as command line args</li>
 </ul></li>
 <li><p>Redownload packages when source hash verification fails <a href="https://github.com/haskell/cabal/issues/7541">#7541</a> <a href="https://github.com/haskell/cabal/pull/8500">#8500</a></p>
 <ul>
-<li>Cabal-install will verify source hashes on cached downloads against the current index, and redownload on mismatch. (Which can occur with e.g. head.hackage)</li>
+<li>Cabal-install will verify source hashes on cached downloads against the current index, and redownload on mismatch. (Which can occur with e.g. head.hackage)</li>
 </ul></li>
 <li><p><code>cabal init -i</code> should sanitize package name guessed from the directory name <a href="https://github.com/haskell/cabal/issues/8404">#8404</a> <a href="https://github.com/haskell/cabal/pull/8561">#8561</a></p>
 <p>If the current directory name has any non-alphanumeric symbols in its name, the symbols will be replaced with a dash. Also, will make sure that the resulting package name starts with a letter.</p>
@@ -425,7 +425,7 @@ to all the dependencies if they are specified as command line args</li>
 </ul></li>
 <li><p>Fix <code>extra-source-file</code> rebuild tracking when run in a multi-package project <a href="https://github.com/haskell/cabal/issues/8632">#8632</a> <a href="https://github.com/haskell/cabal/issues/8634">#8634</a> <a href="https://github.com/haskell/cabal/pull/8640">#8640</a></p>
 <ul>
-<li>Fixes an issue where glob expansion of <code>extra-source-files</code> for rebuild tracking purposes was not occurring correctly when run in a multi-package setting (i.e. when the globs needed to be expanded relative to something other than “.”).</li>
+<li>Fixes an issue where glob expansion of <code>extra-source-files</code> for rebuild tracking purposes was not occurring correctly when run in a multi-package setting (i.e. when the globs needed to be expanded relative to something other than ".").</li>
 </ul></li>
 <li><p>No up-front warning that assertions are on for special commands (help, version, numeric-version) <a href="https://github.com/haskell/cabal/issues/8645">#8645</a> <a href="https://github.com/haskell/cabal/pull/8647">#8647</a></p>
 <ul>
@@ -435,14 +435,14 @@ and also not if <code>cabal</code> could not parse its command line.
 Further, the warning now goes to <code>stderr</code> rather than <code>stdout</code>.</li>
 </ul></li>
 <li><p>Fix and improve list parser for <code>cabal init</code> arguments <a href="https://github.com/haskell/cabal/issues/8659">#8659</a> <a href="https://github.com/haskell/cabal/pull/8663">#8663</a></p>
-<p>Occurrences of ‘Flag [a]’ seem to behave in an unexpected way. The monoid
-instance of ‘Flag’ is right associative and discard the value on the
-left, but we want to merge the contents of ‘Flag’.</p>
+<p>Occurrences of 'Flag [a]' seem to behave in an unexpected way. The monoid
+instance of 'Flag' is right associative and discard the value on the
+left, but we want to merge the contents of 'Flag'.</p>
 <p>Permits:</p>
 <ul>
 <li><code>cabal init -d base -d vector -d containers</code></li>
 </ul>
-<p>Fixes for all Flag ‘[a]’ the cli parser in cabal init. Adds cli parser tests.</p>
+<p>Fixes for all Flag '[a]' the cli parser in cabal init. Adds cli parser tests.</p>
 <p>Adds the feature to specify a comma-separated list of dependencies:</p>
 <ul>
 <li><code>cabal init -d base,vector,containers</code></li>

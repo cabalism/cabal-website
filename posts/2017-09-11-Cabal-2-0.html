@@ -56,17 +56,17 @@
 
     <hr>
     <section>
-        <p>A couple of weeks ago we’ve quietly released versions 2.0 of both
+        <p>A couple of weeks ago we've quietly released versions 2.0 of both
 Cabal and <code>cabal-install</code> after approximately a year of
 development. The 2.0 release incorporates more than 1500 commits by
 <a href="https://gist.github.com/23Skidoo/7109479c43a8de44f8e29fa335e9645c">64 different
 contributors</a>. This
-post serves as a formal release announcement and describes what’s new
+post serves as a formal release announcement and describes what's new
 and improved in version 2.0.</p>
 <p>There is a number of backwards-incompatible Cabal library API changes
 in this release that affect packages with Custom setup
 scripts. Therefore <code>cabal-install</code> will by default use a previous
-version of Cabal to build setup scripts that don’t <a href="https://www.well-typed.com/blog/2015/07/cabal-setup-deps/">explicitly declare
+version of Cabal to build setup scripts that don't <a href="https://www.well-typed.com/blog/2015/07/cabal-setup-deps/">explicitly declare
 compatibility with Cabal
 2.0</a>. The
 <a href="https://github.com/haskell/cabal/wiki/2.0-migration-guide">2.0 migration
@@ -116,7 +116,7 @@ this feature was sponsored by <a href="https://scrive.com/">Scrive AB</a>.</p></
 which re-runs <code>configure</code> with the most recently used flags
 (<a href="https://github.com/haskell/cabal/issues/2214">#2214</a>).</p></li>
 <li><p>Package repos are now assumed to be <code>hackage-security</code>-enabled by
-default. If a <code>remote-repo</code> section in <code>~/.cabal/config</code> doesn’t
+default. If a <code>remote-repo</code> section in <code>~/.cabal/config</code> doesn't
 have an explicit <code>secure</code> field, it now defaults to <code>secure: True</code>,
 unlike in <code>cabal-install</code> 1.24. See <a href="https://www.well-typed.com/blog/2015/04/improving-hackage-security/">this post on the Well-Typed
 blog</a>
@@ -126,10 +126,10 @@ brings.</p></li>
 (<a href="https://github.com/haskell/cabal/issues/3705">#3705</a>) that is
 equivalent to <code>&gt;=</code> intersected with an automatically inferred major
 upper bound. For example, <code>foo ^&gt;= 1.3.1</code> is equivalent to <code>foo &gt;=   1.3.1 &amp;&amp; &lt; 1.4</code>. Besides being a convenient syntax sugar, <code>^&gt;=</code>
-allows to distinguish “strong” and “weak” upper bounds: <code>foo &gt;=   1.3.1 &amp;&amp; &lt; 1.4</code> means “I know for sure that my package doesn’t work
-with <code>foo-1.4</code>”, while <code>foo ^&gt;= 1.3.1</code> means “I don’t know whether
+allows to distinguish "strong" and "weak" upper bounds: <code>foo &gt;=   1.3.1 &amp;&amp; &lt; 1.4</code> means "I know for sure that my package doesn't work
+with <code>foo-1.4</code>", while <code>foo ^&gt;= 1.3.1</code> means "I don't know whether
 <code>foo-1.4</code>, which is not out yet, will break my package, but I want
-to be cautious and follow <a href="https://pvp.haskell.org/">PVP</a>”. In the
+to be cautious and follow <a href="https://pvp.haskell.org/">PVP</a>". In the
 future, this feature will allow to implement automatic version
 bounds relaxation in a formally sound way (work on this front is
 progressing on
@@ -183,10 +183,10 @@ the package index
 (<a href="https://github.com/haskell/cabal/issues/3111">#3111</a>). Also, GHC
 compatibility window for the Cabal library has been extended to five
 years (<a href="https://github.com/haskell/cabal/issues/3838">#3838</a>).</p></li>
-<li><p>Added a technical preview version of the ‘cabal doctest’ command
+<li><p>Added a technical preview version of the 'cabal doctest' command
 (<a href="https://github.com/haskell/cabal/issues/4480">#4480</a>).</p></li>
 <li><p>Cabal now invokes GHC with <code>-Wmissing-home-modules</code>, if that flag is
-supported (added in version 8.2). This means that you’ll get a
+supported (added in version 8.2). This means that you'll get a
 warning if you forget to list a module in <code>other-modules</code> or
 <code>exposed-modules</code>
 (<a href="https://github.com/haskell/cabal/pull/4254">#4254</a>).</p></li>
@@ -207,22 +207,22 @@ registration scripts rather than a single file.</p></li>
 <li><p>Changed the default logfile template from <code>.../$pkgid.log</code> to
 <code>.../$compiler/$libname.log</code>
 (<a href="https://github.com/haskell/cabal/issues/3807">#3807</a>).</p></li>
-<li><p>Macros in ‘cabal_macros.h’ are now <code>#ifndef</code>’d, so that they don’t
+<li><p>Macros in 'cabal_macros.h' are now <code>#ifndef</code>'d, so that they don't
 cause an error if the macro is already defined
 (<a href="https://github.com/haskell/cabal/issues/3041">#3041</a>).</p></li>
 <li><p>Added qualified constraints for setup dependencies. For example,
 <code>--constraint="setup.bar == 1.0"</code> constrains all setup dependencies
-on bar, and <code>--constraint="foo:setup.bar == 1.0"</code> constrains foo’s
+on bar, and <code>--constraint="foo:setup.bar == 1.0"</code> constrains foo's
 setup dependency on bar (part of
 <a href="https://github.com/haskell/cabal/issues/3502">#3502</a>).</p></li>
-<li><p>Non-qualified constraints, such as –constraint=“bar == 1.0”, now
-only apply to top-level dependencies. They don’t constrain setup or
+<li><p>Non-qualified constraints, such as --constraint="bar == 1.0", now
+only apply to top-level dependencies. They don't constrain setup or
 build-tool dependencies. The new syntax <code>--constraint="any.bar   ==1.0"</code> constrains all uses of bar.</p></li>
 <li><p>Added a new solver flag, <code>--allow-boot-library-installs</code>, that
 allows normally non-upgradeable packages like <code>base</code> to be installed
 or upgraded
 (<a href="https://github.com/haskell/cabal/issues/4209">#4209</a>). Made the
-‘template-haskell’ package non-upgradable again
+'template-haskell' package non-upgradable again
 (<a href="https://github.com/haskell/cabal/issues/4185">#4185</a>).</p></li>
 <li><p>Fixed password echoing on MinTTY
 (<a href="https://github.com/haskell/cabal/issues/4128">#4128</a>).</p></li>
@@ -238,7 +238,7 @@ intended for internal use.</p></li>
 (<a href="https://github.com/haskell/cabal/issues/1823">#1823</a>). It was
 replaced by <a href="https://hackage.haskell.org/upload#candidates">Hackage package
 candidates</a>.</p></li>
-<li><p>Removed the <code>--root-cmd</code> parameter of the ‘install’ command and
+<li><p>Removed the <code>--root-cmd</code> parameter of the 'install' command and
 deprecated <code>cabal install --global</code>
 (<a href="https://github.com/haskell/cabal/issues/3356">#3356</a>).</p></li>
 <li><p>Removed the top-down solver
@@ -262,8 +262,8 @@ available
 <a href="https://gist.github.com/23Skidoo/7109479c43a8de44f8e29fa335e9645c">here</a>.</p>
 <h2 id="looking-forward">Looking forward</h2>
 <p>We plan to make a new release of Cabal/<code>cabal-install</code> before the end
-of the year – that is, around December 2018. We want to decouple the
-Cabal release cycle from the GHC one; that’ll allow us to release a
+of the year -- that is, around December 2018. We want to decouple the
+Cabal release cycle from the GHC one; that'll allow us to release a
 new version of Cabal/<code>cabal-install</code> approximately every six months in
 the future. Main features that are currently targeted at the 2.2
 milestone are:</p>
@@ -293,9 +293,9 @@ are considered relatively easy. Additionally, <a href="https://github.com/haskel
 projects from the latest
 hackathon</a> and the
 tickets marked
-<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3A%22meta%3A+easy%22">“easy”</a>
+<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3A%22meta%3A+easy%22">"easy"</a>
 and
-<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3Anewcomer">“newcomer”</a>
+<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3Anewcomer">"newcomer"</a>
 can be used as a source of ideas for what to work on.</p>
 <p>For more in-depth discussion there is also the <a href="https://mail.haskell.org/mailman/listinfo/cabal-devel"><code>cabal-devel</code> mailing
 list</a> and the
@@ -382,17 +382,17 @@ FreeNode.</p>
 
     <hr>
     <section>
-        <p>A couple of weeks ago we’ve quietly released versions 2.0 of both
+        <p>A couple of weeks ago we've quietly released versions 2.0 of both
 Cabal and <code>cabal-install</code> after approximately a year of
 development. The 2.0 release incorporates more than 1500 commits by
 <a href="https://gist.github.com/23Skidoo/7109479c43a8de44f8e29fa335e9645c">64 different
 contributors</a>. This
-post serves as a formal release announcement and describes what’s new
+post serves as a formal release announcement and describes what's new
 and improved in version 2.0.</p>
 <p>There is a number of backwards-incompatible Cabal library API changes
 in this release that affect packages with Custom setup
 scripts. Therefore <code>cabal-install</code> will by default use a previous
-version of Cabal to build setup scripts that don’t <a href="https://www.well-typed.com/blog/2015/07/cabal-setup-deps/">explicitly declare
+version of Cabal to build setup scripts that don't <a href="https://www.well-typed.com/blog/2015/07/cabal-setup-deps/">explicitly declare
 compatibility with Cabal
 2.0</a>. The
 <a href="https://github.com/haskell/cabal/wiki/2.0-migration-guide">2.0 migration
@@ -442,7 +442,7 @@ this feature was sponsored by <a href="https://scrive.com/">Scrive AB</a>.</p></
 which re-runs <code>configure</code> with the most recently used flags
 (<a href="https://github.com/haskell/cabal/issues/2214">#2214</a>).</p></li>
 <li><p>Package repos are now assumed to be <code>hackage-security</code>-enabled by
-default. If a <code>remote-repo</code> section in <code>~/.cabal/config</code> doesn’t
+default. If a <code>remote-repo</code> section in <code>~/.cabal/config</code> doesn't
 have an explicit <code>secure</code> field, it now defaults to <code>secure: True</code>,
 unlike in <code>cabal-install</code> 1.24. See <a href="https://www.well-typed.com/blog/2015/04/improving-hackage-security/">this post on the Well-Typed
 blog</a>
@@ -452,10 +452,10 @@ brings.</p></li>
 (<a href="https://github.com/haskell/cabal/issues/3705">#3705</a>) that is
 equivalent to <code>&gt;=</code> intersected with an automatically inferred major
 upper bound. For example, <code>foo ^&gt;= 1.3.1</code> is equivalent to <code>foo &gt;=   1.3.1 &amp;&amp; &lt; 1.4</code>. Besides being a convenient syntax sugar, <code>^&gt;=</code>
-allows to distinguish “strong” and “weak” upper bounds: <code>foo &gt;=   1.3.1 &amp;&amp; &lt; 1.4</code> means “I know for sure that my package doesn’t work
-with <code>foo-1.4</code>”, while <code>foo ^&gt;= 1.3.1</code> means “I don’t know whether
+allows to distinguish "strong" and "weak" upper bounds: <code>foo &gt;=   1.3.1 &amp;&amp; &lt; 1.4</code> means "I know for sure that my package doesn't work
+with <code>foo-1.4</code>", while <code>foo ^&gt;= 1.3.1</code> means "I don't know whether
 <code>foo-1.4</code>, which is not out yet, will break my package, but I want
-to be cautious and follow <a href="https://pvp.haskell.org/">PVP</a>”. In the
+to be cautious and follow <a href="https://pvp.haskell.org/">PVP</a>". In the
 future, this feature will allow to implement automatic version
 bounds relaxation in a formally sound way (work on this front is
 progressing on
@@ -509,10 +509,10 @@ the package index
 (<a href="https://github.com/haskell/cabal/issues/3111">#3111</a>). Also, GHC
 compatibility window for the Cabal library has been extended to five
 years (<a href="https://github.com/haskell/cabal/issues/3838">#3838</a>).</p></li>
-<li><p>Added a technical preview version of the ‘cabal doctest’ command
+<li><p>Added a technical preview version of the 'cabal doctest' command
 (<a href="https://github.com/haskell/cabal/issues/4480">#4480</a>).</p></li>
 <li><p>Cabal now invokes GHC with <code>-Wmissing-home-modules</code>, if that flag is
-supported (added in version 8.2). This means that you’ll get a
+supported (added in version 8.2). This means that you'll get a
 warning if you forget to list a module in <code>other-modules</code> or
 <code>exposed-modules</code>
 (<a href="https://github.com/haskell/cabal/pull/4254">#4254</a>).</p></li>
@@ -533,22 +533,22 @@ registration scripts rather than a single file.</p></li>
 <li><p>Changed the default logfile template from <code>.../$pkgid.log</code> to
 <code>.../$compiler/$libname.log</code>
 (<a href="https://github.com/haskell/cabal/issues/3807">#3807</a>).</p></li>
-<li><p>Macros in ‘cabal_macros.h’ are now <code>#ifndef</code>’d, so that they don’t
+<li><p>Macros in 'cabal_macros.h' are now <code>#ifndef</code>'d, so that they don't
 cause an error if the macro is already defined
 (<a href="https://github.com/haskell/cabal/issues/3041">#3041</a>).</p></li>
 <li><p>Added qualified constraints for setup dependencies. For example,
 <code>--constraint="setup.bar == 1.0"</code> constrains all setup dependencies
-on bar, and <code>--constraint="foo:setup.bar == 1.0"</code> constrains foo’s
+on bar, and <code>--constraint="foo:setup.bar == 1.0"</code> constrains foo's
 setup dependency on bar (part of
 <a href="https://github.com/haskell/cabal/issues/3502">#3502</a>).</p></li>
-<li><p>Non-qualified constraints, such as –constraint=“bar == 1.0”, now
-only apply to top-level dependencies. They don’t constrain setup or
+<li><p>Non-qualified constraints, such as --constraint="bar == 1.0", now
+only apply to top-level dependencies. They don't constrain setup or
 build-tool dependencies. The new syntax <code>--constraint="any.bar   ==1.0"</code> constrains all uses of bar.</p></li>
 <li><p>Added a new solver flag, <code>--allow-boot-library-installs</code>, that
 allows normally non-upgradeable packages like <code>base</code> to be installed
 or upgraded
 (<a href="https://github.com/haskell/cabal/issues/4209">#4209</a>). Made the
-‘template-haskell’ package non-upgradable again
+'template-haskell' package non-upgradable again
 (<a href="https://github.com/haskell/cabal/issues/4185">#4185</a>).</p></li>
 <li><p>Fixed password echoing on MinTTY
 (<a href="https://github.com/haskell/cabal/issues/4128">#4128</a>).</p></li>
@@ -564,7 +564,7 @@ intended for internal use.</p></li>
 (<a href="https://github.com/haskell/cabal/issues/1823">#1823</a>). It was
 replaced by <a href="https://hackage.haskell.org/upload#candidates">Hackage package
 candidates</a>.</p></li>
-<li><p>Removed the <code>--root-cmd</code> parameter of the ‘install’ command and
+<li><p>Removed the <code>--root-cmd</code> parameter of the 'install' command and
 deprecated <code>cabal install --global</code>
 (<a href="https://github.com/haskell/cabal/issues/3356">#3356</a>).</p></li>
 <li><p>Removed the top-down solver
@@ -588,8 +588,8 @@ available
 <a href="https://gist.github.com/23Skidoo/7109479c43a8de44f8e29fa335e9645c">here</a>.</p>
 <h2 id="looking-forward">Looking forward</h2>
 <p>We plan to make a new release of Cabal/<code>cabal-install</code> before the end
-of the year – that is, around December 2018. We want to decouple the
-Cabal release cycle from the GHC one; that’ll allow us to release a
+of the year -- that is, around December 2018. We want to decouple the
+Cabal release cycle from the GHC one; that'll allow us to release a
 new version of Cabal/<code>cabal-install</code> approximately every six months in
 the future. Main features that are currently targeted at the 2.2
 milestone are:</p>
@@ -619,9 +619,9 @@ are considered relatively easy. Additionally, <a href="https://github.com/haskel
 projects from the latest
 hackathon</a> and the
 tickets marked
-<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3A%22meta%3A+easy%22">“easy”</a>
+<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3A%22meta%3A+easy%22">"easy"</a>
 and
-<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3Anewcomer">“newcomer”</a>
+<a href="https://github.com/haskell/cabal/issues?q=is%3Aopen+is%3Aissue+label%3Anewcomer">"newcomer"</a>
 can be used as a source of ideas for what to work on.</p>
 <p>For more in-depth discussion there is also the <a href="https://mail.haskell.org/mailman/listinfo/cabal-devel"><code>cabal-devel</code> mailing
 list</a> and the

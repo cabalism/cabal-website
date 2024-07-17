@@ -48,7 +48,7 @@
 <li><p>Fix parsing of password-command option <a href="https://github.com/haskell/cabal/pull/9002">#9002</a></p>
 <p>The password-command option did not parse its value correctly.
 Quotes were ignored, making many kinds of commands impossible to
-express (e.g. <code>sh -c "foo | bar"</code>). Also, <code>cabal user-config</code>
+express (e.g. <code>sh -c "foo | bar"</code>). Also, <code>cabal user-config</code>
 treated the argument list as a <em>list of option values</em>, rather than a
 <em>value that is a list</em>. As a consequence, <code>cabal user-config update</code> corrupted the value in the config file.</p>
 <p>Fixed these issues by parsing the command as a space separated list
@@ -63,22 +63,22 @@ created by accident.</p></li>
 <ul>
 <li>Use Base64 hash truncated to 26 chars for script-build cache directories.</li>
 <li>Use the cache directory as the dist directory.</li>
-<li>Use script-<your-sanitized-script-name> as the component name instead of cabal-script-&lt;…&gt;.</li>
+<li>Use script-<your-sanitized-script-name> as the component name instead of cabal-script-&lt;...&gt;.</li>
 <li>Use cabal-script-<your-actual-script-name> for the executable name.</li>
 <li>This change is incompatible with previous cabal versions in terms of cache location,
 you should manually remove your old caches once you no longer need them.</li>
 </ul></li>
-<li><p>Don’t add <code>extra-prog-path: ~/.local/bin</code> when initially creating <code>~/.config/cabal/config</code> <a href="https://github.com/haskell/cabal/issues/8951">#8951</a></p></li>
+<li><p>Don't add <code>extra-prog-path: ~/.local/bin</code> when initially creating <code>~/.config/cabal/config</code> <a href="https://github.com/haskell/cabal/issues/8951">#8951</a></p></li>
 <li><p>Use compiler flags for caching project config <a href="https://github.com/haskell/cabal/pull/8819">#8819</a></p>
 <p>This ensures that cached project configs with conditionals re-execute the conditional logic when the compiler changes.</p></li>
 <li><p>Fix default Nix configuration option in generated ~/.cabal/config file <a href="https://github.com/haskell/cabal/pull/8878">#8878</a></p>
 <p>Fixes the default for ~/.cabal/config file. The nix option should now be commented out by default.</p></li>
-<li><p>add base to cabal install –lib default env file <a href="https://github.com/haskell/cabal/pull/8903">#8903</a></p>
+<li><p>add base to cabal install --lib default env file <a href="https://github.com/haskell/cabal/pull/8903">#8903</a></p>
 <p>This adds base by default to the env file created by <code>cabal install --lib</code>. Further it ensures that packagedbs have been created before adding them to the env file.</p></li>
 <li><p>Do not check PVP on internal targets <a href="https://github.com/haskell/cabal/issues/8361">#8361</a> <a href="https://github.com/haskell/cabal/pull/9004">#9004</a></p>
 <ul>
 <li><code>cabal check</code> will not check for dependencies upper bounds in internal
-targets (i.e. test-suites and benchmarks)</li>
+targets (i.e. test-suites and benchmarks)</li>
 </ul></li>
 <li><p>Add new Hackage root keys to bootstrap set <a href="https://github.com/haskell/cabal/pull/9068">#9068</a></p>
 <p>The two new <a href="https://github.com/haskell-infra/hackage-root-keys/tree/master/root-keys">Hackage root keyholders</a> were added to the bootstrap set.</p>
@@ -160,7 +160,7 @@ targets (i.e. test-suites and benchmarks)</li>
 <li><p>Fix parsing of password-command option <a href="https://github.com/haskell/cabal/pull/9002">#9002</a></p>
 <p>The password-command option did not parse its value correctly.
 Quotes were ignored, making many kinds of commands impossible to
-express (e.g. <code>sh -c "foo | bar"</code>). Also, <code>cabal user-config</code>
+express (e.g. <code>sh -c "foo | bar"</code>). Also, <code>cabal user-config</code>
 treated the argument list as a <em>list of option values</em>, rather than a
 <em>value that is a list</em>. As a consequence, <code>cabal user-config update</code> corrupted the value in the config file.</p>
 <p>Fixed these issues by parsing the command as a space separated list
@@ -175,22 +175,22 @@ created by accident.</p></li>
 <ul>
 <li>Use Base64 hash truncated to 26 chars for script-build cache directories.</li>
 <li>Use the cache directory as the dist directory.</li>
-<li>Use script-<your-sanitized-script-name> as the component name instead of cabal-script-&lt;…&gt;.</li>
+<li>Use script-<your-sanitized-script-name> as the component name instead of cabal-script-&lt;...&gt;.</li>
 <li>Use cabal-script-<your-actual-script-name> for the executable name.</li>
 <li>This change is incompatible with previous cabal versions in terms of cache location,
 you should manually remove your old caches once you no longer need them.</li>
 </ul></li>
-<li><p>Don’t add <code>extra-prog-path: ~/.local/bin</code> when initially creating <code>~/.config/cabal/config</code> <a href="https://github.com/haskell/cabal/issues/8951">#8951</a></p></li>
+<li><p>Don't add <code>extra-prog-path: ~/.local/bin</code> when initially creating <code>~/.config/cabal/config</code> <a href="https://github.com/haskell/cabal/issues/8951">#8951</a></p></li>
 <li><p>Use compiler flags for caching project config <a href="https://github.com/haskell/cabal/pull/8819">#8819</a></p>
 <p>This ensures that cached project configs with conditionals re-execute the conditional logic when the compiler changes.</p></li>
 <li><p>Fix default Nix configuration option in generated ~/.cabal/config file <a href="https://github.com/haskell/cabal/pull/8878">#8878</a></p>
 <p>Fixes the default for ~/.cabal/config file. The nix option should now be commented out by default.</p></li>
-<li><p>add base to cabal install –lib default env file <a href="https://github.com/haskell/cabal/pull/8903">#8903</a></p>
+<li><p>add base to cabal install --lib default env file <a href="https://github.com/haskell/cabal/pull/8903">#8903</a></p>
 <p>This adds base by default to the env file created by <code>cabal install --lib</code>. Further it ensures that packagedbs have been created before adding them to the env file.</p></li>
 <li><p>Do not check PVP on internal targets <a href="https://github.com/haskell/cabal/issues/8361">#8361</a> <a href="https://github.com/haskell/cabal/pull/9004">#9004</a></p>
 <ul>
 <li><code>cabal check</code> will not check for dependencies upper bounds in internal
-targets (i.e. test-suites and benchmarks)</li>
+targets (i.e. test-suites and benchmarks)</li>
 </ul></li>
 <li><p>Add new Hackage root keys to bootstrap set <a href="https://github.com/haskell/cabal/pull/9068">#9068</a></p>
 <p>The two new <a href="https://github.com/haskell-infra/hackage-root-keys/tree/master/root-keys">Hackage root keyholders</a> were added to the bootstrap set.</p>

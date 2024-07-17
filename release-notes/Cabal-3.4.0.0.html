@@ -54,7 +54,7 @@
 <li>Adopt to simplified subsumption changes</li>
 </ul>
 <p>There are no magical <code>IO = WithCallStack Prelude.IO</code> alias in Cabal,
-as it is hard to get working with GHC-9.0’s simplified subsumption.</p></li>
+as it is hard to get working with GHC-9.0's simplified subsumption.</p></li>
 <li><p>Treat <code>pkg:sublib</code> dependency syntax as is in <code>cabal-version: 3.4</code> <a href="https://github.com/haskell/cabal/issues/6083">#6083</a> <a href="https://github.com/haskell/cabal/pull/6893">!6893</a> <a href="https://github.com/haskell/cabal/pull/6907">!6907</a></p>
 <p>In <code>cabal-version: 3.4</code> cabal files the dependency definition</p>
 <pre class="cabal"><code>build-depends: somesublib</code></pre>
@@ -65,7 +65,7 @@ library if you had a sublibrary of the same name.</p></li>
 <li><p>Dependency type refactorings <a href="https://github.com/haskell/cabal/issues/5570">#5570</a> <a href="https://github.com/haskell/cabal/issues/6894">#6894</a> <a href="https://github.com/haskell/cabal/pull/6768">!6768</a> <a href="https://github.com/haskell/cabal/pull/6798">!6798</a> <a href="https://github.com/haskell/cabal/pull/6895">!6895</a> <a href="https://github.com/haskell/cabal/pull/6896">!6896</a> <a href="https://github.com/haskell/cabal/pull/6897">!6897</a> <a href="https://github.com/haskell/cabal/pull/6898">!6898</a></p>
 <p>With additions of (public) sublibraries, <code>Dependency</code> type use for multiple needs become painful.
 Therefore a new type <code>PackageVersionConstraint</code> was added to serve <em>constraint on package</em> use-case.
-<code>Dependency</code> type is <em>dependency on a library component</em>, i.e. representing <code>build-depends</code> entry.</p>
+<code>Dependency</code> type is <em>dependency on a library component</em>, i.e. representing <code>build-depends</code> entry.</p>
 <ul>
 <li>Use PackageVersionConstraint more</li>
 <li>Add NonEmptySet and use it in Dependency</li>
@@ -99,17 +99,17 @@ Therefore a new type <code>PackageVersionConstraint</code> was added to serve <e
 <p>Use <code>&gt;=0</code> (or empty in dependencies) and <code>&lt;0</code> respectively.</p></li>
 <li><p>Add pijul to known repository type <a href="https://github.com/haskell/cabal/issues/6610">#6610</a> <a href="https://github.com/haskell/cabal/pull/6684">!6684</a></p>
 <p>Pijul is now explicitly recognized version control system.
-However <code>cabal-install</code> isn’t yet able to use it in
+However <code>cabal-install</code> isn't yet able to use it in
 <code>source-repository-package</code>.</p></li>
 <li><p>Rename Flag to CompilerFlag and PackageFlag <a href="https://github.com/haskell/cabal/issues/6710">#6710</a> <a href="https://github.com/haskell/cabal/pull/6725">!6725</a></p>
-<p>There was three Flag’s. Now they are</p>
+<p>There was three Flag's. Now they are</p>
 <ul>
 <li><code>Flag</code> (cli parsing)</li>
 <li><code>PackageFlag</code></li>
 <li><code>CompilerFlag</code></li>
 </ul>
 <p>This allows wild-imports without <code>hiding (Flag)</code>.</p></li>
-<li><p>Accept “linux-androideabi” as an alias for Android for determining buildOS <a href="https://github.com/haskell/cabal/pull/6301">!6301</a> <a href="https://github.com/haskell/cabal/pull/6949">!6949</a></p>
+<li><p>Accept "linux-androideabi" as an alias for Android for determining buildOS <a href="https://github.com/haskell/cabal/pull/6301">!6301</a> <a href="https://github.com/haskell/cabal/pull/6949">!6949</a></p>
 <p><code>Cabal</code> will able to parse <code>linux-androideabi</code> from the value of <code>System.Info.os</code>.</p></li>
 <li><p>Refactor Distribution.PackageDescription module <a href="https://github.com/haskell/cabal/pull/6855">!6855</a></p>
 <p>Now it re-exports a collection of modules, not individual symbols.</p></li>
@@ -118,7 +118,7 @@ However <code>cabal-install</code> isn’t yet able to use it in
 call. Unfortunately, it is not possible to implement exec in a
 POSIX-compliant manner on Windows. In particular, the semantics of the
 exec implementation provided by the widely-used msvcrt C runtime
-will cause process’s waiting on the exec’ing process to incorrectly
+will cause process's waiting on the exec'ing process to incorrectly
 conclude that the process has successfully terminated when in fact it is
 still running in another process.</p>
 <p>For this reason, the process library exposes the use_process_jobs
@@ -129,8 +129,8 @@ This is explained in <a href="https://github.com/haskell/process/blob/master/Sys
 broken and was only recently fixed. Consequently, we only enable job
 object support for process releases &gt;= 1.6.8.</p></li>
 <li><p>Remove <code>AnyVersion</code> and <code>WildcardVersion</code> constructors from <code>Version</code> <a href="https://github.com/haskell/cabal/pull/6742">!6742</a></p>
-<p>This changes makes <code>Version</code> type less “syntactic”,
-i.e. contains less constructors for semantically same version ranges.</p></li>
+<p>This changes makes <code>Version</code> type less "syntactic",
+i.e. contains less constructors for semantically same version ranges.</p></li>
 <li><p>Cabal-QuickCheck package with <code>Arbitrary</code> instances <a href="https://github.com/haskell/cabal/issues/6882">#6882</a> <a href="https://github.com/haskell/cabal/pull/6557">!6557</a> <a href="https://github.com/haskell/cabal/pull/6891">!6891</a></p></li>
 <li><p>Create Cabal-tree-diff package with <code>ToExpr</code> instances <a href="https://github.com/haskell/cabal/pull/6789">!6789</a></p></li>
 <li><p><code>Cabal.Distribution.Compiler</code>: add <code>Traversable</code> instance for <code>PerCompilerFlavor</code> <a href="https://github.com/haskell/cabal/pull/6763">!6763</a></p></li>
@@ -142,7 +142,7 @@ i.e. contains less constructors for semantically same version ranges.</p></li>
 <li><p>default-language field is optional in cabal-version: 3.4 <a href="https://github.com/haskell/cabal/issues/6288">#6288</a> <a href="https://github.com/haskell/cabal/pull/6924">!6924</a> <a href="https://github.com/haskell/cabal/pull/6926">!6926</a></p></li>
 <li><p>Split <code>KnownRepoType</code> out of <code>RepoType</code> <a href="https://github.com/haskell/cabal/issues/6432">#6432</a> <a href="https://github.com/haskell/cabal/pull/6612">!6612</a></p></li>
 <li><p>Include component name in unit-id <a href="https://github.com/haskell/cabal/issues/6485">#6485</a> <a href="https://github.com/haskell/cabal/pull/6547">!6547</a></p></li>
-<li><p>Change ‘optional-packages’ default to empty, when cabal.project is missing. <a href="https://github.com/haskell/cabal/issues/4797">#4797</a> <a href="https://github.com/haskell/cabal/issues/6739">#6739</a> <a href="https://github.com/haskell/cabal/pull/6740">!6740</a></p></li>
+<li><p>Change 'optional-packages' default to empty, when cabal.project is missing. <a href="https://github.com/haskell/cabal/issues/4797">#4797</a> <a href="https://github.com/haskell/cabal/issues/6739">#6739</a> <a href="https://github.com/haskell/cabal/pull/6740">!6740</a></p></li>
 <li><p>Fix rpmvercmp (trailing non-digit characters) <a href="https://github.com/haskell/cabal/issues/6805">#6805</a> <a href="https://github.com/haskell/cabal/pull/6808">!6808</a></p></li>
 <li><p>other changes <a href="https://github.com/haskell/cabal/pull/6556">!6556</a> <a href="https://github.com/haskell/cabal/pull/6598">!6598</a> <a href="https://github.com/haskell/cabal/pull/6910">!6910</a></p></li>
 <li><p>Package description parser benchmark <a href="https://github.com/haskell/cabal/pull/6594">!6594</a></p></li>
@@ -236,7 +236,7 @@ i.e. contains less constructors for semantically same version ranges.</p></li>
 <li>Adopt to simplified subsumption changes</li>
 </ul>
 <p>There are no magical <code>IO = WithCallStack Prelude.IO</code> alias in Cabal,
-as it is hard to get working with GHC-9.0’s simplified subsumption.</p></li>
+as it is hard to get working with GHC-9.0's simplified subsumption.</p></li>
 <li><p>Treat <code>pkg:sublib</code> dependency syntax as is in <code>cabal-version: 3.4</code> <a href="https://github.com/haskell/cabal/issues/6083">#6083</a> <a href="https://github.com/haskell/cabal/pull/6893">!6893</a> <a href="https://github.com/haskell/cabal/pull/6907">!6907</a></p>
 <p>In <code>cabal-version: 3.4</code> cabal files the dependency definition</p>
 <pre class="cabal"><code>build-depends: somesublib</code></pre>
@@ -247,7 +247,7 @@ library if you had a sublibrary of the same name.</p></li>
 <li><p>Dependency type refactorings <a href="https://github.com/haskell/cabal/issues/5570">#5570</a> <a href="https://github.com/haskell/cabal/issues/6894">#6894</a> <a href="https://github.com/haskell/cabal/pull/6768">!6768</a> <a href="https://github.com/haskell/cabal/pull/6798">!6798</a> <a href="https://github.com/haskell/cabal/pull/6895">!6895</a> <a href="https://github.com/haskell/cabal/pull/6896">!6896</a> <a href="https://github.com/haskell/cabal/pull/6897">!6897</a> <a href="https://github.com/haskell/cabal/pull/6898">!6898</a></p>
 <p>With additions of (public) sublibraries, <code>Dependency</code> type use for multiple needs become painful.
 Therefore a new type <code>PackageVersionConstraint</code> was added to serve <em>constraint on package</em> use-case.
-<code>Dependency</code> type is <em>dependency on a library component</em>, i.e. representing <code>build-depends</code> entry.</p>
+<code>Dependency</code> type is <em>dependency on a library component</em>, i.e. representing <code>build-depends</code> entry.</p>
 <ul>
 <li>Use PackageVersionConstraint more</li>
 <li>Add NonEmptySet and use it in Dependency</li>
@@ -281,17 +281,17 @@ Therefore a new type <code>PackageVersionConstraint</code> was added to serve <e
 <p>Use <code>&gt;=0</code> (or empty in dependencies) and <code>&lt;0</code> respectively.</p></li>
 <li><p>Add pijul to known repository type <a href="https://github.com/haskell/cabal/issues/6610">#6610</a> <a href="https://github.com/haskell/cabal/pull/6684">!6684</a></p>
 <p>Pijul is now explicitly recognized version control system.
-However <code>cabal-install</code> isn’t yet able to use it in
+However <code>cabal-install</code> isn't yet able to use it in
 <code>source-repository-package</code>.</p></li>
 <li><p>Rename Flag to CompilerFlag and PackageFlag <a href="https://github.com/haskell/cabal/issues/6710">#6710</a> <a href="https://github.com/haskell/cabal/pull/6725">!6725</a></p>
-<p>There was three Flag’s. Now they are</p>
+<p>There was three Flag's. Now they are</p>
 <ul>
 <li><code>Flag</code> (cli parsing)</li>
 <li><code>PackageFlag</code></li>
 <li><code>CompilerFlag</code></li>
 </ul>
 <p>This allows wild-imports without <code>hiding (Flag)</code>.</p></li>
-<li><p>Accept “linux-androideabi” as an alias for Android for determining buildOS <a href="https://github.com/haskell/cabal/pull/6301">!6301</a> <a href="https://github.com/haskell/cabal/pull/6949">!6949</a></p>
+<li><p>Accept "linux-androideabi" as an alias for Android for determining buildOS <a href="https://github.com/haskell/cabal/pull/6301">!6301</a> <a href="https://github.com/haskell/cabal/pull/6949">!6949</a></p>
 <p><code>Cabal</code> will able to parse <code>linux-androideabi</code> from the value of <code>System.Info.os</code>.</p></li>
 <li><p>Refactor Distribution.PackageDescription module <a href="https://github.com/haskell/cabal/pull/6855">!6855</a></p>
 <p>Now it re-exports a collection of modules, not individual symbols.</p></li>
@@ -300,7 +300,7 @@ However <code>cabal-install</code> isn’t yet able to use it in
 call. Unfortunately, it is not possible to implement exec in a
 POSIX-compliant manner on Windows. In particular, the semantics of the
 exec implementation provided by the widely-used msvcrt C runtime
-will cause process’s waiting on the exec’ing process to incorrectly
+will cause process's waiting on the exec'ing process to incorrectly
 conclude that the process has successfully terminated when in fact it is
 still running in another process.</p>
 <p>For this reason, the process library exposes the use_process_jobs
@@ -311,8 +311,8 @@ This is explained in <a href="https://github.com/haskell/process/blob/master/Sys
 broken and was only recently fixed. Consequently, we only enable job
 object support for process releases &gt;= 1.6.8.</p></li>
 <li><p>Remove <code>AnyVersion</code> and <code>WildcardVersion</code> constructors from <code>Version</code> <a href="https://github.com/haskell/cabal/pull/6742">!6742</a></p>
-<p>This changes makes <code>Version</code> type less “syntactic”,
-i.e. contains less constructors for semantically same version ranges.</p></li>
+<p>This changes makes <code>Version</code> type less "syntactic",
+i.e. contains less constructors for semantically same version ranges.</p></li>
 <li><p>Cabal-QuickCheck package with <code>Arbitrary</code> instances <a href="https://github.com/haskell/cabal/issues/6882">#6882</a> <a href="https://github.com/haskell/cabal/pull/6557">!6557</a> <a href="https://github.com/haskell/cabal/pull/6891">!6891</a></p></li>
 <li><p>Create Cabal-tree-diff package with <code>ToExpr</code> instances <a href="https://github.com/haskell/cabal/pull/6789">!6789</a></p></li>
 <li><p><code>Cabal.Distribution.Compiler</code>: add <code>Traversable</code> instance for <code>PerCompilerFlavor</code> <a href="https://github.com/haskell/cabal/pull/6763">!6763</a></p></li>
@@ -324,7 +324,7 @@ i.e. contains less constructors for semantically same version ranges.</p></li>
 <li><p>default-language field is optional in cabal-version: 3.4 <a href="https://github.com/haskell/cabal/issues/6288">#6288</a> <a href="https://github.com/haskell/cabal/pull/6924">!6924</a> <a href="https://github.com/haskell/cabal/pull/6926">!6926</a></p></li>
 <li><p>Split <code>KnownRepoType</code> out of <code>RepoType</code> <a href="https://github.com/haskell/cabal/issues/6432">#6432</a> <a href="https://github.com/haskell/cabal/pull/6612">!6612</a></p></li>
 <li><p>Include component name in unit-id <a href="https://github.com/haskell/cabal/issues/6485">#6485</a> <a href="https://github.com/haskell/cabal/pull/6547">!6547</a></p></li>
-<li><p>Change ‘optional-packages’ default to empty, when cabal.project is missing. <a href="https://github.com/haskell/cabal/issues/4797">#4797</a> <a href="https://github.com/haskell/cabal/issues/6739">#6739</a> <a href="https://github.com/haskell/cabal/pull/6740">!6740</a></p></li>
+<li><p>Change 'optional-packages' default to empty, when cabal.project is missing. <a href="https://github.com/haskell/cabal/issues/4797">#4797</a> <a href="https://github.com/haskell/cabal/issues/6739">#6739</a> <a href="https://github.com/haskell/cabal/pull/6740">!6740</a></p></li>
 <li><p>Fix rpmvercmp (trailing non-digit characters) <a href="https://github.com/haskell/cabal/issues/6805">#6805</a> <a href="https://github.com/haskell/cabal/pull/6808">!6808</a></p></li>
 <li><p>other changes <a href="https://github.com/haskell/cabal/pull/6556">!6556</a> <a href="https://github.com/haskell/cabal/pull/6598">!6598</a> <a href="https://github.com/haskell/cabal/pull/6910">!6910</a></p></li>
 <li><p>Package description parser benchmark <a href="https://github.com/haskell/cabal/pull/6594">!6594</a></p></li>

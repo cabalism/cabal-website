@@ -49,7 +49,7 @@ If the new default does not fit your workflow, pass an explicit <code>--disable-
 option or consider (helping to implement) the other workarounds proposed
 in https://github.com/haskell/cabal/issues/8725.</p>
 <p>This version of cabal introduces support for JS cross-compilation (https://github.com/haskell/cabal/pull/8636).
-We’ve seen related Windows segfaults on CI, so please kindly report if you can reproduce either
+We've seen related Windows segfaults on CI, so please kindly report if you can reproduce either
 cabal or GHC segfaults when cross-compiling for JS or compiling normally but with any files
 listed in the <code>js-sources</code> field of a .cabal file.</p>
 <p>This release of cabal also fixes a lot of bugs in cabal 3.8.1.0 and not all of the fixes
@@ -90,7 +90,7 @@ change in behaviour. An existing system can be migrated by deleting
 </ul>
 <h3 id="other-changes">Other changes</h3>
 <ul>
-<li><p>Remove “‘-main-is’ is not portable” check <a href="https://github.com/haskell/cabal/issues/8646">#8646</a> <a href="https://github.com/haskell/cabal/pull/8651">#8651</a></p>
+<li><p>Remove "'-main-is' is not portable" check <a href="https://github.com/haskell/cabal/issues/8646">#8646</a> <a href="https://github.com/haskell/cabal/pull/8651">#8651</a></p>
 <p><code>cabal check</code> no longer complains about <code>-main-is</code> flag in <code>ghc-options</code></p></li>
 <li><p>Fix generation of Path_ modules with relocatable <a href="https://github.com/haskell/cabal/issues/8219">#8219</a> <a href="https://github.com/haskell/cabal/pull/8220">#8220</a></p>
 <p>The generation of the functions <code>minusFileName</code> and <code>splitFileName</code>
@@ -115,12 +115,12 @@ recursive globs starting at root of the project</li>
 <p>Ensure that <code>extra-src-dirs</code>, extra sources, and extra other modules all are added using <code>ordNub</code> rather than incidentally alphabetized.</p></li>
 <li><p>Prepend rather than append <code>extra-prog-path</code> <a href="https://github.com/haskell/cabal/issues/6304">#6304</a> <a href="https://github.com/haskell/cabal/pull/8506">#8506</a></p>
 <p>Prepends the <code>extra-prog-path</code> to the system path rather than appending, to allow binaries in the extra path to override defaults.</p></li>
-<li><p>don’t send non-extant <code>extra-lib-dirs</code> to GHC <a href="https://github.com/haskell/cabal/issues/6492">#6492</a> <a href="https://github.com/haskell/cabal/pull/8510">#8510</a></p>
+<li><p>don't send non-extant <code>extra-lib-dirs</code> to GHC <a href="https://github.com/haskell/cabal/issues/6492">#6492</a> <a href="https://github.com/haskell/cabal/pull/8510">#8510</a></p>
 <p>If an extra-libs-dir does not exist, it does not get sent to ghc, which can error on windows.</p></li>
 <li><p>Improve mutually recursive unit identifier error message <a href="https://github.com/haskell/cabal/pull/8582">#8582</a></p>
 <p>Improves the error message in case of mutually recursive unit identifiers
 by specifying the name of the identifier, the name of the signature, and a suggestion
-to check the ‘build-depends:’ section.</p></li>
+to check the 'build-depends:' section.</p></li>
 <li><p>Specify default exe extension on wasm32 to be .wasm <a href="https://github.com/haskell/cabal/pull/8633">#8633</a></p>
 <p>Specify default exe extension on wasm32 to be .wasm, following the convention in other WebAssembly toolchains.</p></li>
 <li><p>Support <code>js-sources</code> with GHC, not only with GHCJS <a href="https://github.com/haskell/cabal/pull/8636">#8636</a></p>
@@ -145,7 +145,7 @@ in a field different from “extra-doc-files” (Cabal spec &gt;= 1.18) or
 <li><p>Disallow GHC &lt;8.0 for <a href="https://github.com/haskell/cabal/issues/7531">#7531</a> <a href="https://github.com/haskell/cabal/issues/8715">#8715</a> <a href="https://github.com/haskell/cabal/pull/8794">#8794</a></p>
 <p>Disallow GHC &lt;8.0 by restricting the version of base that can be used to at least 4.9</p></li>
 <li><p>Avoid spurious warnings from -with-rtsopts <a href="https://github.com/haskell/cabal/issues/4255">#4255</a> <a href="https://github.com/haskell/cabal/pull/8183">#8183</a></p></li>
-<li><p>Do not print “up to date” for commands unless running “cabal build” <a href="https://github.com/haskell/cabal/issues/4994">#4994</a> <a href="https://github.com/haskell/cabal/pull/8569">#8569</a></p></li>
+<li><p>Do not print "up to date" for commands unless running "cabal build" <a href="https://github.com/haskell/cabal/issues/4994">#4994</a> <a href="https://github.com/haskell/cabal/pull/8569">#8569</a></p></li>
 <li><p>The <code>configure</code> script of <code>build-type: configure</code> packages now has access to the flag assignment of the package being built via the <code>CABAL_FLAGS</code> and <code>CABAL_FLAG_&lt;flag&gt;</code> environment variables <a href="https://github.com/haskell/cabal/issues/8564">#8564</a> <a href="https://github.com/haskell/cabal/pull/8565">#8565</a></p></li>
 <li><p>Export pretty printer <code>ppPackageCheck</code> from <a href="https://github.com/haskell/cabal/pull/8311">#8311</a></p></li>
 <li><p>Add check for upper bound on any dependency in <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/8291">#8291</a> <a href="https://github.com/haskell/cabal/pull/8339">#8339</a></p></li>
@@ -225,7 +225,7 @@ If the new default does not fit your workflow, pass an explicit <code>--disable-
 option or consider (helping to implement) the other workarounds proposed
 in https://github.com/haskell/cabal/issues/8725.</p>
 <p>This version of cabal introduces support for JS cross-compilation (https://github.com/haskell/cabal/pull/8636).
-We’ve seen related Windows segfaults on CI, so please kindly report if you can reproduce either
+We've seen related Windows segfaults on CI, so please kindly report if you can reproduce either
 cabal or GHC segfaults when cross-compiling for JS or compiling normally but with any files
 listed in the <code>js-sources</code> field of a .cabal file.</p>
 <p>This release of cabal also fixes a lot of bugs in cabal 3.8.1.0 and not all of the fixes
@@ -266,7 +266,7 @@ change in behaviour. An existing system can be migrated by deleting
 </ul>
 <h3 id="other-changes">Other changes</h3>
 <ul>
-<li><p>Remove “‘-main-is’ is not portable” check <a href="https://github.com/haskell/cabal/issues/8646">#8646</a> <a href="https://github.com/haskell/cabal/pull/8651">#8651</a></p>
+<li><p>Remove "'-main-is' is not portable" check <a href="https://github.com/haskell/cabal/issues/8646">#8646</a> <a href="https://github.com/haskell/cabal/pull/8651">#8651</a></p>
 <p><code>cabal check</code> no longer complains about <code>-main-is</code> flag in <code>ghc-options</code></p></li>
 <li><p>Fix generation of Path_ modules with relocatable <a href="https://github.com/haskell/cabal/issues/8219">#8219</a> <a href="https://github.com/haskell/cabal/pull/8220">#8220</a></p>
 <p>The generation of the functions <code>minusFileName</code> and <code>splitFileName</code>
@@ -291,12 +291,12 @@ recursive globs starting at root of the project</li>
 <p>Ensure that <code>extra-src-dirs</code>, extra sources, and extra other modules all are added using <code>ordNub</code> rather than incidentally alphabetized.</p></li>
 <li><p>Prepend rather than append <code>extra-prog-path</code> <a href="https://github.com/haskell/cabal/issues/6304">#6304</a> <a href="https://github.com/haskell/cabal/pull/8506">#8506</a></p>
 <p>Prepends the <code>extra-prog-path</code> to the system path rather than appending, to allow binaries in the extra path to override defaults.</p></li>
-<li><p>don’t send non-extant <code>extra-lib-dirs</code> to GHC <a href="https://github.com/haskell/cabal/issues/6492">#6492</a> <a href="https://github.com/haskell/cabal/pull/8510">#8510</a></p>
+<li><p>don't send non-extant <code>extra-lib-dirs</code> to GHC <a href="https://github.com/haskell/cabal/issues/6492">#6492</a> <a href="https://github.com/haskell/cabal/pull/8510">#8510</a></p>
 <p>If an extra-libs-dir does not exist, it does not get sent to ghc, which can error on windows.</p></li>
 <li><p>Improve mutually recursive unit identifier error message <a href="https://github.com/haskell/cabal/pull/8582">#8582</a></p>
 <p>Improves the error message in case of mutually recursive unit identifiers
 by specifying the name of the identifier, the name of the signature, and a suggestion
-to check the ‘build-depends:’ section.</p></li>
+to check the 'build-depends:' section.</p></li>
 <li><p>Specify default exe extension on wasm32 to be .wasm <a href="https://github.com/haskell/cabal/pull/8633">#8633</a></p>
 <p>Specify default exe extension on wasm32 to be .wasm, following the convention in other WebAssembly toolchains.</p></li>
 <li><p>Support <code>js-sources</code> with GHC, not only with GHCJS <a href="https://github.com/haskell/cabal/pull/8636">#8636</a></p>
@@ -321,7 +321,7 @@ in a field different from “extra-doc-files” (Cabal spec &gt;= 1.18) or
 <li><p>Disallow GHC &lt;8.0 for <a href="https://github.com/haskell/cabal/issues/7531">#7531</a> <a href="https://github.com/haskell/cabal/issues/8715">#8715</a> <a href="https://github.com/haskell/cabal/pull/8794">#8794</a></p>
 <p>Disallow GHC &lt;8.0 by restricting the version of base that can be used to at least 4.9</p></li>
 <li><p>Avoid spurious warnings from -with-rtsopts <a href="https://github.com/haskell/cabal/issues/4255">#4255</a> <a href="https://github.com/haskell/cabal/pull/8183">#8183</a></p></li>
-<li><p>Do not print “up to date” for commands unless running “cabal build” <a href="https://github.com/haskell/cabal/issues/4994">#4994</a> <a href="https://github.com/haskell/cabal/pull/8569">#8569</a></p></li>
+<li><p>Do not print "up to date" for commands unless running "cabal build" <a href="https://github.com/haskell/cabal/issues/4994">#4994</a> <a href="https://github.com/haskell/cabal/pull/8569">#8569</a></p></li>
 <li><p>The <code>configure</code> script of <code>build-type: configure</code> packages now has access to the flag assignment of the package being built via the <code>CABAL_FLAGS</code> and <code>CABAL_FLAG_&lt;flag&gt;</code> environment variables <a href="https://github.com/haskell/cabal/issues/8564">#8564</a> <a href="https://github.com/haskell/cabal/pull/8565">#8565</a></p></li>
 <li><p>Export pretty printer <code>ppPackageCheck</code> from <a href="https://github.com/haskell/cabal/pull/8311">#8311</a></p></li>
 <li><p>Add check for upper bound on any dependency in <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/8291">#8291</a> <a href="https://github.com/haskell/cabal/pull/8339">#8339</a></p></li>

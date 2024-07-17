@@ -54,7 +54,7 @@
 <li>Adopt to simplified subsumption changes</li>
 </ul>
 <p>There are no magical <code>IO = WithCallStack Prelude.IO</code> alias in Cabal,
-as it is hard to get working with GHC-8.12’s simplified subsumption.</p></li>
+as it is hard to get working with GHC-8.12's simplified subsumption.</p></li>
 <li><p>Treat <code>pkg:sublib</code> dependency syntax as is in <code>cabal-version: 3.4</code> <a href="https://github.com/haskell/cabal/issues/6083">#6083</a> <a href="https://github.com/haskell/cabal/pull/6893">!6893</a> <a href="https://github.com/haskell/cabal/pull/6907">!6907</a></p>
 <p>In <code>cabal-version: 3.4</code> cabal files the dependency definition</p>
 <pre class="cabal"><code>build-depends: somesublib</code></pre>
@@ -69,25 +69,25 @@ specifying an order and ways various package repositories are combined.</p>
 <li><p>Various <code>cabal init</code> improvements <a href="https://github.com/haskell/cabal/issues/6150">#6150</a> <a href="https://github.com/haskell/cabal/issues/6675">#6675</a> <a href="https://github.com/haskell/cabal/pull/6603">!6603</a> <a href="https://github.com/haskell/cabal/pull/6607">!6607</a> <a href="https://github.com/haskell/cabal/pull/6619">!6619</a> <a href="https://github.com/haskell/cabal/pull/6632">!6632</a> <a href="https://github.com/haskell/cabal/pull/6641">!6641</a> <a href="https://github.com/haskell/cabal/pull/6650">!6650</a> <a href="https://github.com/haskell/cabal/pull/6661">!6661</a> <a href="https://github.com/haskell/cabal/pull/6676">!6676</a> <a href="https://github.com/haskell/cabal/pull/6677">!6677</a> <a href="https://github.com/haskell/cabal/pull/6678">!6678</a> <a href="https://github.com/haskell/cabal/pull/6690">!6690</a> <a href="https://github.com/haskell/cabal/pull/6705">!6705</a> <a href="https://github.com/haskell/cabal/pull/6723">!6723</a></p>
 <ul>
 <li>Default to <code>cabal-version: 2.4</code></li>
-<li><code>cabal</code> doesn’t force a default license choice anymore</li>
+<li><code>cabal</code> doesn't force a default license choice anymore</li>
 <li>Licenses are always asked using SPDX expression</li>
 <li>Fix an infinite loop when invalid license was passed on command line</li>
 <li><code>Setup.hs</code> is not written anymore</li>
-<li>Default to –source-dir=src and –application-dir=app</li>
+<li>Default to --source-dir=src and --application-dir=app</li>
 <li>Add <code>FileCreators.generateCabalFile</code> unit tests.</li>
 <li>Default cabal init application-dir to <code>app</code>, and source-dir to <code>src</code>.</li>
 <li>Default to SPDX.NONE license in cabal init interactive mode.</li>
 </ul></li>
 <li><p>Rework <code>v2-sdist</code> command <a href="https://github.com/haskell/cabal/issues/2940">#2940</a> <a href="https://github.com/haskell/cabal/issues/5813">#5813</a> <a href="https://github.com/haskell/cabal/issues/6514">#6514</a> <a href="https://github.com/haskell/cabal/issues/6611">#6611</a> <a href="https://github.com/haskell/cabal/issues/6635">#6635</a> <a href="https://github.com/haskell/cabal/pull/6454">!6454</a> <a href="https://github.com/haskell/cabal/pull/6637">!6637</a> <a href="https://github.com/haskell/cabal/pull/6640">!6640</a> <a href="https://github.com/haskell/cabal/pull/6660">!6660</a> <a href="https://github.com/haskell/cabal/pull/6666">!6666</a> <a href="https://github.com/haskell/cabal/pull/6884">!6884</a> <a href="https://github.com/haskell/cabal/pull/6916">!6916</a></p>
 <p><code>v2-sdist</code> marks all files as readonly in resulting tarballs.</p>
-<p>The #2940 “cabal sdist should touch preprocessed .hs files” issue
+<p>The #2940 "cabal sdist should touch preprocessed .hs files" issue
 is fixed by virtue of not doing any preprocessing anymore.
-It’s responsibility of packager.</p>
-<p>The #6611 “v2-sdist includes a file twice in the tarball” issue
-is fixed as we don’t consider only one file list,
+It's responsibility of packager.</p>
+<p>The #6611 "v2-sdist includes a file twice in the tarball " issue
+is fixed as we don't consider only one file list,
 not two separate executable and ordinary file lists.</p>
-<p>The #6514 “unpack doesn’t preserve (executable) permissions” issue
-is partially resolved, as there shouldn’t be executable permissions
+<p>The #6514 "unpack doesn't preserve (executable) permissions" issue
+is partially resolved, as there shouldn't be executable permissions
 in the tar files.</p>
 <p>The rationale for above simplification is simple. The only file
 Cabal machinery would run is <code>configure</code> script. These
@@ -96,7 +96,7 @@ maintainers should also use interpreters explicitly as well.
 Scripts with shebangs are not executable on Windows.</p>
 <p>The <code>v1-sdist</code> command is removed, as its functionality is completely
 superseded by <code>v2-sdist</code>.</p></li>
-<li><p><code>source-repository-package</code> directories aren’t local <a href="https://github.com/haskell/cabal/issues/5586">#5586</a> <a href="https://github.com/haskell/cabal/pull/6915">!6915</a> <a href="https://github.com/haskell/cabal/pull/6917">!6917</a></p>
+<li><p><code>source-repository-package</code> directories aren't local <a href="https://github.com/haskell/cabal/issues/5586">#5586</a> <a href="https://github.com/haskell/cabal/pull/6915">!6915</a> <a href="https://github.com/haskell/cabal/pull/6917">!6917</a></p>
 <p>Concretely these means that compiled <code>source-repository-package</code> entries
 used in different projects are stored in the global nix-style store.</p></li>
 <li><p>Add list-bin command <a href="https://github.com/haskell/cabal/issues/6807">#6807</a> <a href="https://github.com/haskell/cabal/pull/6931">!6931</a></p>
@@ -131,27 +131,27 @@ used in different projects are stored in the global nix-style store.</p></li>
 <li><p>Fix ghci being launched before other sources are built. <a href="https://github.com/haskell/cabal/pull/6923">!6923</a></p>
 <p>Related to foreign calls to C-sources.</p></li>
 <li><p>Use default install directory if not specified <a href="https://github.com/haskell/cabal/issues/5973">#5973</a> <a href="https://github.com/haskell/cabal/pull/6624">!6624</a></p>
-<p>Cabal 3.0.0.0 added the –installdir option to specify the location that
+<p>Cabal 3.0.0.0 added the --installdir option to specify the location that
 binaries should be installed in. Running a cabal user-config update would
 populate the config file with the default value, but the cabal install program
-would error if it wasn’t set. This change uses the default value that would be
+would error if it wasn't set. This change uses the default value that would be
 written to the config if its unset, and outputs a warning.</p></li>
 <li><p>Update GHC environment location <a href="https://github.com/haskell/cabal/issues/6565">#6565</a> <a href="https://github.com/haskell/cabal/pull/6822">!6822</a></p>
 <p>cabal-install currently assumes that the GHC environment files are always located in <code>$HOME/.ghc/</code>.
-However, GHC itself doesn’t query the home directory directly.
+However, GHC itself doesn't query the home directory directly.
 Instead, it uses <code>getAppUserDataDirectory "ghc"</code> which happens to coincide with <code>$HOME/.ghc</code>/ on UNIX systems.
 On Windows, however, GHC ends up looking in <code>%APPDATA%/ghc/</code>.</p></li>
 <li><p>Remove <code>-any</code> and <code>-none</code> syntax for version ranges in cabal-version: 3.4 <a href="https://github.com/haskell/cabal/issues/6589">#6589</a> <a href="https://github.com/haskell/cabal/pull/6786">!6786</a></p>
 <p>Use <code>&gt;=0</code> (or empty in dependencies) and <code>&lt;0</code> respectively.</p></li>
 <li><p>Add pijul to known repository type <a href="https://github.com/haskell/cabal/issues/6610">#6610</a> <a href="https://github.com/haskell/cabal/pull/6684">!6684</a></p>
 <p>Pijul is now explicitly recognized version control system.
-However <code>cabal-install</code> isn’t yet able to use it in
+However <code>cabal-install</code> isn't yet able to use it in
 <code>source-repository-package</code>.</p></li>
 <li><p>Remove upgrade, uninstall and win32selfupgrade commands <a href="https://github.com/haskell/cabal/issues/6691">#6691</a> <a href="https://github.com/haskell/cabal/pull/6707">!6707</a></p>
 <p>This commands were not implemented or are special purpose.
 The removal of <code>win32selfupgrade</code> might break self upgrade on windows,
 when <code>cabal-install</code> tries to rewrite the binary of itself.
-This shouldn’t be a problem when symlinking is used.</p></li>
+This shouldn't be a problem when symlinking is used.</p></li>
 <li><p>Remove local-repo <a href="https://github.com/haskell/cabal/issues/6729">#6729</a> <a href="https://github.com/haskell/cabal/pull/6730">!6730</a></p>
 <p>This functionality was mainly used by removed sandboxes.
 <code>file+noindex</code> repositories are better variant for local package repositories.</p></li>
@@ -173,7 +173,7 @@ Either way can be forced with <code>--install-method</code>.</p></li>
 call. Unfortunately, it is not possible to implement exec in a
 POSIX-compliant manner on Windows. In particular, the semantics of the
 exec implementation provided by the widely-used msvcrt C runtime
-will cause process’s waiting on the exec’ing process to incorrectly
+will cause process's waiting on the exec'ing process to incorrectly
 conclude that the process has successfully terminated when in fact it is
 still running in another process.</p>
 <p>For this reason, the process library exposes the use_process_jobs
@@ -196,7 +196,7 @@ object support for process releases &gt;= 1.6.8.</p></li>
 <li><p>all extra-source-files are change-tracked <a href="https://github.com/haskell/cabal/issues/4746">#4746</a> <a href="https://github.com/haskell/cabal/pull/6889">!6889</a></p></li>
 <li><p><code>upload --help</code> now includes <code>password-command</code> as a config file option (#5224) <a href="https://github.com/haskell/cabal/issues/5224">#5224</a> <a href="https://github.com/haskell/cabal/pull/6313">!6313</a> <a href="https://github.com/haskell/cabal/pull/6609">!6609</a> <a href="https://github.com/haskell/cabal/pull/6680">!6680</a></p></li>
 <li><p>Use PrettyField to format cabal file in <code>cabal init</code> <a href="https://github.com/haskell/cabal/issues/5555">#5555</a> <a href="https://github.com/haskell/cabal/pull/6718">!6718</a></p></li>
-<li><p>Default to ‘NoReports’ for remote build reporting <a href="https://github.com/haskell/cabal/issues/6210">#6210</a> <a href="https://github.com/haskell/cabal/pull/6625">!6625</a></p></li>
+<li><p>Default to 'NoReports' for remote build reporting <a href="https://github.com/haskell/cabal/issues/6210">#6210</a> <a href="https://github.com/haskell/cabal/pull/6625">!6625</a></p></li>
 <li><p>Add foo:bar syntax to mixins <a href="https://github.com/haskell/cabal/issues/6281">#6281</a> <a href="https://github.com/haskell/cabal/pull/6912">!6912</a></p></li>
 <li><p>default-language field is optional in cabal-version: 3.4 <a href="https://github.com/haskell/cabal/issues/6288">#6288</a> <a href="https://github.com/haskell/cabal/pull/6924">!6924</a> <a href="https://github.com/haskell/cabal/pull/6926">!6926</a></p></li>
 <li><p>Allow cabal v2-install pkgname:exename <a href="https://github.com/haskell/cabal/issues/6369">#6369</a> <a href="https://github.com/haskell/cabal/pull/6576">!6576</a></p></li>
@@ -204,7 +204,7 @@ object support for process releases &gt;= 1.6.8.</p></li>
 <li><p>Include component name in unit-id <a href="https://github.com/haskell/cabal/issues/6485">#6485</a> <a href="https://github.com/haskell/cabal/pull/6547">!6547</a></p></li>
 <li><p>cabal v2-install prints copy/symlink destination <a href="https://github.com/haskell/cabal/issues/6575">#6575</a> <a href="https://github.com/haskell/cabal/pull/6582">!6582</a> <a href="https://github.com/haskell/cabal/pull/6890">!6890</a></p></li>
 <li><p>Prepend hs-source-dir to match-component, fixes <code>cabal repl file</code> <a href="https://github.com/haskell/cabal/issues/6622">#6622</a> <a href="https://github.com/haskell/cabal/pull/6623">!6623</a> <a href="https://github.com/haskell/cabal/pull/6826">!6826</a> <a href="https://github.com/haskell/cabal/pull/6875">!6875</a></p></li>
-<li><p>Change ‘optional-packages’ default to empty, when cabal.project is missing. <a href="https://github.com/haskell/cabal/issues/4797">#4797</a> <a href="https://github.com/haskell/cabal/issues/6739">#6739</a> <a href="https://github.com/haskell/cabal/pull/6740">!6740</a></p></li>
+<li><p>Change 'optional-packages' default to empty, when cabal.project is missing. <a href="https://github.com/haskell/cabal/issues/4797">#4797</a> <a href="https://github.com/haskell/cabal/issues/6739">#6739</a> <a href="https://github.com/haskell/cabal/pull/6740">!6740</a></p></li>
 <li><p>v2-update reports new index-state <a href="https://github.com/haskell/cabal/issues/6804">#6804</a> <a href="https://github.com/haskell/cabal/pull/6810">!6810</a></p></li>
 <li><p>Fix rpmvercmp (trailing non-digit characters) <a href="https://github.com/haskell/cabal/issues/6805">#6805</a> <a href="https://github.com/haskell/cabal/pull/6808">!6808</a></p></li>
 <li><p>Add <code>-z</code> / <code>--ignore-project</code> flag to <code>cabal v2-update</code> <a href="https://github.com/haskell/cabal/issues/6809">#6809</a> <a href="https://github.com/haskell/cabal/pull/6814">!6814</a></p></li>
@@ -299,7 +299,7 @@ object support for process releases &gt;= 1.6.8.</p></li>
 <li>Adopt to simplified subsumption changes</li>
 </ul>
 <p>There are no magical <code>IO = WithCallStack Prelude.IO</code> alias in Cabal,
-as it is hard to get working with GHC-8.12’s simplified subsumption.</p></li>
+as it is hard to get working with GHC-8.12's simplified subsumption.</p></li>
 <li><p>Treat <code>pkg:sublib</code> dependency syntax as is in <code>cabal-version: 3.4</code> <a href="https://github.com/haskell/cabal/issues/6083">#6083</a> <a href="https://github.com/haskell/cabal/pull/6893">!6893</a> <a href="https://github.com/haskell/cabal/pull/6907">!6907</a></p>
 <p>In <code>cabal-version: 3.4</code> cabal files the dependency definition</p>
 <pre class="cabal"><code>build-depends: somesublib</code></pre>
@@ -314,25 +314,25 @@ specifying an order and ways various package repositories are combined.</p>
 <li><p>Various <code>cabal init</code> improvements <a href="https://github.com/haskell/cabal/issues/6150">#6150</a> <a href="https://github.com/haskell/cabal/issues/6675">#6675</a> <a href="https://github.com/haskell/cabal/pull/6603">!6603</a> <a href="https://github.com/haskell/cabal/pull/6607">!6607</a> <a href="https://github.com/haskell/cabal/pull/6619">!6619</a> <a href="https://github.com/haskell/cabal/pull/6632">!6632</a> <a href="https://github.com/haskell/cabal/pull/6641">!6641</a> <a href="https://github.com/haskell/cabal/pull/6650">!6650</a> <a href="https://github.com/haskell/cabal/pull/6661">!6661</a> <a href="https://github.com/haskell/cabal/pull/6676">!6676</a> <a href="https://github.com/haskell/cabal/pull/6677">!6677</a> <a href="https://github.com/haskell/cabal/pull/6678">!6678</a> <a href="https://github.com/haskell/cabal/pull/6690">!6690</a> <a href="https://github.com/haskell/cabal/pull/6705">!6705</a> <a href="https://github.com/haskell/cabal/pull/6723">!6723</a></p>
 <ul>
 <li>Default to <code>cabal-version: 2.4</code></li>
-<li><code>cabal</code> doesn’t force a default license choice anymore</li>
+<li><code>cabal</code> doesn't force a default license choice anymore</li>
 <li>Licenses are always asked using SPDX expression</li>
 <li>Fix an infinite loop when invalid license was passed on command line</li>
 <li><code>Setup.hs</code> is not written anymore</li>
-<li>Default to –source-dir=src and –application-dir=app</li>
+<li>Default to --source-dir=src and --application-dir=app</li>
 <li>Add <code>FileCreators.generateCabalFile</code> unit tests.</li>
 <li>Default cabal init application-dir to <code>app</code>, and source-dir to <code>src</code>.</li>
 <li>Default to SPDX.NONE license in cabal init interactive mode.</li>
 </ul></li>
 <li><p>Rework <code>v2-sdist</code> command <a href="https://github.com/haskell/cabal/issues/2940">#2940</a> <a href="https://github.com/haskell/cabal/issues/5813">#5813</a> <a href="https://github.com/haskell/cabal/issues/6514">#6514</a> <a href="https://github.com/haskell/cabal/issues/6611">#6611</a> <a href="https://github.com/haskell/cabal/issues/6635">#6635</a> <a href="https://github.com/haskell/cabal/pull/6454">!6454</a> <a href="https://github.com/haskell/cabal/pull/6637">!6637</a> <a href="https://github.com/haskell/cabal/pull/6640">!6640</a> <a href="https://github.com/haskell/cabal/pull/6660">!6660</a> <a href="https://github.com/haskell/cabal/pull/6666">!6666</a> <a href="https://github.com/haskell/cabal/pull/6884">!6884</a> <a href="https://github.com/haskell/cabal/pull/6916">!6916</a></p>
 <p><code>v2-sdist</code> marks all files as readonly in resulting tarballs.</p>
-<p>The #2940 “cabal sdist should touch preprocessed .hs files” issue
+<p>The #2940 "cabal sdist should touch preprocessed .hs files" issue
 is fixed by virtue of not doing any preprocessing anymore.
-It’s responsibility of packager.</p>
-<p>The #6611 “v2-sdist includes a file twice in the tarball” issue
-is fixed as we don’t consider only one file list,
+It's responsibility of packager.</p>
+<p>The #6611 "v2-sdist includes a file twice in the tarball " issue
+is fixed as we don't consider only one file list,
 not two separate executable and ordinary file lists.</p>
-<p>The #6514 “unpack doesn’t preserve (executable) permissions” issue
-is partially resolved, as there shouldn’t be executable permissions
+<p>The #6514 "unpack doesn't preserve (executable) permissions" issue
+is partially resolved, as there shouldn't be executable permissions
 in the tar files.</p>
 <p>The rationale for above simplification is simple. The only file
 Cabal machinery would run is <code>configure</code> script. These
@@ -341,7 +341,7 @@ maintainers should also use interpreters explicitly as well.
 Scripts with shebangs are not executable on Windows.</p>
 <p>The <code>v1-sdist</code> command is removed, as its functionality is completely
 superseded by <code>v2-sdist</code>.</p></li>
-<li><p><code>source-repository-package</code> directories aren’t local <a href="https://github.com/haskell/cabal/issues/5586">#5586</a> <a href="https://github.com/haskell/cabal/pull/6915">!6915</a> <a href="https://github.com/haskell/cabal/pull/6917">!6917</a></p>
+<li><p><code>source-repository-package</code> directories aren't local <a href="https://github.com/haskell/cabal/issues/5586">#5586</a> <a href="https://github.com/haskell/cabal/pull/6915">!6915</a> <a href="https://github.com/haskell/cabal/pull/6917">!6917</a></p>
 <p>Concretely these means that compiled <code>source-repository-package</code> entries
 used in different projects are stored in the global nix-style store.</p></li>
 <li><p>Add list-bin command <a href="https://github.com/haskell/cabal/issues/6807">#6807</a> <a href="https://github.com/haskell/cabal/pull/6931">!6931</a></p>
@@ -376,27 +376,27 @@ used in different projects are stored in the global nix-style store.</p></li>
 <li><p>Fix ghci being launched before other sources are built. <a href="https://github.com/haskell/cabal/pull/6923">!6923</a></p>
 <p>Related to foreign calls to C-sources.</p></li>
 <li><p>Use default install directory if not specified <a href="https://github.com/haskell/cabal/issues/5973">#5973</a> <a href="https://github.com/haskell/cabal/pull/6624">!6624</a></p>
-<p>Cabal 3.0.0.0 added the –installdir option to specify the location that
+<p>Cabal 3.0.0.0 added the --installdir option to specify the location that
 binaries should be installed in. Running a cabal user-config update would
 populate the config file with the default value, but the cabal install program
-would error if it wasn’t set. This change uses the default value that would be
+would error if it wasn't set. This change uses the default value that would be
 written to the config if its unset, and outputs a warning.</p></li>
 <li><p>Update GHC environment location <a href="https://github.com/haskell/cabal/issues/6565">#6565</a> <a href="https://github.com/haskell/cabal/pull/6822">!6822</a></p>
 <p>cabal-install currently assumes that the GHC environment files are always located in <code>$HOME/.ghc/</code>.
-However, GHC itself doesn’t query the home directory directly.
+However, GHC itself doesn't query the home directory directly.
 Instead, it uses <code>getAppUserDataDirectory "ghc"</code> which happens to coincide with <code>$HOME/.ghc</code>/ on UNIX systems.
 On Windows, however, GHC ends up looking in <code>%APPDATA%/ghc/</code>.</p></li>
 <li><p>Remove <code>-any</code> and <code>-none</code> syntax for version ranges in cabal-version: 3.4 <a href="https://github.com/haskell/cabal/issues/6589">#6589</a> <a href="https://github.com/haskell/cabal/pull/6786">!6786</a></p>
 <p>Use <code>&gt;=0</code> (or empty in dependencies) and <code>&lt;0</code> respectively.</p></li>
 <li><p>Add pijul to known repository type <a href="https://github.com/haskell/cabal/issues/6610">#6610</a> <a href="https://github.com/haskell/cabal/pull/6684">!6684</a></p>
 <p>Pijul is now explicitly recognized version control system.
-However <code>cabal-install</code> isn’t yet able to use it in
+However <code>cabal-install</code> isn't yet able to use it in
 <code>source-repository-package</code>.</p></li>
 <li><p>Remove upgrade, uninstall and win32selfupgrade commands <a href="https://github.com/haskell/cabal/issues/6691">#6691</a> <a href="https://github.com/haskell/cabal/pull/6707">!6707</a></p>
 <p>This commands were not implemented or are special purpose.
 The removal of <code>win32selfupgrade</code> might break self upgrade on windows,
 when <code>cabal-install</code> tries to rewrite the binary of itself.
-This shouldn’t be a problem when symlinking is used.</p></li>
+This shouldn't be a problem when symlinking is used.</p></li>
 <li><p>Remove local-repo <a href="https://github.com/haskell/cabal/issues/6729">#6729</a> <a href="https://github.com/haskell/cabal/pull/6730">!6730</a></p>
 <p>This functionality was mainly used by removed sandboxes.
 <code>file+noindex</code> repositories are better variant for local package repositories.</p></li>
@@ -418,7 +418,7 @@ Either way can be forced with <code>--install-method</code>.</p></li>
 call. Unfortunately, it is not possible to implement exec in a
 POSIX-compliant manner on Windows. In particular, the semantics of the
 exec implementation provided by the widely-used msvcrt C runtime
-will cause process’s waiting on the exec’ing process to incorrectly
+will cause process's waiting on the exec'ing process to incorrectly
 conclude that the process has successfully terminated when in fact it is
 still running in another process.</p>
 <p>For this reason, the process library exposes the use_process_jobs
@@ -441,7 +441,7 @@ object support for process releases &gt;= 1.6.8.</p></li>
 <li><p>all extra-source-files are change-tracked <a href="https://github.com/haskell/cabal/issues/4746">#4746</a> <a href="https://github.com/haskell/cabal/pull/6889">!6889</a></p></li>
 <li><p><code>upload --help</code> now includes <code>password-command</code> as a config file option (#5224) <a href="https://github.com/haskell/cabal/issues/5224">#5224</a> <a href="https://github.com/haskell/cabal/pull/6313">!6313</a> <a href="https://github.com/haskell/cabal/pull/6609">!6609</a> <a href="https://github.com/haskell/cabal/pull/6680">!6680</a></p></li>
 <li><p>Use PrettyField to format cabal file in <code>cabal init</code> <a href="https://github.com/haskell/cabal/issues/5555">#5555</a> <a href="https://github.com/haskell/cabal/pull/6718">!6718</a></p></li>
-<li><p>Default to ‘NoReports’ for remote build reporting <a href="https://github.com/haskell/cabal/issues/6210">#6210</a> <a href="https://github.com/haskell/cabal/pull/6625">!6625</a></p></li>
+<li><p>Default to 'NoReports' for remote build reporting <a href="https://github.com/haskell/cabal/issues/6210">#6210</a> <a href="https://github.com/haskell/cabal/pull/6625">!6625</a></p></li>
 <li><p>Add foo:bar syntax to mixins <a href="https://github.com/haskell/cabal/issues/6281">#6281</a> <a href="https://github.com/haskell/cabal/pull/6912">!6912</a></p></li>
 <li><p>default-language field is optional in cabal-version: 3.4 <a href="https://github.com/haskell/cabal/issues/6288">#6288</a> <a href="https://github.com/haskell/cabal/pull/6924">!6924</a> <a href="https://github.com/haskell/cabal/pull/6926">!6926</a></p></li>
 <li><p>Allow cabal v2-install pkgname:exename <a href="https://github.com/haskell/cabal/issues/6369">#6369</a> <a href="https://github.com/haskell/cabal/pull/6576">!6576</a></p></li>
@@ -449,7 +449,7 @@ object support for process releases &gt;= 1.6.8.</p></li>
 <li><p>Include component name in unit-id <a href="https://github.com/haskell/cabal/issues/6485">#6485</a> <a href="https://github.com/haskell/cabal/pull/6547">!6547</a></p></li>
 <li><p>cabal v2-install prints copy/symlink destination <a href="https://github.com/haskell/cabal/issues/6575">#6575</a> <a href="https://github.com/haskell/cabal/pull/6582">!6582</a> <a href="https://github.com/haskell/cabal/pull/6890">!6890</a></p></li>
 <li><p>Prepend hs-source-dir to match-component, fixes <code>cabal repl file</code> <a href="https://github.com/haskell/cabal/issues/6622">#6622</a> <a href="https://github.com/haskell/cabal/pull/6623">!6623</a> <a href="https://github.com/haskell/cabal/pull/6826">!6826</a> <a href="https://github.com/haskell/cabal/pull/6875">!6875</a></p></li>
-<li><p>Change ‘optional-packages’ default to empty, when cabal.project is missing. <a href="https://github.com/haskell/cabal/issues/4797">#4797</a> <a href="https://github.com/haskell/cabal/issues/6739">#6739</a> <a href="https://github.com/haskell/cabal/pull/6740">!6740</a></p></li>
+<li><p>Change 'optional-packages' default to empty, when cabal.project is missing. <a href="https://github.com/haskell/cabal/issues/4797">#4797</a> <a href="https://github.com/haskell/cabal/issues/6739">#6739</a> <a href="https://github.com/haskell/cabal/pull/6740">!6740</a></p></li>
 <li><p>v2-update reports new index-state <a href="https://github.com/haskell/cabal/issues/6804">#6804</a> <a href="https://github.com/haskell/cabal/pull/6810">!6810</a></p></li>
 <li><p>Fix rpmvercmp (trailing non-digit characters) <a href="https://github.com/haskell/cabal/issues/6805">#6805</a> <a href="https://github.com/haskell/cabal/pull/6808">!6808</a></p></li>
 <li><p>Add <code>-z</code> / <code>--ignore-project</code> flag to <code>cabal v2-update</code> <a href="https://github.com/haskell/cabal/issues/6809">#6809</a> <a href="https://github.com/haskell/cabal/pull/6814">!6814</a></p></li>

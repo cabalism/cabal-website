@@ -59,7 +59,7 @@ but was silently ignored in the build step, so no changes to syntax are
 made.</p></li>
 <li><p>Add <code>--project-dir</code> flag <a href="https://github.com/haskell/cabal/issues/7695">#7695</a> <a href="https://github.com/haskell/cabal/issues/7940">#7940</a> <a href="https://github.com/haskell/cabal/pull/8454">#8454</a></p>
 <ul>
-<li>Added <code>--project-dir</code> flag for specifying the project’s root directory</li>
+<li>Added <code>--project-dir</code> flag for specifying the project's root directory</li>
 <li>Deprecated using <code>--project-file</code> with an absolute filepath without also using <code>--project-dir</code>.</li>
 </ul></li>
 <li><p>Support per-component builds when coverage is enabled <a href="https://github.com/haskell/cabal/issues/4798">#4798</a> <a href="https://github.com/haskell/cabal/issues/5213">#5213</a> <a href="https://github.com/haskell/cabal/issues/6397">#6397</a> <a href="https://github.com/haskell/cabal/issues/6440">#6440</a> <a href="https://github.com/haskell/cabal/pull/9464">#9464</a></p>
@@ -70,7 +70,7 @@ instantiations of an indefinite module (it is not clear what it means for HPC
 to support backpack, regardless of Cabal).</p>
 <p>To achieve this, hpc information (<code>.mix</code> files) from a library is now written
 into the package database of a library under <code>extraCompilationArtifacts</code>.</p>
-<p>Cabal configure (via the Setup interface) now accepts –coverage-for=<unit-id>,
+<p>Cabal configure (via the Setup interface) now accepts --coverage-for=<unit-id>,
 a flag which specifies which libraries should be included in the coverage
 report for some testsuite.</p></li>
 <li><p>Add <code>cabal path</code> command <a href="https://github.com/haskell/cabal/pull/8879">#8879</a> <a href="https://github.com/haskell/cabal/pull/9673">#9673</a></p>
@@ -86,7 +86,7 @@ key2: value2</code></pre>
 <p>If only a single key is queried, we print only the value, for example:</p>
 <pre><code>value1</code></pre>
 <p>The json output format is versioned by the cabal-install version, which is part of the json object.
-Thus, all result objects contain at least the key “cabal-install-version”.</p>
+Thus, all result objects contain at least the key "cabal-install-version".</p>
 <p>It also produces information of the compiler that is going to be used in a <code>cabal build</code> or <code>cabal repl</code> invocation.
 To do that, we re-configure the compiler program, and outputs the location, version and compiler flavour.
 This is helpful for downstream tools, such as HLS, to figure out the GHC version required to compile a project with, without dependency solving.</p></li>
@@ -94,10 +94,10 @@ This is helpful for downstream tools, such as HLS, to figure out the GHC version
 <p>A new flag <code>--token</code> (<code>-t</code>) has been created. Token authentication takes
 precedence over username and password meaning that, if a token is set,
 the username and password flags are ignored.</p></li>
-<li><p>Make –(test-)show-details=direct the default <a href="https://github.com/haskell/cabal/pull/8942">#8942</a></p>
+<li><p>Make --(test-)show-details=direct the default <a href="https://github.com/haskell/cabal/pull/8942">#8942</a></p>
 <p>This option leaves it up to the testing framework to decide what and how to print out,
 potentially leading to a prettier output. For example, most of the testing frameworks
-use colors, which wouldn’t be seen with any other option.</p>
+use colors, which wouldn't be seen with any other option.</p>
 <p>This comes with a tradeoff, though: Cabal will not create a log file with this option.
 If you prefer a log file, consider setting <code>--test-show-details=streaming</code> (or something
 else) manually.</p></li>
@@ -126,8 +126,8 @@ before Cabal’s internal build directory.</li>
 <p>The init section of config file now allows the following fields:</p></li>
 <li><p>Fix handling of ETag header for remote packages <a href="https://github.com/haskell/cabal/issues/9113">#9113</a> <a href="https://github.com/haskell/cabal/pull/9116">#9116</a></p>
 <p>Remote packages will now be cached regardless of the capitalization of the
-“ETag” header. Previously remote packages would not be cached if the header
-name did not match exactly. Now they will be cached even if the header’s
+"ETag" header. Previously remote packages would not be cached if the header
+name did not match exactly. Now they will be cached even if the header's
 capitalization is different.</p></li>
 <li><p>Clarify the semantics of the <code>--package-db</code> flag <a href="https://github.com/haskell/cabal/issues/9678">#9678</a> <a href="https://github.com/haskell/cabal/pull/9683">#9683</a></p>
 <p>The <code>--package-db</code> flag now only applies to the default
@@ -152,20 +152,20 @@ bounds” warnings.</li>
 <li><code>cabal check</code> output now prints the warning identifier too
 (like <code>[no-category]</code>).</li>
 </ul></li>
-<li><p>Adds functionality for the –offline flag with the “build” command. <a href="https://github.com/haskell/cabal/pull/8676">#8676</a></p>
-<p>The –offline flag previously created in #2578 but was only implemented
-for the install command even thought the flag didn’t throw an error
+<li><p>Adds functionality for the --offline flag with the "build" command. <a href="https://github.com/haskell/cabal/pull/8676">#8676</a></p>
+<p>The --offline flag previously created in #2578 but was only implemented
+for the install command even thought the flag didn't throw an error
 whenever the build command was run. This PR adds functionality for the
-–offline flag with the build command. Additionally there is a new
+--offline flag with the build command. Additionally there is a new
 PackageTest for the flag using the build command.</p></li>
 <li><p>Add warning for running cabal run, cabal test and cabal bench with +RTS flag <a href="https://github.com/haskell/cabal/pull/8709">#8709</a></p>
 <p>This adds a warning when RTS options are passed to cabal instead of the
-binary for the commands ‘run’, ‘bench’ and ‘test’, as most users want to
+binary for the commands 'run', 'bench' and 'test', as most users want to
 pass these options to their binary.</p></li>
 <li><p>Add support for loading multiple components into one repl session <a href="https://github.com/haskell/cabal/pull/8238">#8238</a> <a href="https://github.com/haskell/cabal/pull/8491">#8491</a> <a href="https://github.com/haskell/cabal/pull/8726">#8726</a></p>
 <p>The <code>repl</code> command is extended in order to allow starting a repl session
 with multiple local components. When a user specifies a target to the
-“repl” command which resolves to multiple local components then <code>cabal</code>
+"repl" command which resolves to multiple local components then <code>cabal</code>
 will start a repl session which loads them all into a single GHC session
 if the multi-repl is enabled.</p>
 <p>The multi-repl can be enabled by passing <code>--enable-multi-repl</code>, or writing
@@ -214,16 +214,16 @@ output.</p>
 <p>Fixes some test failures detecting cycles in imports, when;</p>
 <ul>
 <li>the wrong import was reported as starting the cycle</li>
-<li>a cycle was reported that wasn’t actually a cycle</li>
+<li>a cycle was reported that wasn't actually a cycle</li>
 </ul></li>
 <li><p>Adjust BSD-2-Clause and BSD-3-Clause licence text <a href="https://github.com/haskell/cabal/issues/9812">#9812</a> <a href="https://github.com/haskell/cabal/pull/9813">#9813</a></p>
 <p>This change matters to BSD-2-Clause and BSD-3-Clause licences. For these two
 licences, <code>cabal init</code> created a licence file that slightly differed from
 wording published at SPDX. This has been rectified.</p></li>
-<li><p>Include the GHC “Project Unit Id” in the cabal store path <a href="https://github.com/haskell/cabal/issues/8114">#8114</a> <a href="https://github.com/haskell/cabal/pull/9326">#9326</a></p>
+<li><p>Include the GHC "Project Unit Id" in the cabal store path <a href="https://github.com/haskell/cabal/issues/8114">#8114</a> <a href="https://github.com/haskell/cabal/pull/9326">#9326</a></p>
 <p>This allows the use of several <strong>API incompatible builds of the same
 version of GHC</strong> without corrupting the cabal store.</p>
-<p>This relies on the “Project Unit Id” which is available since GHC 9.8.1,
+<p>This relies on the "Project Unit Id" which is available since GHC 9.8.1,
 older versions of GHC do not benefit from this change.</p></li>
 <li><p>Add support for <code>GHC2024</code> <a href="https://github.com/haskell/cabal/issues/9736">#9736</a> <a href="https://github.com/haskell/cabal/pull/9791">#9791</a></p>
 <p>Support for the <code>GHC2024</code> language edition, introduced by GHC 9.10, has been
@@ -249,20 +249,20 @@ warn about missing <code>default-language</code>.</li>
 <h3 id="other-changes">Other changes</h3>
 <ul>
 <li><p>Script cache dir is the base16 hash of the canonical path of the script. <a href="https://github.com/haskell/cabal/pull/9459">#9459</a></p>
-<p>This fixes sporadic path failures on both Windows and Linux (e.g. <a href="https://github.com/haskell/cabal/issues/9334">#9334</a>).</p></li>
+<p>This fixes sporadic path failures on both Windows and Linux (e.g. <a href="https://github.com/haskell/cabal/issues/9334">#9334</a>).</p></li>
 <li><p>Add <code>--haddock-output-dir</code> flag to <code>cabal haddock</code>. <a href="https://github.com/haskell/cabal/issues/8720">#8720</a> <a href="https://github.com/haskell/cabal/pull/8788">#8788</a></p>
 <p>This flag gives the user full control over the directory where the documentation is placed. It allows both relative and absolute paths.</p></li>
-<li><p>Remove useles “Log” log level <a href="https://github.com/haskell/cabal/issues/9151">#9151</a> <a href="https://github.com/haskell/cabal/pull/9346">#9346</a></p>
+<li><p>Remove useles "Log" log level <a href="https://github.com/haskell/cabal/issues/9151">#9151</a> <a href="https://github.com/haskell/cabal/pull/9346">#9346</a></p>
 <ul>
-<li>Remove “Log” as a log level in favour of “Info”.</li>
-<li>Remove “Show” in Severity and replace by “displaySeverity” function</li>
+<li>Remove "Log" as a log level in favour of "Info".</li>
+<li>Remove "Show" in Severity and replace by "displaySeverity" function</li>
 </ul></li>
 <li><p><code>cabal init</code> should not suggest Cabal &lt; 2.0 <a href="https://github.com/haskell/cabal/issues/8680">#8680</a></p>
-<p>‘cabal init’ no longer suggests users to set cabal-version to less than
+<p>'cabal init' no longer suggests users to set cabal-version to less than
 2.0.</p></li>
 <li><p>PkgConfig individual calls <a href="https://github.com/haskell/cabal/pull/9134">#9134</a></p>
 <p><code>cabal</code> invokes <code>pkg-config</code> individually for each lib if querying for all
-doesn’t return the expected result.</p></li>
+doesn't return the expected result.</p></li>
 <li><p>Reimplementing <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/7423">#7423</a> <a href="https://github.com/haskell/cabal/pull/8427">#8427</a></p>
 <ul>
 <li>For <code>cabal-install</code> users: <code>cabal check</code> do not warn on -O2 or similar
@@ -270,9 +270,9 @@ options if under an off-by-default cabal flag.</li>
 </ul></li>
 <li><p><code>cabal check</code>: clearly mark Errors <a href="https://github.com/haskell/cabal/pull/8908">#8908</a></p>
 <p><code>cabal check</code> will now mark errors (which make the program return 1 and
-Hackage refuse the package) by prepending them with an “Error:” string in
+Hackage refuse the package) by prepending them with an "Error: " string in
 the output.</p></li>
-<li><p>Don’t report <code>index.html</code> file as created, if not created by Haddock <a href="https://github.com/haskell/cabal/issues/5120">#5120</a> <a href="https://github.com/haskell/cabal/pull/9332">#9332</a></p></li>
+<li><p>Don't report <code>index.html</code> file as created, if not created by Haddock <a href="https://github.com/haskell/cabal/issues/5120">#5120</a> <a href="https://github.com/haskell/cabal/pull/9332">#9332</a></p></li>
 <li><p>Make check comply with Hackage requirements <a href="https://github.com/haskell/cabal/pull/8897">#8897</a></p>
 <ul>
 <li><code>cabal check</code> will only return exitcode 1 when the package is not fit
@@ -292,9 +292,9 @@ from being uploaded to Hacakge.</li>
 <p>The <code>--cabal-file</code> flag was never meant for public use but only for testing.
 To avoid confusing the users any further we removed the flag from v2
 commands.</p></li>
-<li><p>Avoid a double space in “Executing install plan …” <a href="https://github.com/haskell/cabal/pull/9376">#9376</a></p>
-<p>The “Executing·install·plan··serially” and other similar “Executing
-install plan··…” outputs no longer contain double spaces.</p></li>
+<li><p>Avoid a double space in "Executing install plan ..." <a href="https://github.com/haskell/cabal/pull/9376">#9376</a></p>
+<p>The "Executing·install·plan··serially" and other similar "Executing
+install plan··..." outputs no longer contain double spaces.</p></li>
 <li><p>Allow whitespace in targets <a href="https://github.com/haskell/cabal/issues/8875">#8875</a> <a href="https://github.com/haskell/cabal/pull/10032">#10032</a></p>
 <p>Allow spaces in the final component of target selectors. This resolves an issue
 where using absolute paths in selectors can fail if there is whitespace in the
@@ -389,7 +389,7 @@ but was silently ignored in the build step, so no changes to syntax are
 made.</p></li>
 <li><p>Add <code>--project-dir</code> flag <a href="https://github.com/haskell/cabal/issues/7695">#7695</a> <a href="https://github.com/haskell/cabal/issues/7940">#7940</a> <a href="https://github.com/haskell/cabal/pull/8454">#8454</a></p>
 <ul>
-<li>Added <code>--project-dir</code> flag for specifying the project’s root directory</li>
+<li>Added <code>--project-dir</code> flag for specifying the project's root directory</li>
 <li>Deprecated using <code>--project-file</code> with an absolute filepath without also using <code>--project-dir</code>.</li>
 </ul></li>
 <li><p>Support per-component builds when coverage is enabled <a href="https://github.com/haskell/cabal/issues/4798">#4798</a> <a href="https://github.com/haskell/cabal/issues/5213">#5213</a> <a href="https://github.com/haskell/cabal/issues/6397">#6397</a> <a href="https://github.com/haskell/cabal/issues/6440">#6440</a> <a href="https://github.com/haskell/cabal/pull/9464">#9464</a></p>
@@ -400,7 +400,7 @@ instantiations of an indefinite module (it is not clear what it means for HPC
 to support backpack, regardless of Cabal).</p>
 <p>To achieve this, hpc information (<code>.mix</code> files) from a library is now written
 into the package database of a library under <code>extraCompilationArtifacts</code>.</p>
-<p>Cabal configure (via the Setup interface) now accepts –coverage-for=<unit-id>,
+<p>Cabal configure (via the Setup interface) now accepts --coverage-for=<unit-id>,
 a flag which specifies which libraries should be included in the coverage
 report for some testsuite.</p></li>
 <li><p>Add <code>cabal path</code> command <a href="https://github.com/haskell/cabal/pull/8879">#8879</a> <a href="https://github.com/haskell/cabal/pull/9673">#9673</a></p>
@@ -416,7 +416,7 @@ key2: value2</code></pre>
 <p>If only a single key is queried, we print only the value, for example:</p>
 <pre><code>value1</code></pre>
 <p>The json output format is versioned by the cabal-install version, which is part of the json object.
-Thus, all result objects contain at least the key “cabal-install-version”.</p>
+Thus, all result objects contain at least the key "cabal-install-version".</p>
 <p>It also produces information of the compiler that is going to be used in a <code>cabal build</code> or <code>cabal repl</code> invocation.
 To do that, we re-configure the compiler program, and outputs the location, version and compiler flavour.
 This is helpful for downstream tools, such as HLS, to figure out the GHC version required to compile a project with, without dependency solving.</p></li>
@@ -424,10 +424,10 @@ This is helpful for downstream tools, such as HLS, to figure out the GHC version
 <p>A new flag <code>--token</code> (<code>-t</code>) has been created. Token authentication takes
 precedence over username and password meaning that, if a token is set,
 the username and password flags are ignored.</p></li>
-<li><p>Make –(test-)show-details=direct the default <a href="https://github.com/haskell/cabal/pull/8942">#8942</a></p>
+<li><p>Make --(test-)show-details=direct the default <a href="https://github.com/haskell/cabal/pull/8942">#8942</a></p>
 <p>This option leaves it up to the testing framework to decide what and how to print out,
 potentially leading to a prettier output. For example, most of the testing frameworks
-use colors, which wouldn’t be seen with any other option.</p>
+use colors, which wouldn't be seen with any other option.</p>
 <p>This comes with a tradeoff, though: Cabal will not create a log file with this option.
 If you prefer a log file, consider setting <code>--test-show-details=streaming</code> (or something
 else) manually.</p></li>
@@ -456,8 +456,8 @@ before Cabal’s internal build directory.</li>
 <p>The init section of config file now allows the following fields:</p></li>
 <li><p>Fix handling of ETag header for remote packages <a href="https://github.com/haskell/cabal/issues/9113">#9113</a> <a href="https://github.com/haskell/cabal/pull/9116">#9116</a></p>
 <p>Remote packages will now be cached regardless of the capitalization of the
-“ETag” header. Previously remote packages would not be cached if the header
-name did not match exactly. Now they will be cached even if the header’s
+"ETag" header. Previously remote packages would not be cached if the header
+name did not match exactly. Now they will be cached even if the header's
 capitalization is different.</p></li>
 <li><p>Clarify the semantics of the <code>--package-db</code> flag <a href="https://github.com/haskell/cabal/issues/9678">#9678</a> <a href="https://github.com/haskell/cabal/pull/9683">#9683</a></p>
 <p>The <code>--package-db</code> flag now only applies to the default
@@ -482,20 +482,20 @@ bounds” warnings.</li>
 <li><code>cabal check</code> output now prints the warning identifier too
 (like <code>[no-category]</code>).</li>
 </ul></li>
-<li><p>Adds functionality for the –offline flag with the “build” command. <a href="https://github.com/haskell/cabal/pull/8676">#8676</a></p>
-<p>The –offline flag previously created in #2578 but was only implemented
-for the install command even thought the flag didn’t throw an error
+<li><p>Adds functionality for the --offline flag with the "build" command. <a href="https://github.com/haskell/cabal/pull/8676">#8676</a></p>
+<p>The --offline flag previously created in #2578 but was only implemented
+for the install command even thought the flag didn't throw an error
 whenever the build command was run. This PR adds functionality for the
-–offline flag with the build command. Additionally there is a new
+--offline flag with the build command. Additionally there is a new
 PackageTest for the flag using the build command.</p></li>
 <li><p>Add warning for running cabal run, cabal test and cabal bench with +RTS flag <a href="https://github.com/haskell/cabal/pull/8709">#8709</a></p>
 <p>This adds a warning when RTS options are passed to cabal instead of the
-binary for the commands ‘run’, ‘bench’ and ‘test’, as most users want to
+binary for the commands 'run', 'bench' and 'test', as most users want to
 pass these options to their binary.</p></li>
 <li><p>Add support for loading multiple components into one repl session <a href="https://github.com/haskell/cabal/pull/8238">#8238</a> <a href="https://github.com/haskell/cabal/pull/8491">#8491</a> <a href="https://github.com/haskell/cabal/pull/8726">#8726</a></p>
 <p>The <code>repl</code> command is extended in order to allow starting a repl session
 with multiple local components. When a user specifies a target to the
-“repl” command which resolves to multiple local components then <code>cabal</code>
+"repl" command which resolves to multiple local components then <code>cabal</code>
 will start a repl session which loads them all into a single GHC session
 if the multi-repl is enabled.</p>
 <p>The multi-repl can be enabled by passing <code>--enable-multi-repl</code>, or writing
@@ -544,16 +544,16 @@ output.</p>
 <p>Fixes some test failures detecting cycles in imports, when;</p>
 <ul>
 <li>the wrong import was reported as starting the cycle</li>
-<li>a cycle was reported that wasn’t actually a cycle</li>
+<li>a cycle was reported that wasn't actually a cycle</li>
 </ul></li>
 <li><p>Adjust BSD-2-Clause and BSD-3-Clause licence text <a href="https://github.com/haskell/cabal/issues/9812">#9812</a> <a href="https://github.com/haskell/cabal/pull/9813">#9813</a></p>
 <p>This change matters to BSD-2-Clause and BSD-3-Clause licences. For these two
 licences, <code>cabal init</code> created a licence file that slightly differed from
 wording published at SPDX. This has been rectified.</p></li>
-<li><p>Include the GHC “Project Unit Id” in the cabal store path <a href="https://github.com/haskell/cabal/issues/8114">#8114</a> <a href="https://github.com/haskell/cabal/pull/9326">#9326</a></p>
+<li><p>Include the GHC "Project Unit Id" in the cabal store path <a href="https://github.com/haskell/cabal/issues/8114">#8114</a> <a href="https://github.com/haskell/cabal/pull/9326">#9326</a></p>
 <p>This allows the use of several <strong>API incompatible builds of the same
 version of GHC</strong> without corrupting the cabal store.</p>
-<p>This relies on the “Project Unit Id” which is available since GHC 9.8.1,
+<p>This relies on the "Project Unit Id" which is available since GHC 9.8.1,
 older versions of GHC do not benefit from this change.</p></li>
 <li><p>Add support for <code>GHC2024</code> <a href="https://github.com/haskell/cabal/issues/9736">#9736</a> <a href="https://github.com/haskell/cabal/pull/9791">#9791</a></p>
 <p>Support for the <code>GHC2024</code> language edition, introduced by GHC 9.10, has been
@@ -579,20 +579,20 @@ warn about missing <code>default-language</code>.</li>
 <h3 id="other-changes">Other changes</h3>
 <ul>
 <li><p>Script cache dir is the base16 hash of the canonical path of the script. <a href="https://github.com/haskell/cabal/pull/9459">#9459</a></p>
-<p>This fixes sporadic path failures on both Windows and Linux (e.g. <a href="https://github.com/haskell/cabal/issues/9334">#9334</a>).</p></li>
+<p>This fixes sporadic path failures on both Windows and Linux (e.g. <a href="https://github.com/haskell/cabal/issues/9334">#9334</a>).</p></li>
 <li><p>Add <code>--haddock-output-dir</code> flag to <code>cabal haddock</code>. <a href="https://github.com/haskell/cabal/issues/8720">#8720</a> <a href="https://github.com/haskell/cabal/pull/8788">#8788</a></p>
 <p>This flag gives the user full control over the directory where the documentation is placed. It allows both relative and absolute paths.</p></li>
-<li><p>Remove useles “Log” log level <a href="https://github.com/haskell/cabal/issues/9151">#9151</a> <a href="https://github.com/haskell/cabal/pull/9346">#9346</a></p>
+<li><p>Remove useles "Log" log level <a href="https://github.com/haskell/cabal/issues/9151">#9151</a> <a href="https://github.com/haskell/cabal/pull/9346">#9346</a></p>
 <ul>
-<li>Remove “Log” as a log level in favour of “Info”.</li>
-<li>Remove “Show” in Severity and replace by “displaySeverity” function</li>
+<li>Remove "Log" as a log level in favour of "Info".</li>
+<li>Remove "Show" in Severity and replace by "displaySeverity" function</li>
 </ul></li>
 <li><p><code>cabal init</code> should not suggest Cabal &lt; 2.0 <a href="https://github.com/haskell/cabal/issues/8680">#8680</a></p>
-<p>‘cabal init’ no longer suggests users to set cabal-version to less than
+<p>'cabal init' no longer suggests users to set cabal-version to less than
 2.0.</p></li>
 <li><p>PkgConfig individual calls <a href="https://github.com/haskell/cabal/pull/9134">#9134</a></p>
 <p><code>cabal</code> invokes <code>pkg-config</code> individually for each lib if querying for all
-doesn’t return the expected result.</p></li>
+doesn't return the expected result.</p></li>
 <li><p>Reimplementing <code>cabal check</code> <a href="https://github.com/haskell/cabal/issues/7423">#7423</a> <a href="https://github.com/haskell/cabal/pull/8427">#8427</a></p>
 <ul>
 <li>For <code>cabal-install</code> users: <code>cabal check</code> do not warn on -O2 or similar
@@ -600,9 +600,9 @@ options if under an off-by-default cabal flag.</li>
 </ul></li>
 <li><p><code>cabal check</code>: clearly mark Errors <a href="https://github.com/haskell/cabal/pull/8908">#8908</a></p>
 <p><code>cabal check</code> will now mark errors (which make the program return 1 and
-Hackage refuse the package) by prepending them with an “Error:” string in
+Hackage refuse the package) by prepending them with an "Error: " string in
 the output.</p></li>
-<li><p>Don’t report <code>index.html</code> file as created, if not created by Haddock <a href="https://github.com/haskell/cabal/issues/5120">#5120</a> <a href="https://github.com/haskell/cabal/pull/9332">#9332</a></p></li>
+<li><p>Don't report <code>index.html</code> file as created, if not created by Haddock <a href="https://github.com/haskell/cabal/issues/5120">#5120</a> <a href="https://github.com/haskell/cabal/pull/9332">#9332</a></p></li>
 <li><p>Make check comply with Hackage requirements <a href="https://github.com/haskell/cabal/pull/8897">#8897</a></p>
 <ul>
 <li><code>cabal check</code> will only return exitcode 1 when the package is not fit
@@ -622,9 +622,9 @@ from being uploaded to Hacakge.</li>
 <p>The <code>--cabal-file</code> flag was never meant for public use but only for testing.
 To avoid confusing the users any further we removed the flag from v2
 commands.</p></li>
-<li><p>Avoid a double space in “Executing install plan …” <a href="https://github.com/haskell/cabal/pull/9376">#9376</a></p>
-<p>The “Executing·install·plan··serially” and other similar “Executing
-install plan··…” outputs no longer contain double spaces.</p></li>
+<li><p>Avoid a double space in "Executing install plan ..." <a href="https://github.com/haskell/cabal/pull/9376">#9376</a></p>
+<p>The "Executing·install·plan··serially" and other similar "Executing
+install plan··..." outputs no longer contain double spaces.</p></li>
 <li><p>Allow whitespace in targets <a href="https://github.com/haskell/cabal/issues/8875">#8875</a> <a href="https://github.com/haskell/cabal/pull/10032">#10032</a></p>
 <p>Allow spaces in the final component of target selectors. This resolves an issue
 where using absolute paths in selectors can fail if there is whitespace in the

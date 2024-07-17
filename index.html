@@ -45,7 +45,7 @@ interact with the language, and what Haskell implementations (compilers) must to
 do to support packages. It also specifies some infrastructure (code) that makes
 it easy for tool authors to build and distribute conforming packages.</p>
 </div>
-<p>Here’s an elided dump of <code>cabal --help</code> showing the fundamental commands:</p>
+<p>Here's an elided dump of <code>cabal --help</code> showing the fundamental commands:</p>
 <pre class="shell"><code>$ cabal --help
 Command line interface to the Haskell Cabal infrastructure.
 
@@ -95,7 +95,7 @@ packages released with GHC. Each <code>lts-mm.*</code> series imposes some rules
 included packages, such as not allowing breaking version bumps.</p></li>
 </ul>
 <h2 id="demo">Demo</h2>
-<p>Having installed <code>GHC</code> and <code>cabal</code> with <a href="https://www.haskell.org/ghcup/">GHCup</a> on Ubuntu Linux, let’s
+<p>Having installed <code>GHC</code> and <code>cabal</code> with <a href="https://www.haskell.org/ghcup/">GHCup</a> on Ubuntu Linux, let's
 find <code>cabal</code>;</p>
 <pre class="shell"><code>$ type cabal
 cabal is ~/.ghcup/bin/cabal
@@ -191,8 +191,8 @@ any dependency that is not included in the resolver must be pinned to an exact
 version as an extra dependency. Cabal can work this way too but has a built-in
 dependency solver that will pick versions of dependencies that are not pinned,
 if it can.</p>
-<p>Stack’s project is a <code>.yaml</code> file and Cabal’s is a <code>.project</code> file (by
-convention). Each tools’ command allows specifying alternate projects with
+<p>Stack's project is a <code>.yaml</code> file and Cabal's is a <code>.project</code> file (by
+convention). Each tools' command allows specifying alternate projects with
 options, shown below specifying the default project names.</p>
 <ul>
 <li><code>--stack-yaml=stack.yaml</code></li>
@@ -201,7 +201,7 @@ options, shown below specifying the default project names.</p>
 <p>Both tools will pick up the project implicitly if it uses the default project
 file name.</p>
 <div class="info">
-<p>Everything in a Stack project must be in the one file. That’s a limitation of
+<p>Everything in a Stack project must be in the one file. That's a limitation of
 <code>YAML</code>. The <code>.project</code> file format has no formal specification but uses the same
 parser as the <code>.cabal</code> format that does, reusing some of the same fields as well
 as having some fields specific to a project. The <code>import</code> field can be used to
@@ -234,14 +234,14 @@ curl: (22) The requested URL returned error: 404</code></pre>
 <h2 id="building-without-stackage">Building without Stackage</h2>
 <p>A Cabal project can be set up without importing constraints from Stackage. If
 you encounter constraint solver failures then picking a subset of a Stackage
-resolvers’ version constraints may help resolve the problem quicker than
+resolvers' version constraints may help resolve the problem quicker than
 fiddling with version choices and <code>allow-newer</code> exeptions until the constraint
 solver is happy.</p>
 <h2 id="extra-dependencies">Extra Dependencies</h2>
-<p>Extra dependencies are a Stack concept that doesn’t really exist in Cabal.
+<p>Extra dependencies are a Stack concept that doesn't really exist in Cabal.
 These are exact versions of packages that a project depends on that are not
 included with the resolver in use (<code>snapshot</code> is a synonym of <code>resolver</code>). Here
-are Stack’s own extra dependencies:</p>
+are Stack's own extra dependencies:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">snapshot</span><span class="kw">:</span><span class="at"> lts-22.21</span><span class="co"> # GHC 9.6.5</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">extra-deps</span><span class="kw">:</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">  # lts-22.21 provides pantry-0.9.3.2.</span></span>
@@ -249,9 +249,9 @@ are Stack’s own extra dependencies:</p>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">  # lts-22.21 provides tar-0.5.1.1, which does not support Unicode filenames:</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> tar-0.6.2.0@sha256:619828cae098a7b6deeb0316e12f55011101d88f756787ed024ceedb81cf1eba,4576</span></span></code></pre></div>
 <div class="info">
-<p>If you’re committing the <code>stack.yaml.lock</code> file then it is enough to leave off
+<p>If you're committing the <code>stack.yaml.lock</code> file then it is enough to leave off
 the hash as the <code>.lock</code> file contains that detail. This way we can see that
-Stack’s <code>extra-deps</code> are exact version equality constraints.</p>
+Stack's <code>extra-deps</code> are exact version equality constraints.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extra-deps</span><span class="kw">:</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> pantry-0.10.0</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> tar-0.6.2.0</span></span></code></pre></div>
@@ -266,7 +266,7 @@ solver to fill in the gaps.</p>
 the version ranges for dependencies as specified in the <code>build-depends</code> field of
 the package description. There is a way of relaxing the version constraints with
 <code>--allow-newer</code> but this should only be used as a temporary workaround in order
-to get a project to build. If there’s a version range bound problem with a
+to get a project to build. If there's a version range bound problem with a
 dependency then you may fork it and fix the problem there (and hopefully
 upstreaming the change) or you can ask the maintainer for a Hackage revision of
 the package to relax an upper bound.</p>
@@ -406,7 +406,7 @@ interact with the language, and what Haskell implementations (compilers) must to
 do to support packages. It also specifies some infrastructure (code) that makes
 it easy for tool authors to build and distribute conforming packages.</p>
 </div>
-<p>Here’s an elided dump of <code>cabal --help</code> showing the fundamental commands:</p>
+<p>Here's an elided dump of <code>cabal --help</code> showing the fundamental commands:</p>
 <pre class="shell"><code>$ cabal --help
 Command line interface to the Haskell Cabal infrastructure.
 
@@ -456,7 +456,7 @@ packages released with GHC. Each <code>lts-mm.*</code> series imposes some rules
 included packages, such as not allowing breaking version bumps.</p></li>
 </ul>
 <h2 id="demo">Demo</h2>
-<p>Having installed <code>GHC</code> and <code>cabal</code> with <a href="https://www.haskell.org/ghcup/">GHCup</a> on Ubuntu Linux, let’s
+<p>Having installed <code>GHC</code> and <code>cabal</code> with <a href="https://www.haskell.org/ghcup/">GHCup</a> on Ubuntu Linux, let's
 find <code>cabal</code>;</p>
 <pre class="shell"><code>$ type cabal
 cabal is ~/.ghcup/bin/cabal
@@ -552,8 +552,8 @@ any dependency that is not included in the resolver must be pinned to an exact
 version as an extra dependency. Cabal can work this way too but has a built-in
 dependency solver that will pick versions of dependencies that are not pinned,
 if it can.</p>
-<p>Stack’s project is a <code>.yaml</code> file and Cabal’s is a <code>.project</code> file (by
-convention). Each tools’ command allows specifying alternate projects with
+<p>Stack's project is a <code>.yaml</code> file and Cabal's is a <code>.project</code> file (by
+convention). Each tools' command allows specifying alternate projects with
 options, shown below specifying the default project names.</p>
 <ul>
 <li><code>--stack-yaml=stack.yaml</code></li>
@@ -562,7 +562,7 @@ options, shown below specifying the default project names.</p>
 <p>Both tools will pick up the project implicitly if it uses the default project
 file name.</p>
 <div class="info">
-<p>Everything in a Stack project must be in the one file. That’s a limitation of
+<p>Everything in a Stack project must be in the one file. That's a limitation of
 <code>YAML</code>. The <code>.project</code> file format has no formal specification but uses the same
 parser as the <code>.cabal</code> format that does, reusing some of the same fields as well
 as having some fields specific to a project. The <code>import</code> field can be used to
@@ -595,14 +595,14 @@ curl: (22) The requested URL returned error: 404</code></pre>
 <h2 id="building-without-stackage">Building without Stackage</h2>
 <p>A Cabal project can be set up without importing constraints from Stackage. If
 you encounter constraint solver failures then picking a subset of a Stackage
-resolvers’ version constraints may help resolve the problem quicker than
+resolvers' version constraints may help resolve the problem quicker than
 fiddling with version choices and <code>allow-newer</code> exeptions until the constraint
 solver is happy.</p>
 <h2 id="extra-dependencies">Extra Dependencies</h2>
-<p>Extra dependencies are a Stack concept that doesn’t really exist in Cabal.
+<p>Extra dependencies are a Stack concept that doesn't really exist in Cabal.
 These are exact versions of packages that a project depends on that are not
 included with the resolver in use (<code>snapshot</code> is a synonym of <code>resolver</code>). Here
-are Stack’s own extra dependencies:</p>
+are Stack's own extra dependencies:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">snapshot</span><span class="kw">:</span><span class="at"> lts-22.21</span><span class="co"> # GHC 9.6.5</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">extra-deps</span><span class="kw">:</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">  # lts-22.21 provides pantry-0.9.3.2.</span></span>
@@ -610,9 +610,9 @@ are Stack’s own extra dependencies:</p>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">  # lts-22.21 provides tar-0.5.1.1, which does not support Unicode filenames:</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> tar-0.6.2.0@sha256:619828cae098a7b6deeb0316e12f55011101d88f756787ed024ceedb81cf1eba,4576</span></span></code></pre></div>
 <div class="info">
-<p>If you’re committing the <code>stack.yaml.lock</code> file then it is enough to leave off
+<p>If you're committing the <code>stack.yaml.lock</code> file then it is enough to leave off
 the hash as the <code>.lock</code> file contains that detail. This way we can see that
-Stack’s <code>extra-deps</code> are exact version equality constraints.</p>
+Stack's <code>extra-deps</code> are exact version equality constraints.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extra-deps</span><span class="kw">:</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> pantry-0.10.0</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> tar-0.6.2.0</span></span></code></pre></div>
@@ -627,7 +627,7 @@ solver to fill in the gaps.</p>
 the version ranges for dependencies as specified in the <code>build-depends</code> field of
 the package description. There is a way of relaxing the version constraints with
 <code>--allow-newer</code> but this should only be used as a temporary workaround in order
-to get a project to build. If there’s a version range bound problem with a
+to get a project to build. If there's a version range bound problem with a
 dependency then you may fork it and fix the problem there (and hopefully
 upstreaming the change) or you can ask the maintainer for a Hackage revision of
 the package to relax an upper bound.</p>

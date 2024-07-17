@@ -83,9 +83,9 @@ canonicalized path should get us more robust results.</p></li>
 <li><p>Fix <code>cabal test --enable-library-coverage</code> for other-modules <a href="https://github.com/haskell/cabal/issues/5213">#5213</a> <a href="https://github.com/haskell/cabal/pull/7493">#7493</a></p>
 <ul>
 <li>Fix <code>cabal test --enable-library-coverage</code> for libraries with nonempty other-modules field.</li>
-<li>Due to a hack, this breaks coverage whenever the used Haskell compiler is called ‘t’ (for a non-hacky fix we should rework HPC directories, possibly enabling multilib in the process, see #6440 and #6397).</li>
+<li>Due to a hack, this breaks coverage whenever the used Haskell compiler is called 't' (for a non-hacky fix we should rework HPC directories, possibly enabling multilib in the process, see #6440 and #6397).</li>
 </ul></li>
-<li><p>Set PATH_SEPARATOR=“;” when calling ./configure on Windows; this fix is necessary for autoconf &gt;= 2.70 <a href="https://github.com/haskell/cabal/issues/7494">#7494</a> <a href="https://github.com/haskell/cabal/pull/7510">#7510</a></p></li>
+<li><p>Set PATH_SEPARATOR=";" when calling ./configure on Windows; this fix is necessary for autoconf &gt;= 2.70 <a href="https://github.com/haskell/cabal/issues/7494">#7494</a> <a href="https://github.com/haskell/cabal/pull/7510">#7510</a></p></li>
 <li><p>lazily decode cache files for checking invalidation <a href="https://github.com/haskell/cabal/pull/7516">#7516</a> <a href="https://github.com/haskell/cabal/issues/7466">#7466</a></p>
 <ul>
 <li>This yields a significant 15% speedup on rebuilding build plans for projects with lots of individual cabal packages.</li>
@@ -206,9 +206,9 @@ canonicalized path should get us more robust results.</p></li>
 <li><p>Fix <code>cabal test --enable-library-coverage</code> for other-modules <a href="https://github.com/haskell/cabal/issues/5213">#5213</a> <a href="https://github.com/haskell/cabal/pull/7493">#7493</a></p>
 <ul>
 <li>Fix <code>cabal test --enable-library-coverage</code> for libraries with nonempty other-modules field.</li>
-<li>Due to a hack, this breaks coverage whenever the used Haskell compiler is called ‘t’ (for a non-hacky fix we should rework HPC directories, possibly enabling multilib in the process, see #6440 and #6397).</li>
+<li>Due to a hack, this breaks coverage whenever the used Haskell compiler is called 't' (for a non-hacky fix we should rework HPC directories, possibly enabling multilib in the process, see #6440 and #6397).</li>
 </ul></li>
-<li><p>Set PATH_SEPARATOR=“;” when calling ./configure on Windows; this fix is necessary for autoconf &gt;= 2.70 <a href="https://github.com/haskell/cabal/issues/7494">#7494</a> <a href="https://github.com/haskell/cabal/pull/7510">#7510</a></p></li>
+<li><p>Set PATH_SEPARATOR=";" when calling ./configure on Windows; this fix is necessary for autoconf &gt;= 2.70 <a href="https://github.com/haskell/cabal/issues/7494">#7494</a> <a href="https://github.com/haskell/cabal/pull/7510">#7510</a></p></li>
 <li><p>lazily decode cache files for checking invalidation <a href="https://github.com/haskell/cabal/pull/7516">#7516</a> <a href="https://github.com/haskell/cabal/issues/7466">#7466</a></p>
 <ul>
 <li>This yields a significant 15% speedup on rebuilding build plans for projects with lots of individual cabal packages.</li>

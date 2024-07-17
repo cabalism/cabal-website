@@ -11,6 +11,7 @@ excluded-dirs:
 
 included-files:
   - .gitignore
+  - "*.css"
   - "*.html"
   - "*.js"
   - "*.md"

@@ -11,6 +11,7 @@
     "sass": "^1.77.4"
   },
   "scripts": {
+    "release-notes-copy": "make",
     "js-copy-dir": "mkdir -p js",
     "js-copy-bootstrap": "cp node_modules/bootstrap/dist/js/bootstrap.min.* js/",
     "js-copy-popper": "cp node_modules/@popperjs/core/dist/umd/popper.min.js js/ && cp node_modules/@popperjs/core/dist/umd/popper.min.js.map js/",
@@ -24,7 +25,7 @@
     "css-copy-dir": "mkdir -p css",
     "css-copy": "cp .css-working/as-formatted.css css/app.css",
     "style": "pnpm run sass-to-css-working && pnpm run purge-css && pnpm run format-css && pnpm run css-copy-dir && pnpm run css-copy",
-    "build": "cabal run site -- clean && cabal run site -- build && pnpm run js-copy && pnpm run style && cabal run site -- build",
+    "build": "cabal run site -- clean && cabal run site -- build && pnpm run release-notes-copy && pnpm run js-copy && pnpm run style && cabal run site -- build",
     "watch": "cabal run site -- watch"
   }
 }

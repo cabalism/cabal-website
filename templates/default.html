@@ -45,20 +45,20 @@
         var switchColor = () => {
             if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
                 document.getElementById('btn-switch-color-mode').innerHTML = 'light'
-                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
+                document.getElementById('img-logo').setAttribute('src', '/images/Cabal-dark.png')
             }
             else {
                 document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
-                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
+                document.getElementById('img-logo').setAttribute('src', '/images/Cabal-light.png')
             }
         };
 
-        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
+        document.getElementById('btn-switch-color-mode').addEventListener('click', () => {
             if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
-                document.documentElement.setAttribute('data-bs-theme','light')
+                document.documentElement.setAttribute('data-bs-theme', 'light')
             }
             else {
-                document.documentElement.setAttribute('data-bs-theme','dark')
+                document.documentElement.setAttribute('data-bs-theme', 'dark')
             }
 
             switchColor();

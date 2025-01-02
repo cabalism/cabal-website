@@ -10,6 +10,7 @@
     <title>WIP-Cabal-3.12.x.0</title>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/popper.min.js"></script>
+    <script src="../js/color-modes.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/app.css" />
     <link href="../images/Cabal-tiny.png" rel="icon">
 
@@ -107,13 +108,22 @@ case is not covered.</li>
                     history</a></li>
         </ul>
     </nav>
-    <div class="card">
-        <div class="card-body">
-            <span id="color-switch">set color&nbsp;<a class="link" id="btn-switch-color-mode">light</a></span>
-        </div>
-    </div>
-</div>
+    <nav>
+    <hr>
+    <ul id="bd-theme" class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="#" data-bs-theme-value="light">
+                <i class="fa fa-sun"></i>
+                light</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-bs-theme-value="dark">
+                <i class="fa fa-moon"></i>
+                dark</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-bs-theme-value="auto">
+                <i class="fa fa-meteor"></i>
+                auto</a></li>
+    </ul>
+</nav>
 
+</div>
                 </div>
                 <div id="content" class="d-print-col-12">
                     <article>
@@ -164,31 +174,6 @@ case is not covered.</li>
             </div>
         </div>
     </div>
-    <script>
-        var switchColor = () => {
-            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
-                document.getElementById('btn-switch-color-mode').innerHTML = 'light'
-                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
-            }
-            else {
-                document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
-                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
-            }
-        };
-
-        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
-            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
-                document.documentElement.setAttribute('data-bs-theme','light')
-            }
-            else {
-                document.documentElement.setAttribute('data-bs-theme','dark')
-            }
-
-            switchColor();
-        })
-
-        switchColor();
-    </script>
 </body>
 
 </html>

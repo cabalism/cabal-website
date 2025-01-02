@@ -119,8 +119,16 @@ readers do not read off random characters that represent icons */
   content: "\f059";
 }
 
+.fa-meteor::before {
+  content: "\f753";
+}
+
 .fa-download::before {
   content: "\f019";
+}
+
+.fa-sun::before {
+  content: "\f185";
 }
 
 .fa-clock-rotate-left::before {
@@ -129,6 +137,10 @@ readers do not read off random characters that represent icons */
 
 .fa-pen-nib::before {
   content: "\f5ad";
+}
+
+.fa-moon::before {
+  content: "\f186";
 }
 
 .fa-calendar::before {
@@ -223,7 +235,12 @@ readers do not read off random characters that represent icons */
   color: #268BD2;
   font-weight: normal;
   font-style: normal;
-} /* Variable */ /* ControlFlow */ /* Operator */ /* BuiltIn */ /* Extension */ /* Preprocessor */
+} /* Variable */ /* ControlFlow */
+.sourceCode span.op {
+  color: #859900;
+  font-weight: normal;
+  font-style: normal;
+} /* Operator */ /* BuiltIn */ /* Extension */ /* Preprocessor */
 .sourceCode span.at {
   color: #657B83;
   font-weight: normal;
@@ -534,7 +551,8 @@ figure {
   margin: 0 0 1rem;
 }
 
-img {
+img,
+svg {
   vertical-align: middle;
 }
 
@@ -1724,17 +1742,19 @@ summary {
   text-decoration: underline;
 }
 
+#bd-theme a.nav-link i {
+  opacity: 0.2;
+}
+#bd-theme a.nav-link.active i {
+  opacity: 1;
+}
+
 pre:not(.sourceCode) {
   font-size: 0.6rem;
 }
 
 a.footnote-back {
   font-family: "Font Awesome 5 Free";
-}
-
-#color-switch {
-  font-family: "monospace";
-  cursor: pointer;
 }
 
 div.sourceCode {

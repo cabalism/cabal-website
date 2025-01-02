@@ -10,6 +10,7 @@
     <title>Cabal-3.12.0.0</title>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/popper.min.js"></script>
+    <script src="../js/color-modes.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/app.css" />
     <link href="../images/Cabal-tiny.png" rel="icon">
 
@@ -101,6 +102,28 @@ can call <code>repl_setupHooks</code>.</p>
 </ul>
 <h3 id="other-changes">Other changes</h3>
 <ul>
+<li><p>Installing a library with a Custom setup no longer requires building the executable <a href="https://github.com/haskell/cabal/issues/9777">#9777</a> <a href="https://github.com/haskell/cabal/pull/9650">#9650</a> <a href="https://github.com/haskell/cabal/pull/10311">#10311</a></p>
+<p>For example, if we have <code>pkg-a.cabal</code>:</p>
+<pre><code>library
+   build-depends: pkg-b</code></pre>
+<p>and <code>pkg-b.cabal</code>:</p>
+<pre><code>library
+    exposed-modules: ...
+
+executable pkg-b-exe
+   main-is: ...</code></pre>
+<p>An invocation <code>cabal build pkg-a</code> will build <code>lib:pkg-a</code> and <code>lib:pkg-b</code>, but
+not <code>exe:pkg-b-exe</code> because it is not needed for building <code>pkg-a</code>! Previously the executable would be built unnecessarily.</p>
+<p>If the invocation were <code>cabal build pkg-a exe:pkg-b-exe</code> then all <code>lib:pkg-a</code>, <code>lib:pkg-b</code>, and <code>exe:pkg-b-exe</code> would be built.</p>
+<p>Note: There may be a package whose Custom setup expects the executable to be
+built together with the library always. Unfortunately, this is a breaking
+change for them. To migrate, packages should no longer assume the executable is
+built when only the library is requested (e.g. <code>cabal install --lib Agda</code> will
+<em>not</em> build the <code>Agda</code> executable, while <code>cabal install Agda</code> will).</p>
+<p>Agda is an example of a package which expected in its <code>Setup.hs</code> copy hook the
+executable to already be built. This was fixed by inspecting the copy arguments
+and making sure we only use the executable when it is built, since it is only
+needed when the executable too is needed.</p></li>
 <li><p><code>cabal init</code> should not suggest Cabal &lt; 2.0 <a href="https://github.com/haskell/cabal/issues/8680">#8680</a> <a href="https://github.com/haskell/cabal/pull/8700">#8700</a></p>
 <p>'cabal init' no longer suggests users to set cabal-version to less than
 2.0.</p></li>
@@ -285,13 +308,22 @@ version 3.23 2024-02-08.</li>
                     history</a></li>
         </ul>
     </nav>
-    <div class="card">
-        <div class="card-body">
-            <span id="color-switch">set color&nbsp;<a class="link" id="btn-switch-color-mode">light</a></span>
-        </div>
-    </div>
-</div>
+    <nav>
+    <hr>
+    <ul id="bd-theme" class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="#" data-bs-theme-value="light">
+                <i class="fa fa-sun"></i>
+                light</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-bs-theme-value="dark">
+                <i class="fa fa-moon"></i>
+                dark</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-bs-theme-value="auto">
+                <i class="fa fa-meteor"></i>
+                auto</a></li>
+    </ul>
+</nav>
 
+</div>
                 </div>
                 <div id="content" class="d-print-col-12">
                     <article>
@@ -363,6 +395,28 @@ can call <code>repl_setupHooks</code>.</p>
 </ul>
 <h3 id="other-changes">Other changes</h3>
 <ul>
+<li><p>Installing a library with a Custom setup no longer requires building the executable <a href="https://github.com/haskell/cabal/issues/9777">#9777</a> <a href="https://github.com/haskell/cabal/pull/9650">#9650</a> <a href="https://github.com/haskell/cabal/pull/10311">#10311</a></p>
+<p>For example, if we have <code>pkg-a.cabal</code>:</p>
+<pre><code>library
+   build-depends: pkg-b</code></pre>
+<p>and <code>pkg-b.cabal</code>:</p>
+<pre><code>library
+    exposed-modules: ...
+
+executable pkg-b-exe
+   main-is: ...</code></pre>
+<p>An invocation <code>cabal build pkg-a</code> will build <code>lib:pkg-a</code> and <code>lib:pkg-b</code>, but
+not <code>exe:pkg-b-exe</code> because it is not needed for building <code>pkg-a</code>! Previously the executable would be built unnecessarily.</p>
+<p>If the invocation were <code>cabal build pkg-a exe:pkg-b-exe</code> then all <code>lib:pkg-a</code>, <code>lib:pkg-b</code>, and <code>exe:pkg-b-exe</code> would be built.</p>
+<p>Note: There may be a package whose Custom setup expects the executable to be
+built together with the library always. Unfortunately, this is a breaking
+change for them. To migrate, packages should no longer assume the executable is
+built when only the library is requested (e.g. <code>cabal install --lib Agda</code> will
+<em>not</em> build the <code>Agda</code> executable, while <code>cabal install Agda</code> will).</p>
+<p>Agda is an example of a package which expected in its <code>Setup.hs</code> copy hook the
+executable to already be built. This was fixed by inspecting the copy arguments
+and making sure we only use the executable when it is built, since it is only
+needed when the executable too is needed.</p></li>
 <li><p><code>cabal init</code> should not suggest Cabal &lt; 2.0 <a href="https://github.com/haskell/cabal/issues/8680">#8680</a> <a href="https://github.com/haskell/cabal/pull/8700">#8700</a></p>
 <p>'cabal init' no longer suggests users to set cabal-version to less than
 2.0.</p></li>
@@ -520,31 +574,6 @@ version 3.23 2024-02-08.</li>
             </div>
         </div>
     </div>
-    <script>
-        var switchColor = () => {
-            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
-                document.getElementById('btn-switch-color-mode').innerHTML = 'light'
-                document.getElementById('img-logo').setAttribute('src','/images/Cabal-dark.png')
-            }
-            else {
-                document.getElementById('btn-switch-color-mode').innerHTML = 'dark'
-                document.getElementById('img-logo').setAttribute('src','/images/Cabal-light.png')
-            }
-        };
-
-        document.getElementById('btn-switch-color-mode').addEventListener('click',()=>{
-            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
-                document.documentElement.setAttribute('data-bs-theme','light')
-            }
-            else {
-                document.documentElement.setAttribute('data-bs-theme','dark')
-            }
-
-            switchColor();
-        })
-
-        switchColor();
-    </script>
 </body>
 
 </html>

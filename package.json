@@ -13,9 +13,10 @@
   "scripts": {
     "release-notes-copy": "make",
     "js-copy-dir": "mkdir -p js",
+    "js-copy-color-mode": "cp color-modes.js js/",
     "js-copy-bootstrap": "cp node_modules/bootstrap/dist/js/bootstrap.min.* js/",
     "js-copy-popper": "cp node_modules/@popperjs/core/dist/umd/popper.min.js js/ && cp node_modules/@popperjs/core/dist/umd/popper.min.js.map js/",
-    "js-copy": "pnpm run js-copy-dir && pnpm run js-copy-bootstrap && pnpm run js-copy-popper",
+    "js-copy": "pnpm run js-copy-dir && pnpm run js-copy-color-mode && pnpm run js-copy-bootstrap && pnpm run js-copy-popper",
     "sass-to-css": "sass app.sass:css/app.css --load-path ./node_modules",
     "sass-to-css-working": "mkdir -p .css-working && sass app.sass:.css-working/app.css --load-path ./node_modules",
     "purge-css": "purgecss --config ./purge-css-static.config.js --css .css-working/app.css --output .css-working/as-purged.css",

@@ -30,12 +30,6 @@
     setTheme(getPreferredTheme())
   
     const showActiveTheme = (theme, focus = false) => {
-      const themeSwitcher = document.querySelector('#bd-theme')
-  
-      if (!themeSwitcher) {
-        return
-      }
-  
       const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
   
       document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
@@ -43,10 +37,6 @@
       })
 
       btnToActive.classList.add('active')
-  
-      if (focus) {
-        themeSwitcher.focus()
-      }
     }
   
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {

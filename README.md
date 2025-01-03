@@ -10,7 +10,7 @@ The http://www.haskell.org/cabal/ website.
 Build the project and then watch from the `develop` or another development
 branch. If you are not making any style changes then, with
 [pnpm](https://pnpm.io/), you will need to run the front end build script once
-after installing :
+after installing:
 
 ```
 $ cat package.json
@@ -19,7 +19,7 @@ $ cat package.json
   ...
   "scripts": {
     ...
-    "build": "cabal run site -- clean && cabal run site -- build && pnpm run js-copy && pnpm run style && cabal run site -- build",
+    "build": "cabal run site -- clean && ... && cabal run site -- build",
     "watch": "cabal run site -- watch"
   }
 }
@@ -152,6 +152,22 @@ Checking for out-of-date items
 Compiling
 Success
 ```
+
+### Linting and Formatting
+
+[Biome][biome] is used to check and format `*.js` files while
+[Prettier][prettier] is used to check `*.md` and `*.html` files[^1]. Scripts are
+included for Biome in `package.json` but not for Prettier. These are the manual
+calls needed for Prettier:
+
+```
+$ pnpm exec prettier --check .
+$ pnpm exec prettier --write .
+```
+
+[biome]: https://biomejs.dev/
+[prettier]: https://prettier.io/
+[^1]: `*.html` linting and formatting are coming to biome but they are not ready yet.
 
 ## Release Process
 

@@ -10,7 +10,7 @@ The http://www.haskell.org/cabal/ website.
 Build the project and then watch from the `develop` or another development
 branch. If you are not making any style changes then, with
 [pnpm](https://pnpm.io/), you will need to run the front end build script once
-after installing:
+after [installing](#installing):
 
 ```
 $ cat package.json

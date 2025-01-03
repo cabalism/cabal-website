@@ -25,117 +25,117 @@ $ cat package.json
 }
 ```
 
-1. **Installing**
+### Installing
 
-   ```
-   $ pnpm install
-   Lockfile is up to date, resolution step is skipped
-   Packages: +65
-   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-   Progress: resolved 65, reused 65, downloaded 0, added 65, done
+```
+$ pnpm install
+Lockfile is up to date, resolution step is skipped
+Packages: +65
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 65, reused 65, downloaded 0, added 65, done
 
-   dependencies:
-   + @fortawesome/fontawesome-free 6.5.2
-   + @popperjs/core 2.11.8
-   + automated-a11y-sass 0.0.0 <- automated-a11y-sass
-   + bootstrap 5.3.3
+dependencies:
++ @fortawesome/fontawesome-free 6.5.2
++ @popperjs/core 2.11.8
++ automated-a11y-sass 0.0.0 <- automated-a11y-sass
++ bootstrap 5.3.3
 
-   devDependencies:
-   + @biomejs/biome 1.8.1
-   + purgecss 6.0.0
-   + sass 1.77.4
-   ```
+devDependencies:
++ @biomejs/biome 1.8.1
++ purgecss 6.0.0
++ sass 1.77.4
+```
 
-2. **Building**
+### Building
 
-   ```
-   $ pnpm run build
+```
+$ pnpm run build
 
-   > cabal-website@ build /.../cabal-website
-   > cabal run site -- clean && cabal run site -- build && pnpm run js-copy && pnpm run style && cabal run site -- build
+> cabal-website@ build /.../cabal-website
+> cabal run site -- clean && cabal run site -- build && pnpm run js-copy && pnpm run style && cabal run site -- build
 
-   Removing _site...
-   Removing _cache...
-   Removing _cache/tmp...
-   Initialising...
-   Creating store...
-   Creating provider...
-   Running rules...
-   Checking for out-of-date items
-   Compiling
-   updated templates/post.html
-   updated css/app.css
-   updated css/app.css.map
-   ...
-   updated index.md
-   updated pages/download.md
-   updated pages/faq.md
-   updated pages/history.md
-   updated blog/index.html
-   Success
+Removing _site...
+Removing _cache...
+Removing _cache/tmp...
+Initialising...
+Creating store...
+Creating provider...
+Running rules...
+Checking for out-of-date items
+Compiling
+updated templates/post.html
+updated css/app.css
+updated css/app.css.map
+...
+updated index.md
+updated pages/download.md
+updated pages/faq.md
+updated pages/history.md
+updated blog/index.html
+Success
 
-   > cabal-website@ js-copy ~/.../cabal-website
-   > pnpm run js-copy-dir && pnpm run js-copy-bootstrap && pnpm run js-copy-popper
+> cabal-website@ js-copy ~/.../cabal-website
+> pnpm run js-copy-dir && pnpm run js-copy-bootstrap && pnpm run js-copy-popper
 
-   > cabal-website@ js-copy-dir ~/.../cabal-website
-   > mkdir -p js
+> cabal-website@ js-copy-dir ~/.../cabal-website
+> mkdir -p js
 
-   > cabal-website@ js-copy-bootstrap ~/.../cabal-website
-   > cp node_modules/bootstrap/dist/js/bootstrap.min.* js/
+> cabal-website@ js-copy-bootstrap ~/.../cabal-website
+> cp node_modules/bootstrap/dist/js/bootstrap.min.* js/
 
-   > cabal-website@ js-copy-popper ~/.../cabal-website
-   > cp node_modules/@popperjs/core/dist/umd/popper.min.js js/ && cp node_modules/@popperjs/core/dist/umd/popper.min.js.map js/
+> cabal-website@ js-copy-popper ~/.../cabal-website
+> cp node_modules/@popperjs/core/dist/umd/popper.min.js js/ && cp node_modules/@popperjs/core/dist/umd/popper.min.js.map js/
 
-   > cabal-website@ style ~/.../cabal-website
-   > pnpm run sass-to-css-working && pnpm run purge-css && pnpm run format-css && cp .css-working/as-formatted.css css/app.css
+> cabal-website@ style ~/.../cabal-website
+> pnpm run sass-to-css-working && pnpm run purge-css && pnpm run format-css && cp .css-working/as-formatted.css css/app.css
 
-   > cabal-website@ sass-to-css-working ~/.../cabal-website
-   > mkdir -p .css-working && sass app.sass:.css-working/app.css --load-path ./node_modules
+> cabal-website@ sass-to-css-working ~/.../cabal-website
+> mkdir -p .css-working && sass app.sass:.css-working/app.css --load-path ./node_modules
 
-   > cabal-website@ purge-css ~/.../cabal-website
-   > purgecss --config ./purge-css-static.config.js --css .css-working/app.css --output .css-working/as-purged.css
+> cabal-website@ purge-css ~/.../cabal-website
+> purgecss --config ./purge-css-static.config.js --css .css-working/app.css --output .css-working/as-purged.css
 
-   > cabal-website@ format-css ~/.../cabal-website
-   > pnpm run format-copy && pnpm run format-write
+> cabal-website@ format-css ~/.../cabal-website
+> pnpm run format-copy && pnpm run format-write
 
-   > cabal-website@ format-copy ~/.../cabal-website
-   > cp .css-working/as-purged.css .css-working/as-formatted.css
+> cabal-website@ format-copy ~/.../cabal-website
+> cp .css-working/as-purged.css .css-working/as-formatted.css
 
-   > cabal-website@ format-write ~/.../cabal-website
-   > biome format .css-working/as-formatted.css --write --no-errors-on-unmatched
+> cabal-website@ format-write ~/.../cabal-website
+> biome format .css-working/as-formatted.css --write --no-errors-on-unmatched
 
-   Initialising...
-   Creating store...
-   Creating provider...
-   Running rules...
-   Checking for out-of-date items
-   Compiling
-   updated css/app.css
-   updated js/bootstrap.min.js
-   updated js/bootstrap.min.js.map
-   updated js/popper.min.js
-   updated js/popper.min.js.map
-   Success
-   ```
+Initialising...
+Creating store...
+Creating provider...
+Running rules...
+Checking for out-of-date items
+Compiling
+updated css/app.css
+updated js/bootstrap.min.js
+updated js/bootstrap.min.js.map
+updated js/popper.min.js
+updated js/popper.min.js.map
+Success
+```
 
-3. **Watching**
+### Watching
 
-   ```
-   $ pnpm run watch
+```
+$ pnpm run watch
 
-   > cabal-website@ watch /.../cabal-website
-   > cabal run site -- watch
+> cabal-website@ watch /.../cabal-website
+> cabal run site -- watch
 
-   Listening on http://127.0.0.1:8000
-   Initialising...
-   Creating store...
-   Creating provider...
-   Running rules...
-   Checking for out-of-date items
-   Compiling
-   Using async runtime with 1 threads...
-   Success
-   ```
+Listening on http://127.0.0.1:8000
+Initialising...
+Creating store...
+Creating provider...
+Running rules...
+Checking for out-of-date items
+Compiling
+Using async runtime with 1 threads...
+Success
+```
 
 ### Without CSS or JS Changes
 

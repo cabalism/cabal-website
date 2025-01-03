@@ -7,6 +7,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.1",
+    "prettier": "3.4.2",
     "purgecss": "^6.0.0",
     "sass": "^1.77.4"
   },
@@ -23,6 +24,7 @@
     "format-copy": "cp .css-working/as-purged.css .css-working/as-formatted.css",
     "format-write": "biome format .css-working/as-formatted.css --write --no-errors-on-unmatched",
     "format-css": "pnpm run format-copy && pnpm run format-write",
+    "format-html": "pnpm exec prettier --write templates/*.html",
     "css-copy-dir": "mkdir -p css",
     "css-copy": "cp .css-working/as-formatted.css css/app.css",
     "style": "pnpm run sass-to-css-working && pnpm run purge-css && pnpm run format-css && pnpm run css-copy-dir && pnpm run css-copy",

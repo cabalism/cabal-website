@@ -25,6 +25,9 @@ $ cat package.json
 }
 ```
 
+Each time you make a style change, to `app.sass` or `colors.scss`, please build
+before watching to pick up those changes.
+
 ### Installing
 
 ```

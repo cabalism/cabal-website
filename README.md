@@ -74,34 +74,34 @@ $ cat package.json
    updated blog/index.html
    Success
 
-   > cabal-website@ js-copy /home/philderbeast/dev/src/cabalism/cabal-website
+   > cabal-website@ js-copy ~/.../cabal-website
    > pnpm run js-copy-dir && pnpm run js-copy-bootstrap && pnpm run js-copy-popper
 
-   > cabal-website@ js-copy-dir /home/philderbeast/dev/src/cabalism/cabal-website
+   > cabal-website@ js-copy-dir ~/.../cabal-website
    > mkdir -p js
 
-   > cabal-website@ js-copy-bootstrap /home/philderbeast/dev/src/cabalism/cabal-website
+   > cabal-website@ js-copy-bootstrap ~/.../cabal-website
    > cp node_modules/bootstrap/dist/js/bootstrap.min.* js/
 
-   > cabal-website@ js-copy-popper /home/philderbeast/dev/src/cabalism/cabal-website
+   > cabal-website@ js-copy-popper ~/.../cabal-website
    > cp node_modules/@popperjs/core/dist/umd/popper.min.js js/ && cp node_modules/@popperjs/core/dist/umd/popper.min.js.map js/
 
-   > cabal-website@ style /home/philderbeast/dev/src/cabalism/cabal-website
+   > cabal-website@ style ~/.../cabal-website
    > pnpm run sass-to-css-working && pnpm run purge-css && pnpm run format-css && cp .css-working/as-formatted.css css/app.css
 
-   > cabal-website@ sass-to-css-working /home/philderbeast/dev/src/cabalism/cabal-website
+   > cabal-website@ sass-to-css-working ~/.../cabal-website
    > mkdir -p .css-working && sass app.sass:.css-working/app.css --load-path ./node_modules
 
-   > cabal-website@ purge-css /home/philderbeast/dev/src/cabalism/cabal-website
+   > cabal-website@ purge-css ~/.../cabal-website
    > purgecss --config ./purge-css-static.config.js --css .css-working/app.css --output .css-working/as-purged.css
 
-   > cabal-website@ format-css /home/philderbeast/dev/src/cabalism/cabal-website
+   > cabal-website@ format-css ~/.../cabal-website
    > pnpm run format-copy && pnpm run format-write
 
-   > cabal-website@ format-copy /home/philderbeast/dev/src/cabalism/cabal-website
+   > cabal-website@ format-copy ~/.../cabal-website
    > cp .css-working/as-purged.css .css-working/as-formatted.css
 
-   > cabal-website@ format-write /home/philderbeast/dev/src/cabalism/cabal-website
+   > cabal-website@ format-write ~/.../cabal-website
    > biome format .css-working/as-formatted.css --write --no-errors-on-unmatched
 
    Initialising...

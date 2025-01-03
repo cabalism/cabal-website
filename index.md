@@ -12,7 +12,7 @@ executable (exe) build tool from the [cabal-install][cabal-install-pkg] package.
 This architecture defines a common interface for package authors and
 distributors to easily build their applications in a portable way. It is part of
 a larger infrastructure for distributing, organizing, and cataloging Haskell
-libraries and programs.  Specifically, it describes what a package is, how these
+libraries and programs. Specifically, it describes what a package is, how these
 interact with the language, and what Haskell implementations (compilers) must to
 do to support packages. It also specifies some infrastructure (code) that makes
 it easy for tool authors to build and distribute conforming packages.
@@ -119,7 +119,7 @@ Hackage, in this case `cabal-install-solver` and `hackage-security`.
 
 ::: info
 We can (and oftentimes must) use [targets][target-forms] to specify some or all
-of the components of a package.  Many `cabal` build tool commands require a
+of the components of a package. Many `cabal` build tool commands require a
 target and in fact, `cabal build` will fail if not given a target.
 
 - The `all` target includes every component.
@@ -127,8 +127,8 @@ target and in fact, `cabal build` will fail if not given a target.
   (`ctype`), such as `libs`, `exes` and `tests`.
 - `cabal-install:exe:cabal` is a fully qualified name for `cabal`, as an `exe`
   component of the `cabal-install` package.
-:::
 
+:::
 
 ```shell
 $$ cd cabal-install-3.10.3.0/
@@ -224,6 +224,7 @@ constraints: abstract-deque ==0.3,
              zot ==0.0.3,
              zstd ==0.1.3.0
 ```
+
 :::
 
 ::: warning
@@ -241,11 +242,12 @@ provided in `cabal.config` (cabal project) format.
 $$ curl -fsSL https://www.stackage.org/ghc-9.8.2/cabal.config
 curl: (22) The requested URL returned error: 404
 ```
+
 :::
 
 ## Building without Stackage
 
-A Cabal project can be set up without importing constraints from Stackage.  If
+A Cabal project can be set up without importing constraints from Stackage. If
 you encounter constraint solver failures then picking a subset of a Stackage
 resolvers' version constraints may help resolve the problem quicker than
 fiddling with version choices and `allow-newer` exeptions until the constraint
@@ -277,6 +279,7 @@ extra-deps:
   - pantry-0.10.0
   - tar-0.6.2.0
 ```
+
 :::
 
 The same exact version equality constraints in a `cabal.project` would be:
@@ -384,5 +387,6 @@ not, the same way Cabal does, as the package description.
 [hpack-dhall]: https://github.com/cabalism/hpack-dhall#use
 [updo-unison-project]: https://github.com/up-do/unison/blob/add/updo/cabal.project
 
-[^1]: We recommend using GHCup to install `cabal` so it is best not to also
+[^1]:
+    We recommend using GHCup to install `cabal` so it is best not to also
     install it yourself by other means unless you intend to hack on Cabal.

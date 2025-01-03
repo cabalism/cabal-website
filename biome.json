@@ -48,7 +48,6 @@
       "js/*.js",
       "*.map",
       "css/*.css",
-      "users-guide",
       ".css-working",
       "nominolo.css",
       "pandoc-solarized.css"

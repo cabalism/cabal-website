@@ -2,13 +2,12 @@
 title: Frequently Asked Questions
 ---
 
-Contents
---------
+## Contents
 
 Select the name of a problem to jump to a full explanation and solution.
 
 [Hidden packages](#hidden-packages)
-:    What is this hidden package? You're writing your own package and you get:
+: What is this hidden package? You're writing your own package and you get:
 
 ```shell
     Could not find module `Data.Map': it is a member of package
@@ -16,22 +15,21 @@ Select the name of a problem to jump to a full explanation and solution.
 ```
 
 [runProcess: does not exist](#runprocess-does-not-exist)
-:    You're building a package on Windows and you get:
+: You're building a package on Windows and you get:
 
 ```shell
     sh: runProcess: does not exist (No such file or directory)
 ```
 
 [ExitFailure 1](#exitfailure-1)
-:    `ExitFailure 1` ??!  Where is the real error message?
+: `ExitFailure 1` ??! Where is the real error message?
 
 ```shell
     cabal: Error: some packages failed to install: foo-1.0 failed during the
     configure step. The exception was: exit: ExitFailure 1
 ```
 
-Hidden packages
----------------
+## Hidden packages
 
 You build a package that you are writing yourself and get a message like:
 
@@ -51,9 +49,7 @@ explicitly listed in the `.cabal` file. The terminology ghc uses for this is
 Do not be confused by the `ghc-pkg` tool commands to `hide` and
 `expose` packages. That makes no difference to this issue.
 
-
-runProcess: does not exist
---------------------------
+## runProcess: does not exist
 
 You try to install a package on Windows and it fails with the message
 
@@ -73,9 +69,7 @@ BTW, if you want to make the error message better see Cabal ticket [#403].
 
 [#403]: http://hackage.haskell.org/trac/hackage/ticket/403
 
-
-ExitFailure 1
--------------
+## ExitFailure 1
 
 You use cabal to build a bunch of packages and it fails with a message like:
 

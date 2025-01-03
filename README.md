@@ -33,18 +33,18 @@ before watching to pick up those changes.
 ```
 $ pnpm install
 Lockfile is up to date, resolution step is skipped
-Packages: +65
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Progress: resolved 65, reused 65, downloaded 0, added 65, done
+Packages: +66
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 66, reused 66, downloaded 0, added 66, done
 
 dependencies:
 + @fortawesome/fontawesome-free 6.5.2
 + @popperjs/core 2.11.8
-+ automated-a11y-sass 0.0.0 <- automated-a11y-sass
 + bootstrap 5.3.3
 
 devDependencies:
 + @biomejs/biome 1.8.1
++ prettier 3.4.2
 + purgecss 6.0.0
 + sass 1.77.4
 ```
